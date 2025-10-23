@@ -1,0 +1,180 @@
+:root{
+    --bg:#fff7f8;
+    --muted:#fbeaf0;
+    --accent:#f7c7d4; /* светло-розовый */
+    --accent-2:#f29fb0; /* насыщеннее */
+    --text:#361a22;
+    --soft-border: rgba(179, 80, 104, 0.12);
+    --radius:12px;
+    --gap:12px;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Сбросы */
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:var(--text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.visually-hidden{position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* HEADER */
+.site-header{
+    position:relative;
+    display:flex;
+    align-items:center;
+    height:72px;
+    padding:0 16px;
+    border-bottom:1px solid var(--soft-border);
+    background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+    gap:8px;
+}
+
+/* Логотип слева (край) */
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-right:auto; /* логотип прилипает влево */
+    padding:8px 6px;
+}
+.logo svg{display:block}
+.logo-text{font-weight:700;color:var(--accent-2);letter-spacing:0.3px}
+
+/* Название по центру — абсолютное центирование гарантирует центр вне зависимости от ширины правой части */
+.app-title{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+    color:var(--accent-2);
+    pointer-events:none; /* название не мешает кликам по левой/правой части */
+}
+
+/* Правая область */
+.right-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-left:auto; /* правая часть справа */
+}
+
+/* Навигация */
+.main-nav{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+.nav-link{
+    padding:8px 10px;
+    border-radius:10px;
+    font-weight:600;
+    color:var(--text);
+}
+.nav-link:hover{background:var(--muted)}
+
+/* Auth buttons */
+.auth-area{display:flex;align-items:center;gap:8px}
+
+/* Кнопки */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:10px;
+    border:1px solid transparent;
+    background:var(--accent);
+    color:var(--text);
+    font-weight:600;
+    cursor:pointer;
+}
+.btn-outline{
+    background:transparent;
+    border-color:var(--soft-border);
+}
+.btn-primary{background:var(--accent-2);color:white}
+
+/* Avatar + dropdown */
+.avatar-btn{
+    background:transparent;border:1px solid transparent;padding:4px;border-radius:999px;cursor:pointer
+}
+.avatar{width:40px;height:40px;border-radius:50%;display:block}
+.user-menu{
+    position:absolute;
+    right:16px;
+    top:72px;
+    list-style:none;
+    margin:0;
+    padding:8px;
+    border-radius:12px;
+    min-width:150px;
+    box-shadow:0 6px 18px rgba(45,20,30,0.08);
+    background:white;
+    border:1px solid var(--soft-border);
+}
+.user-menu li a{display:block;padding:8px;border-radius:8px}
+.user-menu li a:hover{background:var(--muted)}
+
+/* Hamburger */
+.hamburger{
+    display:none;
+    background:transparent;
+    border:0;
+    padding:8px;
+    margin-left:6px;
+    cursor:pointer;
+}
+.hamburger-bar{
+    width:22px;
+    height:2px;
+    background:var(--accent-2);
+    display:block;
+    margin:4px 0;
+    border-radius:2px;
+}
+
+/* PAGE CONTENT */
+.page-content{min-height:50vh}
+
+/* FOOTER */
+.site-footer{
+    margin-top:40px;
+    padding:28px 16px;
+    background:linear-gradient(180deg,#fff6f7,#fff);
+    border-top:1px solid var(--soft-border);
+}
+.footer-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:18px;
+    max-width:1100px;
+    margin:0 auto;
+}
+.footer-col h3{margin-top:0}
+.footer-link{display:block;padding:6px 0}
+.socials a{display:inline-block;padding:6px 8px;margin-right:8px;border-radius:8px;background:var(--muted);font-weight:600}
+
+/* bottom */
+.footer-bottom{text-align:center;margin-top:18px;color:rgba(54,26,34,0.6)}
+
+/* Демовертикальные контролы */
+.demo-controls{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* Адаптивность */
+@media (max-width: 880px){
+    .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width: 640px){
+    .app-title{font-size:16px;left:50%}
+    .main-nav{display:none} /* прячем навигацию за гамбургером */
+    .hamburger{display:inline-flex}
+    .main-nav.open{display:flex;position:absolute;right:16px;top:72px;flex-direction:column;background:white;padding:10px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);border:1px solid var(--soft-border)}
+    .logo-text{display:none} /* опционально */
+    .footer-grid{grid-template-columns:1fr}
+    .site-header{height:64px}
+    .user-menu{right:8px;top:64px}
+}
+
+/* мелкие эстетические штрихи */
+h2{margin-top:0}

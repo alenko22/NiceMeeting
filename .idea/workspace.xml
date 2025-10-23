@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/ML/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/ML/app/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/ML/requirments.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/db.sqlite3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/asgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/requirments.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/REDAME.md" beforeDir="false" afterPath="$PROJECT_DIR$/REDAME.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="package.json" />
+        <option value="Dockerfile" />
+        <option value="Python Script" />
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;alenko22&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/alenko22/NiceMeeting.git&quot;,
+    &quot;accountId&quot;: &quot;e4023868-6f68-4669-86b7-1dc0a0c50ecc&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="32JyQ0FLqWvomdQZnj32zGDYndT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.localhost:5173.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\NiceMeeting\\services\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NiceMeeting\services\django\nicemeeting\main\static\css" />
+      <recent name="D:\NiceMeeting\services\django\nicemeeting\main\templates\main" />
+      <recent name="D:\NiceMeeting\services\django\nicemeeting\main\static" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="localhost:5173" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:5173/">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.localhost:5173" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="" />
+      <created>1757152950181</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757152950181</updated>
+      <workItem from="1757152952194" duration="3432000" />
+      <workItem from="1757209821160" duration="1084000" />
+      <workItem from="1757401960354" duration="1629000" />
+      <workItem from="1757598680173" duration="36000" />
+      <workItem from="1758697404365" duration="2662000" />
+      <workItem from="1758719795094" duration="1680000" />
+      <workItem from="1760353865590" duration="4651000" />
+      <workItem from="1760445881565" duration="5309000" />
+      <workItem from="1760618126522" duration="2686000" />
+      <workItem from="1761051380692" duration="2997000" />
+      <workItem from="1761117908783" duration="970000" />
+      <workItem from="1761198611919" duration="195000" />
+      <workItem from="1761213539750" duration="692000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

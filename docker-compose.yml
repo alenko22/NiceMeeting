@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  db:
+    image: postgis/postgis:13-3.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  web:
+    build: ./services/django_site
+    command: bash -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./services/django_site:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+  fastapi:
+    build: ./services/fastapi_ml
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+    volumes:
+      - ./services/fastapi_ml:/app
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+
+  frontend:
+    build: ./services/frontend
+    ports:
+      - "3000:80"   # nginx внутри отдаёт на 80, наружу пробрасываем 3000
+    depends_on:
+      - web
+      - fastapi
+
+volumes:
+  db_data:
