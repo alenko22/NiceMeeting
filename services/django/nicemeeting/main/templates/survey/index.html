@@ -1,0 +1,92 @@
+{% extends 'survey/base.html' %}
+
+{% block title%}
+Анкета
+{% endblock %}
+
+{% block content %}
+<section style="max-width:820px;margin:20px auto;padding:18px;background:white;border-radius:var(--radius);box-shadow:0 6px 18px rgba(0,0,0,0.03);border:1px solid var(--soft-border)">
+    <h2>Расскажите о себе</h2>
+    <p>Заполните короткую анкету — это поможет нам показывать более релевантные синтетические профили.</p>
+
+    <!-- форма отправки профиля (постится на /survey/submit_profile/) -->
+    <form id="profileForm" method="post" action="{% url 'survey:submit_profile' %}">
+        {% csrf_token %}
+        <label>
+            Имя
+            <input name="name" type="text" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
+        </label>
+
+        <div style="display:flex;gap:12px;margin-top:10px">
+            <label style="flex:1">
+                Возраст
+                <input name="age" type="number" min="16" max="120" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
+            </label>
+
+            <label style="flex:2">
+                Город
+                <input name="city" type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
+            </label>
+        </div>
+
+        <label style="display:block;margin-top:10px">
+            Коротко о себе (bio)
+            <textarea name="bio" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px"></textarea>
+        </label>
+
+        <label style="display:block;margin-top:10px">
+            Интересы (через запятую)
+            <input name="tags" type="text" placeholder="музыка, походы, кино" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
+        </label>
+
+        <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
+            <button class="btn btn-primary" type="submit">Сохранить анкету</button>
+            <a href="{% url 'ml_surveys:rate_list' %}" class="btn btn-outline">Оценивать анкеты</a>
+        </div>
+    </form>
+</section>
+
+<script>
+    // AJAX submit — необязательно, но удобно
+    const profileForm = document.getElementById('profileForm');
+    profileForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        fetch(form.action, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value},
+            body: data
+        }).then(r => r.json()).then(j => {
+            if (j.ok) {
+                alert('Анкета сохранена!');
+                // можно редиректить на оценивание
+                window.location.href = "{% url 'ml_surveys:rate_list' %}";
+            } else {
+                alert('Ошибка сохранения');
+            }
+        }).catch(err => {
+            console.error(err);
+            alert('Ошибка сети');
+        });
+    });
+
+    // Сохранение согласия — если modal использует acceptAgreement(), меняем его на POST
+    window.acceptAgreement = function() {
+        fetch("{% url 'ml_surveys:save_consent' %}", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "consent=on"
+        }).then(r => r.json()).then(j => {
+            if (j.ok) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        })
+    }
+</script>
+{% endblock %}

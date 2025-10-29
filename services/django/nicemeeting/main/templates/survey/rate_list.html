@@ -1,0 +1,116 @@
+{% extends 'survey/base.html' %}
+{% block title %}Оценить анкеты — Nice Meeting{% endblock %}
+
+{% block content %}
+<section style="max-width:980px;margin:20px auto;padding:12px">
+    <h2>Оцени анкеты</h2>
+    <p>Пожалуйста, честно оценивайте анкеты по шкале 1–5 и при желании оставляйте комментарий.</p>
+
+    <form id="ratingsForm" method="post" action="{% url 'ml_surveys:rate_submit' %}">
+        {% csrf_token %}
+
+        {% for profile in profiles %}
+        <article style="background:white;padding:14px;border-radius:12px;border:1px solid var(--soft-border);margin:12px 0;display:flex;gap:12px;align-items:flex-start">
+            <div style="width:92px;flex-shrink:0">
+                <!-- placeholder avatar -->
+                <div style="width:92px;height:92px;border-radius:12px;background:linear-gradient(180deg,var(--muted),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:700">
+                    {{ profile.data.name|default:"?"|slice:":1"|upper }}
+                </div>
+            </div>
+
+            <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;align-items:start;gap:12px">
+                    <div>
+                        <strong style="font-size:1.05em">{{ profile.data.name }}</strong>
+                        <div style="color:rgba(54,26,34,0.6)">{{ profile.age }} • {{ profile.city }}</div>
+                    </div>
+                    <div style="text-align:right">
+                        <div style="font-size:0.9em;color:rgba(54,26,34,0.6)">Теги</div>
+                        <div style="margin-top:6px">
+                            {% for t in profile.tags %}
+                            <span style="display:inline-block;padding:6px 8px;border-radius:999px;background:var(--muted);margin-left:6px;font-weight:600;font-size:0.85em">{{ t }}</span>
+                            {% empty %}
+                            <span style="color:rgba(54,26,34,0.5)">—</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top:10px">{{ profile.data.bio }}</p>
+
+                <div style="margin-top:8px;display:flex;gap:12px;align-items:center">
+                    <div>
+                        <label for="rating_{{ profile.id }}" style="font-weight:600">Оценка:</label>
+                        <select name="rating_{{ profile.id }}" id="rating_{{ profile.id }}" style="padding:8px;border-radius:8px;border:1px solid var(--soft-border);margin-left:8px">
+                            <option value="">—</option>
+                            <option value="1">1 — совсем не интересен</option>
+                            <option value="2">2</option>
+                            <option value="3">3 — нейтрально</option>
+                            <option value="4">4</option>
+                            <option value="5">5 — очень интересно</option>
+                        </select>
+                    </div>
+
+                    <div style="flex:1">
+                        <label for="comment_{{ profile.id }}" class="visually-hidden">Комментарий к анкете</label>
+                        <input type="text" name="comment_{{ profile.id }}" id="comment_{{ profile.id }}" placeholder="Комментарий (необязательно)" style="width:100%;padding:8px;border-radius:10px;border:1px solid var(--soft-border)">
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <p>Пока нет анкет — можно <a href="{% url 'ml_surveys:main' %}">добавить свою</a> или вернуться позже.</p>
+        {% endfor %}
+
+        <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:14px">
+            <button type="submit" class="btn btn-primary">Отправить оценки</button>
+        </div>
+    </form>
+</section>
+
+<script>
+    const ratingsForm = document.getElementById('ratingsForm');
+    ratingsForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        // Соберём оценки в JSON и отправим AJAX (так удобнее)
+        const form = e.target;
+        const data = new FormData(form);
+        const evaluations = [];
+        for (const pair of data.entries()) {
+            const name = pair[0];
+            const value = pair[1];
+            if (name.startsWith('rating_') && value) {
+                const pid = name.split('_',2)[1];
+                const comment = data.get('comment_' + pid) || "";
+                evaluations.push({profile_id: pid, rating: value, comment: comment});
+            }
+        }
+        if (evaluations.length === 0) {
+            alert('Пожалуйста, поставьте хотя бы одну оценку прежде чем отправлять.');
+            return;
+        }
+
+        fetch("{% url 'ml_surveys:rate_submit' %}", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({evaluations: evaluations})
+        }).then(r => r.json()).then(json => {
+            if (json.ok) {
+                alert('Спасибо — оценки сохранены!');
+                // обновим страницу: загрузим новую пачку
+                window.location.reload();
+            } else {
+                alert('Ошибка: ' + (json.error || 'unknown'));
+            }
+        }).catch(err => {
+            console.error(err);
+            alert('Ошибка сети');
+        });
+
+    });
+</script>
+{% endblock %}

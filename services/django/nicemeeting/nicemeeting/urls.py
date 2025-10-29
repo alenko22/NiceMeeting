@@ -21,6 +21,7 @@ from api.views import hello
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/hello/", hello),
-    path("", include("main.urls")),
+    path("", include("main.urls"), name="main"),
+    path("survey", include("survey.urls"), name="survey")
 ]
 
