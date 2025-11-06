@@ -13,8 +13,8 @@ class AstralSign(models.Model):
     sign_name = models.CharField()
 
     class Meta:
-        managed = False
-        db_table = 'astral_sign'
+        managed = True
+        db_table = 'main"."astral_sign'
 
 
 class Client(models.Model):
@@ -27,26 +27,27 @@ class Client(models.Model):
     weight = models.SmallIntegerField()
     hair_color = models.CharField()
     eye_color = models.CharField()
-    astral_sign = models.ForeignKey(AstralSign, models.DO_NOTHING, db_column='astral_sign')
+    astral_sign = models.ForeignKey('AstralSign', models.DO_NOTHING, db_column='astral_sign')
     social_status = models.ForeignKey('SocialStatus', models.DO_NOTHING, db_column='social_status')
     educational_level = models.SmallIntegerField()
     children_quantity = models.SmallIntegerField()
     bad_habits = models.CharField()
 
     class Meta:
-        managed = False
-        db_table = 'client'
+        managed = True
+        db_table = 'main"."client'
 
 
 class MeetingClient(models.Model):
+    id = models.AutoField(primary_key=True)
     id_meeting_type = models.ForeignKey('MeetingType', models.DO_NOTHING, db_column='id_meeting_type')
-    id_client = models.ForeignKey(Client, models.DO_NOTHING, db_column='id_client')
+    id_client = models.ForeignKey('Client', models.DO_NOTHING, db_column='id_client')
     address = models.CharField()
     datetime = models.DateTimeField()
 
     class Meta:
-        managed = False
-        db_table = 'meeting_client'
+        managed = True
+        db_table = 'main"."meeting_client'
 
 
 class MeetingType(models.Model):
@@ -54,20 +55,20 @@ class MeetingType(models.Model):
     type_name = models.CharField()
 
     class Meta:
-        managed = False
-        db_table = 'meeting_type'
+        managed = True
+        db_table = 'main"."meeting_type'
 
 
 class Message(models.Model):
     pk = models.CompositePrimaryKey('sender_id', 'recipient_id')
-    sender = models.ForeignKey(Client, models.DO_NOTHING)
-    recipient = models.ForeignKey(Client, models.DO_NOTHING, related_name='message_recipient_set')
+    sender = models.ForeignKey('Client', models.DO_NOTHING)
+    recipient = models.ForeignKey('Client', models.DO_NOTHING, related_name='message_recipient_set')
     date_time = models.DateTimeField()
     text = models.CharField()
 
     class Meta:
-        managed = False
-        db_table = 'message'
+        managed = True
+        db_table = 'main"."message'
 
 
 class SocialStatus(models.Model):
@@ -75,5 +76,5 @@ class SocialStatus(models.Model):
     status_name = models.CharField()
 
     class Meta:
-        managed = False
-        db_table = 'social_status'
+        managed = True
+        db_table = 'main"."social_status'

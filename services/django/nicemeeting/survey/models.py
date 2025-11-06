@@ -12,23 +12,24 @@ class Questionnare(models.Model):
     data = models.JSONField()
 
     class Meta:
-        managed = False
-        db_table = 'questionnare'
+        managed = True
+        db_table = 'survey"."questionnare'
 
 
 class Rating(models.Model):
+    id = models.AutoField(primary_key=True)
     rating = models.SmallIntegerField()
     id_user = models.ForeignKey('User', models.DO_NOTHING, db_column='id_user')
-    id_questionnare = models.ForeignKey(Questionnare, models.DO_NOTHING, db_column='id_questionnare')
+    id_questionnare = models.ForeignKey('Questionnare', models.DO_NOTHING, db_column='id_questionnare')
 
     class Meta:
-        managed = False
-        db_table = 'rating'
+        managed = True
+        db_table = 'survey"."rating'
 
 
 class User(models.Model):
     data = models.JSONField()
 
     class Meta:
-        managed = False
-        db_table = 'user'
+        managed = True
+        db_table = 'survey"."user'

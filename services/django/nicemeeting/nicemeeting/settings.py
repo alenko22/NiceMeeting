@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'api',
     'main',
+    'survey',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ DATABASES = {
         'PASSWORD' : 'seMpe555',
         'PORT' : '5432',
         'OPTIONS' : {
-            'options' : '-c search_path=survey'
+            'options' : '-c search_path=main,survey'
         },
     }
 }
