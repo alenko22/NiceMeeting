@@ -5,88 +5,88 @@
 {% endblock %}
 
 {% block content %}
-<section style="max-width:820px;margin:20px auto;padding:18px;background:white;border-radius:var(--radius);box-shadow:0 6px 18px rgba(0,0,0,0.03);border:1px solid var(--soft-border)">
-    <h2>Расскажите о себе</h2>
-    <p>Заполните короткую анкету — это поможет нам показывать более релевантные синтетические профили.</p>
+<div class="page-content">
+    <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="text-align: center; color: var(--accent-2); margin-bottom: 30px;">Заполните свою анкету</h2>
 
-    <!-- форма отправки профиля (постится на /survey/submit_profile/) -->
-    <form id="profileForm" method="post" action="{% url 'survey:submit_profile' %}">
-        {% csrf_token %}
-        <label>
-            Имя
-            <input name="name" type="text" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
-        </label>
+        <form id="surveyForm" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
 
-        <div style="display:flex;gap:12px;margin-top:10px">
-            <label style="flex:1">
-                Возраст
-                <input name="age" type="number" min="16" max="120" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
-            </label>
-
-            <label style="flex:2">
-                Город
-                <input name="city" type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
-            </label>
+<div class="modal-overlay" id="consentModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Соглашение об обработке персональных данных</h3>
+            <button class="close-btn" id="closeConsent">&times;</button>
         </div>
+        <div class="modal-body">
+            <p>Настоящим я, в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ "О персональных данных",
+                свободно, своей волей и в своем интересе выражаю согласие на обработку предоставленных мной
+                персональных данных в целях использования сервисов и продуктов платформы Nice Meeting.</p>
 
-        <label style="display:block;margin-top:10px">
-            Коротко о себе (bio)
-            <textarea name="bio" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px"></textarea>
-        </label>
+            <p>Я подтверждаю, что ознакомлен(а) с правами в области персональных данных, предусмотренными
+                Федеральным законом от 27.07.2006 № 152-ФЗ "О персональных данных", в том числе на получение
+                информации, касающейся обработки моих персональных данных, на их уточнение, блокирование или
+                уничтожение в случае, если персональные данные являются неполными, устаревшими, неточными,
+                незаконно полученными или не являются необходимыми для заявленной цели обработки.</p>
 
-        <label style="display:block;margin-top:10px">
-            Интересы (через запятую)
-            <input name="tags" type="text" placeholder="музыка, походы, кино" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--soft-border);margin-top:8px">
-        </label>
-
-        <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
-            <button class="btn btn-primary" type="submit">Сохранить анкету</button>
-            <a href="{% url 'ml_surveys:rate_list' %}" class="btn btn-outline">Оценивать анкеты</a>
+            <p>Согласие действует до момента его отзыва мной в письменной форме.</p>
         </div>
-    </form>
-</section>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="declineConsent">Отклонить</button>
+            <button class="btn btn-primary" id="acceptConsent">Принять</button>
+        </div>
+    </div>
+</div>
 
 <script>
-    // AJAX submit — необязательно, но удобно
-    const profileForm = document.getElementById('profileForm');
-    profileForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        fetch(form.action, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value},
-            body: data
-        }).then(r => r.json()).then(j => {
-            if (j.ok) {
-                alert('Анкета сохранена!');
-                // можно редиректить на оценивание
-                window.location.href = "{% url 'ml_surveys:rate_list' %}";
-            } else {
-                alert('Ошибка сохранения');
+    document.addEventListener('DOMContentLoaded', function() {
+        const showConsentBtn = document.getElementById('showConsent');
+        const consentModal = document.getElementById('consentModal');
+        const closeConsentBtn = document.getElementById('closeConsent');
+        const declineConsentBtn = document.getElementById('declineConsent');
+        const acceptConsentBtn = document.getElementById('acceptConsent');
+        const consentCheckbox = document.getElementById('consent');
+        const surveyForm = document.getElementById('surveyForm');
+
+        showConsentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            consentModal.style.display = 'flex';
+        });
+
+        closeConsentBtn.addEventListener('click', function() {
+            consentModal.style.display = 'none';
+        });
+
+        declineConsentBtn.addEventListener('click', function() {
+            consentModal.style.display = 'none';
+            consentCheckbox.checked = false;
+        });
+
+        acceptConsentBtn.addEventListener('click', function() {
+            consentModal.style.display = 'none';
+            consentCheckbox.checked = true;
+        });
+
+        // Закрытие модального окна при клике вне его
+        window.addEventListener('click', function(e) {
+            if (e.target === consentModal) {
+                consentModal.style.display = 'none';
             }
-        }).catch(err => {
-            console.error(err);
-            alert('Ошибка сети');
+        });
+
+        // Предотвращение отправки формы без согласия
+        surveyForm.addEventListener('submit', function(e) {
+            if (!consentCheckbox.checked) {
+                e.preventDefault();
+                alert('Пожалуйста, подтвердите согласие на обработку персональных данных');
+                return false;
+            }
         });
     });
-
-    // Сохранение согласия — если modal использует acceptAgreement(), меняем его на POST
-    window.acceptAgreement = function() {
-        fetch("{% url 'ml_surveys:save_consent' %}", {
-            method: "POST",
-            credentials: "same-origin",
-            headers: {
-                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: "consent=on"
-        }).then(r => r.json()).then(j => {
-            if (j.ok) {
-                document.getElementById('modal').style.display = 'none';
-            }
-        })
-    }
 </script>
 {% endblock %}

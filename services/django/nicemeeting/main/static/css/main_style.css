@@ -304,3 +304,37 @@ h2{margin-top:0}
 .trigger-btn:hover {
     background: var(--accent-2);
 }
+
+/**/
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--soft-border);
+    border-radius: var(--radius);
+    background: white;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 2px rgba(242, 159, 176, 0.2);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.container {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin: 20px auto;
+}
