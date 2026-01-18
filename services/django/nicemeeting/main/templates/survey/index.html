@@ -7,11 +7,17 @@
 {% block content %}
 <div class="page-content">
     <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="text-align: center; color: var(--accent-2); margin-bottom: 30px;">Заполните свою анкету</h2>
+        <h2 style="text-align: center; margin-bottom: 30px;">Заполните свою анкету</h2>
 
-        <form id="surveyForm" method="post" action="" enctype="multipart/form-data">
+        <form id="surveyForm" method="post" action="survey/rating">
             {% csrf_token %}
-            {{ form.as_p }}
+
+            <div>{{ form.non_field_errors }}</div>
+            {% for f in form %}
+                <p><label for="{{ f.id_for_label}}">{{f.label}}: </label>{{ f }}</p>
+                <div>{{ f.errors }}</div>
+            {% endfor %}
+
             <button class="btn btn-primary" type="submit">Отправить</button>
         </form>
     </div>

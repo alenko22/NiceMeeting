@@ -11,9 +11,7 @@
 }
 
 /* Сбросы */
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:var(--text);-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
+.href{color:inherit;text-decoration:none}
 .visually-hidden{position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 
 /* HEADER */
@@ -177,8 +175,6 @@ a{color:inherit;text-decoration:none}
 }
 
 /* мелкие эстетические штрихи */
-h2{margin-top:0}
-
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -263,15 +259,6 @@ h2{margin-top:0}
     justify-content: flex-end;
 }
 
-.btn {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
 .btn-primary {
     background: var(--accent);
     color: var(--text);
@@ -305,10 +292,39 @@ h2{margin-top:0}
     background: var(--accent-2);
 }
 
-/**/
-.form-group input,
-.form-group select,
-.form-group textarea {
+.container {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.container--narrow {
+    max-width: 500px;
+}
+
+/* Блок: page-content */
+.page-content {
+    min-height: 50vh;
+    padding: 20px 0;
+}
+
+/* Блок: form (общие стили) */
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-field__input,
+.form-field__select,
+.form-field__textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid var(--soft-border);
@@ -316,25 +332,115 @@ h2{margin-top:0}
     background: white;
     color: var(--text);
     font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.form-field__input:focus,
+.form-field__select:focus,
+.form-field__textarea:focus {
     outline: none;
     border-color: var(--accent-2);
     box-shadow: 0 0 0 2px rgba(242, 159, 176, 0.2);
 }
 
-.form-group textarea {
+.form-field__textarea {
     min-height: 100px;
     resize: vertical;
 }
 
-.container {
-    background: white;
+.form-field__error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.form-field__hint {
+    display: block;
+    margin-top: 4px;
+    color: rgba(54, 26, 34, 0.6);
+    font-size: 13px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.form-field__input,
+.form-field__select,
+.form-field__textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--soft-border);
     border-radius: var(--radius);
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    margin: 20px auto;
+    background: white;
+    color: var(--text);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-field__input:focus,
+.form-field__select:focus,
+.form-field__textarea:focus {
+    outline: none;
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 2px rgba(242, 159, 176, 0.2);
+}
+
+.form-field__textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-field__error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.form-field__hint {
+    display: block;
+    margin-top: 4px;
+    color: rgba(54, 26, 34, 0.6);
+    font-size: 13px;
+}
+
+/* Стили для toggle password (можно использовать на всех формах) */
+.form-field__wrapper {
+    position: relative;
+}
+
+.form-field__toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--accent-2);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.form-field__toggle-password:hover {
+    background: var(--muted);
+}
+
+.form-field__toggle-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+.form-field__toggle-icon--hide {
+    display: none;
 }

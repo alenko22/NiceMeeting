@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
 </head>
 <body>
-<header class="site-header">
+{% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'password_reset' %}
+    <header class="site-header">
     <!-- Логотип слева, кликабельный -->
-    <a class="logo" href="about.html" aria-label="О нас — перейти">
+    <a class="logo href" href="about.html" aria-label="О нас — перейти">
         <!-- Простая svg-иконка + текст -->
         <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path fill="#f7c7d4" d="M12 21s-6-4.35-8-7.16C1.5 10.7 4.42 6 8.5 6c2.22 0 3.7 1.35 3.5 3 0 0 1.28-2.9 4.5-2.9C19.9 6.1 22.5 9.6 20 13.84 18 17.1 12 21 12 21z"/>
@@ -23,16 +24,16 @@
     <!-- Правая область: навигация + auth -->
     <div class="right-area">
         <nav class="main-nav" aria-label="Основная навигация">
-            <a href="/search" class="nav-link">Поиск</a>
-            <a href="/chats" class="nav-link">Чаты</a>
+            <a href="/search" class="nav-link href">Поиск</a>
+            <a href="/chats" class="nav-link href">Чаты</a>
         </nav>
 
         <!-- Здесь отображается либо кнопки вход/рег, либо аватар + выпадашка -->
         <div class="auth-area" id="authArea">
             <!-- Неавторизованный вид -->
             <div class="not-auth" id="notAuth">
-                <a class="btn btn-outline" href="/login">Войти</a>
-                <a class="btn btn-primary" href="/register">Зарегистрироваться</a>
+                <a class="btn btn-outline href" href="/login">Войти</a>
+                <a class="btn btn-primary href" href="/register">Зарегистрироваться</a>
             </div>
 
             <!-- Авторизованный вид -->
@@ -42,9 +43,9 @@
                     <span class="visually-hidden">Меню пользователя</span>
                 </button>
                 <ul class="user-menu" id="userMenu" role="menu" aria-label="Меню пользователя" hidden>
-                    <li role="none"><a role="menuitem" href="/profile">Профиль</a></li>
-                    <li role="none"><a role="menuitem" href="/settings">Настройки</a></li>
-                    <li role="none"><a role="menuitem" href="/logout" id="logoutLink">Выйти</a></li>
+                    <li role="none"><a role="menuitem" href="/profile" class="href">Профиль</a></li>
+                    <li role="none"><a role="menuitem" href="/settings" class="href">Настройки</a></li>
+                    <li role="none"><a role="menuitem" href="/logout" class="href" id="logoutLink">Выйти</a></li>
                 </ul>
             </div>
         </div>
@@ -57,6 +58,7 @@
         </button>
     </div>
 </header>
+{% endif %}
 <main>{% block content %} {% endblock %}
     <div class="demo-controls">
         <button id="simulateLogin" class="btn">Симулировать вход</button>
@@ -74,20 +76,20 @@
         <div class="footer-col help">
             <h3>Помощь</h3>
             <nav>
-                <a href="/faq" class="footer-link">FAQ</a>
-                <a href="/safety" class="footer-link">Правила безопасности</a>
-                <a href="/how-it-works" class="footer-link">Как это работает</a>
+                <a href="/faq" class="footer-link href">FAQ</a>
+                <a href="/safety" class="footer-link href">Правила безопасности</a>
+                <a href="/how-it-works" class="footer-link href">Как это работает</a>
             </nav>
         </div>
 
         <div class="footer-col support">
             <h3>Поддержка</h3>
-            <p>Почта: <a href="mailto:support@lyublyu.com">support@lyublyu.com</a></p>
+            <p>Почта: <a href="mailto:support@lyublyu.com" class="href">support@lyublyu.com</a></p>
             <p>Телефон: +7 (800) 123-45-67</p>
             <div class="socials">
-                <a href="#" aria-label="Telegram">TG</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Вконтакте">VK</a>
+                <a href="#" aria-label="Telegram" class="href">TG</a>
+                <a href="#" aria-label="Instagram" class="href">IG</a>
+                <a href="#" aria-label="Вконтакте" class="href">VK</a>
             </div>
         </div>
     </div>
@@ -96,63 +98,6 @@
         <small>Политика конфиденциальности • Условия использования</small>
     </div>
 </footer>
-<script>
-    // Простейшая логика показа/скрытия меню + переключение состояния "авторизован/не авторизован"
-    (function () {
-        const isAuth = { value: false }; // менять через демо-кнопки
-        const notAuth = document.getElementById('notAuth');
-        const isAuthBlock = document.getElementById('isAuth');
-        const avatarBtn = document.getElementById('avatarBtn');
-        const userMenu = document.getElementById('userMenu');
-        const hamburger = document.getElementById('hamburger');
-        const mainNav = document.querySelector('.main-nav');
-
-        function renderAuth() {
-            if (isAuth.value) {
-                notAuth.hidden = true;
-                isAuthBlock.hidden = false;
-            } else {
-                notAuth.hidden = false;
-                isAuthBlock.hidden = true;
-                userMenu.hidden = true;
-                avatarBtn && avatarBtn.setAttribute('aria-expanded', 'false');
-            }
-        }
-
-        // avatar dropdown
-        if (avatarBtn) {
-            avatarBtn.addEventListener('click', () => {
-                const opened = userMenu.hidden;
-                userMenu.hidden = !opened;
-                avatarBtn.setAttribute('aria-expanded', String(opened));
-            });
-        }
-
-        // close dropdown on click outside
-        document.addEventListener('click', (e) => {
-            if (!isAuthBlock.contains(e.target) && !userMenu.hidden) {
-                userMenu.hidden = true;
-                avatarBtn.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        // hamburger toggle for mobile nav
-        hamburger.addEventListener('click', () => {
-            const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-            hamburger.setAttribute('aria-expanded', String(!expanded));
-            mainNav.classList.toggle('open');
-        });
-
-        // demo buttons
-        document.getElementById('simulateLogin').addEventListener('click', () => {
-            isAuth.value = true; renderAuth();
-        });
-        document.getElementById('simulateLogout').addEventListener('click', () => {
-            isAuth.value = false; renderAuth();
-        });
-
-        renderAuth();
-    })();
-</script>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

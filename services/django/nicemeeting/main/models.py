@@ -32,6 +32,8 @@ class Client(models.Model):
     educational_level = models.SmallIntegerField()
     children_quantity = models.SmallIntegerField()
     bad_habits = models.CharField()
+    email = models.CharField(unique=True, default='')
+    password = models.CharField(default='')
 
     class Meta:
         managed = True
