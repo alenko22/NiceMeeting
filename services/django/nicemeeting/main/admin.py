@@ -5,8 +5,8 @@ from .models import Client, AstralSign, SocialStatus, Message, MeetingClient, Me
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('client_id', 'fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits')
-    search_fields = ('fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits',)
+    list_display = ('client_id', 'fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits', 'email', 'password', 'user_name')
+    search_fields = ('fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits', 'email', 'password', 'user_name')
 
 @admin.register(AstralSign)
 class AstralSignAdmin(admin.ModelAdmin):

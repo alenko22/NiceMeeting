@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -19,7 +20,7 @@ class AstralSign(models.Model):
 
 class Client(models.Model):
     client_id = models.AutoField(primary_key=True)
-    fio = models.CharField()
+    fio = models.CharField(blank=True, null=True)
     date_birth = models.DateField()
     adress = models.CharField()
     sex = models.BooleanField()
@@ -34,6 +35,7 @@ class Client(models.Model):
     bad_habits = models.CharField()
     email = models.CharField(unique=True, default='')
     password = models.CharField(default='')
+    user_name = models.CharField(unique=True, default='')
 
     class Meta:
         managed = True
