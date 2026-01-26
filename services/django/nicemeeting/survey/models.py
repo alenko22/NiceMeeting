@@ -7,6 +7,12 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+class User(models.Model):
+    data = models.JSONField()
+
+    class Meta:
+        managed = True
+        db_table = 'survey"."user'
 
 class Questionnare(models.Model):
     data = models.JSONField()
@@ -27,9 +33,3 @@ class Rating(models.Model):
         db_table = 'survey"."rating'
 
 
-class User(models.Model):
-    data = models.JSONField()
-
-    class Meta:
-        managed = True
-        db_table = 'survey"."user'
