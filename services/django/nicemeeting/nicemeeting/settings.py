@@ -86,7 +86,7 @@ DATABASES = {
         'PASSWORD' : 'seMpe555',
         'PORT' : '5432',
         'OPTIONS' : {
-            'options' : '-c search_path=main,survey'
+            'options' : '-c search_path=main'
         },
     }
 }
@@ -132,3 +132,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'main.User'
+
+LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = '127.0.0.1'
+EMAIL_PORT = 1025

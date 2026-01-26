@@ -1,12 +1,18 @@
 from django.contrib import admin
-from .models import Client, AstralSign, SocialStatus, Message, MeetingClient, MeetingType
+from django.contrib.auth.admin import UserAdmin
+from .models import AstralSign, SocialStatus, Message, MeetingClient, MeetingType, User
 
 # Register your models here.
 
-@admin.register(Client)
-class ClientAdmin(admin.ModelAdmin):
-    list_display = ('client_id', 'fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits', 'email', 'password', 'user_name')
-    search_fields = ('fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits', 'email', 'password', 'user_name')
+# @admin.register(Client)
+# class ClientAdmin(admin.ModelAdmin):
+#     list_display = ('client_id', 'fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits', 'email', 'password', 'user_name')
+#     search_fields = ('fio', 'date_birth', 'adress', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'astral_sign', 'social_status', 'educational_level', 'children_quantity', 'bad_habits', 'email', 'password', 'user_name')
+
+@admin.register(User)
+class User(UserAdmin):
+    list_display = ('id', 'password', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined', 'patronymic', 'date_birth', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'educational_level', 'children_quantity', 'bad_habits', 'astral_sign', 'social_status')
+    search_fields = ('id', 'password', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined', 'patronymic', 'date_birth', 'sex', 'height', 'weight', 'hair_color', 'eye_color', 'educational_level', 'children_quantity', 'bad_habits')
 
 @admin.register(AstralSign)
 class AstralSignAdmin(admin.ModelAdmin):

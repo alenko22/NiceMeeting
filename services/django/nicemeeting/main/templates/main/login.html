@@ -19,10 +19,10 @@
         </div>
         <div class="form-field">
             <p class="form-field__hint">
-                <a href="/password_reset" class="href">Забыли пароль?</a>
+                <a href="{% url 'password_reset' %}" class="href">Забыли пароль?</a>
             </p>
             <p class="form-field__hint">
-                Нет аккаунта? <a href="/register" class="href">Зарегистрироваться</a>
+                Нет аккаунта? <a href="{% url 'register' %}" class="href">Зарегистрироваться</a>
             </p>
         </div>
     </form>
