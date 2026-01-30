@@ -88,3 +88,65 @@ class MainChangePasswordConfirmPostForm(PasswordChangeForm):
         'maxlength': '50',
         'class': 'form-field__input',
     }))
+
+class MainChangeProfilePostForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "patronymic", "date_birth", "sex", "educational_level", "bad_habits", "astral_sign", "children_quantity"]
+        labels = {
+            "first_name" : "Ваше имя",
+            "last_name" : "Ваша фамилия",
+            "patronymic" : "Ваше отчество (при наличии)",
+            "date_birth" : "Ваша дата рождения",
+            "sex" : "Ваш пол",
+            "educational_level" : "Ваш уровень образования",
+            "bad_habits" : "Ваши вредные привычки",
+            "astral_sign" : "Ваш знак зодиака",
+            "children_quantity" : "Сколько у вас детей"
+        }
+        widgets = {
+            "first_name": forms.TextInput(attrs={
+                "placeholder": "Здесь ваше имя",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "last_name": forms.TextInput(attrs={
+                "placeholder": "Здесь ваша фамилия",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "patronymic": forms.TextInput(attrs={
+                "placeholder": "Здесь ваше отчество",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "date_birth": forms.DateInput(attrs={
+                "placeholder": "Здесь ваша дата рождения",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "sex": forms.TextInput(attrs={
+                "placeholder": "Здесь ваш пол",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "educational_level": forms.TextInput(attrs={
+                "placeholder": "Здесь ваш уровень образования",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "bad_habits": forms.TextInput(attrs={
+                "placeholder": "Здесь ваши вредные привычки",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "astral_sign": forms.TextInput(attrs={
+                "placeholder": "Здесь ваш знак зодиака",
+                "maxlength": "50",
+                "class": "form-field__input",
+            }),
+            "children_quantity": forms.NumberInput(attrs={
+                "placeholder": "Здесь ваше количество детей",
+                "class": "form-field__input",
+            }),
+        }

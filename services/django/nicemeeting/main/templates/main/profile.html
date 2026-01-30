@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <div class="container">
+        <h1 class="profile__title">Мой профиль</h1>
+
+        <div class="profile__section">
+            <h2 class="profile__section-title">Персональная информация</h2>
+            <div class="profile__section-content">
+                <div class="profile__info-item">
+                    <div class="profile__info-label">ФИО</div>
+                    <div class="profile__info-value">{{ user.get_full_name }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">E-mail</div>
+                    <div class="profile__info-value">{{ user.email }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">Дата рождения</div>
+                    <div class="profile__info-value">{{ user.date_birth|default:"Не указано" }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">Пол</div>
+                    <div class="profile__info-value">{{ user.sex|default:"Не указано" }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">Плохие привычки</div>
+                    <div class="profile__info-value">{{ user.bad_habits|default:"Не указано" }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">Знак зодиака</div>
+                    <div class="profile__info-value">{{ user.astral_sign.sign_name|default:"Не указано" }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">Количество детей</div>
+                    <div class="profile__info-value">{{ user.children_quantity|default:"Не указано" }}</div>
+                </div>
+                <div class="profile__info-item">
+                    <div class="profile__info-label">Уровень образования</div>
+                    <div class="profile__info-value">{{ user.educational_level|default:"Не указано" }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile__actions">
+            <a href="{% url 'profile_edit' %}" class="btn btn-primary profile__edit-btn href">
+                Редактировать персональную информацию
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

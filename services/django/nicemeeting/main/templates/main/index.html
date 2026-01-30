@@ -1,9 +1,195 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
-{% block title%}
-Личная страница
+
+{% block title %}
+Главная — Nice Meeting
 {% endblock %}
 
 {% block content %}
-<h1>Личная страница</h1>
+<section class="slider">
+    <div class="slider__container">
+        <div class="slider__track">
+            <!-- Слайд 1 -->
+            <div class="slider__slide">
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 1</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Как начать знакомство без страха</h3>
+                            <p class="slider__item-desc">Простые шаги для первого сообщения и первых встреч.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 2</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Безопасность в онлайн-знакомствах</h3>
+                            <p class="slider__item-desc">Как распознать мошенника и защитить свои данные.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 3</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Психология искренности</h3>
+                            <p class="slider__item-desc">Почему честность — лучшая стратегия в отношениях.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Слайд 2 -->
+            <div class="slider__slide">
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 4</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Как создать привлекательный профиль</h3>
+                            <p class="slider__item-desc">Советы по оформлению анкеты, которая привлечет внимание.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 5</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Искусство общения в чатах</h3>
+                            <p class="slider__item-desc">Как поддерживать интересный диалог и не скучать.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 6</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Первое свидание: что ожидать</h3>
+                            <p class="slider__item-desc">Практические рекомендации для успешной первой встречи.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Слайд 3 -->
+            <div class="slider__slide">
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 7</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Как понять, что человек вам подходит</h3>
+                            <p class="slider__item-desc">Признаки совместимости и красные флаги в отношениях.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 8</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Долгосрочные отношения: секреты успеха</h3>
+                            <p class="slider__item-desc">Как строить крепкие и счастливые отношения.</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="slider__link href" href="">
+                    <div class="slider__item">
+                        <div class="slider__item-img">Статья 9</div>
+                        <div class="slider__item-content">
+                            <h3 class="slider__item-title">Саморазвитие для счастливых отношений</h3>
+                            <p class="slider__item-desc">Почему работа над собой важна для гармонии в паре.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <button class="slider__btn slider__btn-prev" aria-label="Предыдущий слайд">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button class="slider__btn slider__btn-next" aria-label="Следующий слайд">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <div class="slider__dots">
+            <button class="slider__dot slider__dot-active" aria-label="Слайд 1" data-slide="0"></button>
+            <button class="slider__dot" aria-label="Слайд 2" data-slide="1"></button>
+            <button class="slider__dot" aria-label="Слайд 3" data-slide="2"></button>
+        </div>
+    </div>
+</section>
+
+<section class="tabs-section">
+    <div class="tabs">
+        <div class="tabs__nav" role="tablist">
+            <button class="tabs__tab tabs__tab_active" role="tab" aria-selected="true" aria-controls="tab1" data-tab="1">Советы по знакомствам</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab2" data-tab="2">Истории успеха</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab3" data-tab="3">Экспертные статьи</button>
+        </div>
+
+        <div id="tab1" class="tabs__content" role="tabpanel" aria-labelledby="tab1">
+            <h2>Советы по знакомствам</h2>
+            <p>Здесь вы найдете полезные рекомендации, как познакомиться с интересным человеком, как вести себя на первом свидании и как строить отношения.</p>
+            <ul class="tabs__content-list">
+                <li>Как преодолеть страх знакомства</li>
+                <li>Где лучше всего встречать новых людей</li>
+                <li>Как понять, что человек вам подходит</li>
+                <li>Советы по первому свиданию</li>
+            </ul>
+        </div>
+
+        <div id="tab2" class="tabs__content" role="tabpanel" aria-labelledby="tab2" hidden>
+            <h2>Истории успеха</h2>
+            <p>Реальные истории людей, которые нашли свою любовь через наш сервис. Вдохновляющие примеры, которые доказывают, что настоящее чувство существует.</p>
+            <div class="success-stories">
+                <div class="success-story">
+                    <h3>Анна и Михаил</h3>
+                    <p>Познакомились в нашем приложении и через 3 месяца поженились</p>
+                </div>
+                <div class="success-story">
+                    <h3>Елена и Дмитрий</h3>
+                    <p>Нашли друг друга после долгих поисков и теперь вместе уже 2 года</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tabs__content" role="tabpanel" aria-labelledby="tab3" hidden>
+            <h2>Экспертные статьи</h2>
+            <p>Профессиональные материалы от психологов и специалистов по отношениям. Глубокий анализ и научный подход к пониманию человеческих связей.</p>
+            <div class="expert-articles">
+                <article class="expert-article">
+                    <h3>Психология привязанности в современных отношениях</h3>
+                    <p>Как тип привязанности влияет на выбор партнера и развитие отношений</p>
+                </article>
+                <article class="expert-article">
+                    <h3>Коммуникация как основа здоровых отношений</h3>
+                    <p>Техники эффективного общения для решения конфликтов</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="feature-section">
+    <div class="feature-section__item">
+        <h2>Безопасность прежде всего</h2>
+        <p>Мы заботимся о вашей безопасности. Все профили проходят верификацию, а наша служба поддержки всегда готова помочь в случае возникновения проблем.</p>
+    </div>
+    <div class="feature-section__item">
+        <h2>Искренние отношения</h2>
+        <p>Мы создали платформу для тех, кто ищет настоящие чувства. Здесь нет места фальши и обману — только честность и открытость.</p>
+    </div>
+    <div class="feature-section__item">
+        <h2>Поддержка и развитие</h2>
+        <p>Мы не просто знакомим людей, но и помогаем им строить гармоничные отношения через полезные статьи, советы экспертов и поддержку сообщества.</p>
+    </div>
+</section>
+
+{% block extra_js %}
+    <script src="{% static 'js/index.js' %}"></script>
+{% endblock %}
 {% endblock %}

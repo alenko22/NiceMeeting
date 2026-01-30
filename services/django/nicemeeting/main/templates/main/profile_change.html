@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Вход
+{% endblock %}
+
+{% block content %}
+<div class="container container--narrow">
+    <h1>Вход</h1>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form-field">{{ form.non_field_errors }}</div>
+        {% for f in form %}
+            <p><label for="{{ f.id_for_label }}" class="form-field__label">{{ f.label }}</label>{{ f }}</p>
+            <div>{{ f.errors }}</div>
+        {% endfor %}
+        <div class="form-field">
+            <button type="submit" class="btn btn-primary">Подтвердить изменения</button>
+        </div>
+    </form>
+</div>
+    <div class="modal-overlay" id="consentModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Соглашение об обработке персональных данных</h3>
+            <button class="close-btn" id="closeConsent">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Настоящим я, в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ "О персональных данных",
+                свободно, своей волей и в своем интересе выражаю согласие на обработку предоставленных мной
+                персональных данных в целях использования сервисов и продуктов платформы Nice Meeting.</p>
+
+            <p>Я подтверждаю, что ознакомлен(а) с правами в области персональных данных, предусмотренными
+                Федеральным законом от 27.07.2006 № 152-ФЗ "О персональных данных", в том числе на получение
+                информации, касающейся обработки моих персональных данных, на их уточнение, блокирование или
+                уничтожение в случае, если персональные данные являются неполными, устаревшими, неточными,
+                незаконно полученными или не являются необходимыми для заявленной цели обработки.</p>
+
+            <p>Согласие действует до момента его отзыва мной в письменной форме.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="declineConsent">Отклонить</button>
+            <button class="btn btn-primary" id="acceptConsent">Принять</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

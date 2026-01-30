@@ -22,10 +22,6 @@ class User(AbstractUser):
     date_birth = models.DateField(null=True)
     address = models.CharField(max_length=120, null=True)
     sex = models.CharField(max_length=120, null=True)
-    height = models.CharField(max_length=120, null=True)
-    weight = models.CharField(max_length=120, null=True)
-    hair_color = models.CharField(max_length=120, null=True)
-    eye_color = models.CharField(max_length=120, null=True)
     astral_sign = models.ForeignKey(AstralSign, models.DO_NOTHING, db_column='astral_sign', null=True)
     social_status = models.ForeignKey('SocialStatus', models.DO_NOTHING, db_column='social_status', null=True)
     educational_level = models.SmallIntegerField(null=True)
@@ -73,3 +69,13 @@ class SocialStatus(models.Model):
     class Meta:
         managed = True
         db_table = 'main"."social_status'
+
+class Article(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=120, null=True)
+    description = models.TextField()
+    image = models.ImageField(
+        upload_to='public/articles_img/%Y/%m/%d',
+    )
+    class Meta:
+        managed = True

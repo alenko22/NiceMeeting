@@ -1,14 +1,9 @@
-{% extends 'survey/base.html' %}
+{% extends 'main/base.html' %}
 {% block title %}Оценить анкеты — Nice Meeting{% endblock %}
 
 {% block content %}
 <section style="max-width:980px;margin:20px auto;padding:12px">
     <h2>Оцени анкеты</h2>
     <p>Пожалуйста, честно оценивайте анкеты по шкале 1–5 и при желании оставляйте комментарий.</p>
-    <form id="ratingsForm" method="post" action="">
-        {% csrf_token %}
-
-        <button type="submit" class="btn btn-primary">Отправить оценки</button>
-    </form>
 </section>
 {% endblock %}
