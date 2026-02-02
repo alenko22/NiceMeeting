@@ -50,6 +50,11 @@ class ChangeProfile(UpdateView):
     success_url = reverse_lazy("profile")
     def get_object(self, queryset=None):
         return self.request.user
+
+class Events(ListView):
+    template_name = "main/events.html"
+    def get_queryset(self):
+        return None
 def logout_user(request):
     logout(request)
     return redirect("home")

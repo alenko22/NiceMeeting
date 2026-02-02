@@ -1,9 +1,99 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Оценить анкеты — Nice Meeting{% endblock %}
 
 {% block content %}
-<section style="max-width:980px;margin:20px auto;padding:12px">
-    <h2>Оцени анкеты</h2>
-    <p>Пожалуйста, честно оценивайте анкеты по шкале 1–5 и при желании оставляйте комментарий.</p>
+<section class="rating-section">
+    <div class="container">
+        <h2 class="rating-section__title">Оцени анкеты</h2>
+        <p class="rating-section__description">Пожалуйста, честно оценивайте анкеты по шкале 1–9 и при желании оставляйте комментарий.</p>
+
+        <div class="rating-system">
+            <!-- Карточка анкеты будет выводиться из базы -->
+            <div class="rating-system__card">
+                <div class="rating-system__header">
+                    <h3 class="rating-system__card-title">Анкета пользователя</h3>
+                    <div class="rating-system__card-info">
+                        <span class="rating-system__card-number">Анкета 1 из 5</span>
+                    </div>
+                </div>
+
+                <div class="rating-system__content">
+                    <!-- Здесь будет информация об анкете из базы -->
+                    <div class="rating-system__user-info">
+                        <div class="rating-system__user-avatar">
+                            <img src="{% static 'images/default-avatar.png' %}" alt="Аватар" class="rating-system__avatar-img">
+                        </div>
+                        <div class="rating-system__user-details">
+                            <h4 class="rating-system__user-name">Иван Петров</h4>
+                            <p class="rating-system__user-age">25 лет</p>
+                            <p class="rating-system__user-city">Москва</p>
+                        </div>
+                    </div>
+
+                    <div class="rating-system__bio">
+                        <h5 class="rating-system__bio-title">О себе:</h5>
+                        <p class="rating-system__bio-text">Люблю путешествия, фотографию и хорошую музыку. Ищу единомышленников для совместных поездок и интересных проектов.</p>
+                    </div>
+
+                    <div class="rating-system__interests">
+                        <h5 class="rating-system__interests-title">Интересы:</h5>
+                        <div class="rating-system__interests-list">
+                            <span class="rating-system__interest">Путешествия</span>
+                            <span class="rating-system__interest">Фотография</span>
+                            <span class="rating-system__interest">Музыка</span>
+                            <span class="rating-system__interest">Кино</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rating-system__rating">
+                    <h4 class="rating-system__rating-title">Оцените анкету (1-9):</h4>
+                    <div class="rating-system__rating-scale">
+                        {% for i in '123456789'|make_list %}
+                        <label class="rating-system__rating-option">
+                            <input type="radio" name="rating" value="{{ forloop.counter }}" class="rating-system__rating-input">
+                            <span class="rating-system__rating-label">{{ forloop.counter }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="rating-system__comment">
+                    <div class="form-field">
+                        <label for="comment" class="form-field__label">Комментарий (необязательно):</label>
+                        <textarea id="comment" name="comment" class="form-field__textarea" placeholder="Напишите свой комментарий здесь..."></textarea>
+                        <span class="form-field__hint">Максимум 500 символов</span>
+                    </div>
+                </div>
+
+                <div class="rating-system__actions">
+                    <button type="button" class="btn btn-outline rating-system__btn-prev" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Предыдущая
+                    </button>
+                    <button type="button" class="btn btn rating-system__btn-next">
+                        Следующая
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <button type="submit" class="btn btn-primary rating-system__btn-submit">
+                        Отправить оценку
+                    </button>
+                </div>
+            </div>
+
+            <!-- Индикатор прогресса -->
+            <div class="rating-system__progress">
+                <div class="rating-system__progress-bar">
+                    <div class="rating-system__progress-fill" style="width: 20%"></div>
+                </div>
+                <span class="rating-system__progress-text">1 из 5 анкет оценено</span>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}

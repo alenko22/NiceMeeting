@@ -79,3 +79,18 @@ class Article(models.Model):
     )
     class Meta:
         managed = True
+
+class EventUser(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user_id')
+    event_id = models.ForeignKey('Event', models.DO_NOTHING, db_column='event_id')
+
+class Event(models.Model):
+    id = models.AutoField(primary_key=True)
+    external_id = models.IntegerField()
+    date_begin = models.DateField()
+    date_end = models.DateField()
+    date_deadline = models.DateField()
+    title = models.CharField(max_length=120, null=True)
+    place = models.CharField(max_length=120, null=True)
+    info = models.CharField(max_length=120, null=True)

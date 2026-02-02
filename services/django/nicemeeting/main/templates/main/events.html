@@ -1,0 +1,275 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Мероприятия
+{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container">
+        <h1 class="events__title">Мероприятия в твоём городе</h1>
+        <p class="events__subtitle">Найди интересные события и встреться с новыми людьми</p>
+
+        <!-- Фильтры -->
+        <div class="events__filters">
+            <div class="events__filter-group">
+                <label class="events__filter-label">Дата:</label>
+                <div class="events__filter-buttons">
+                    <button class="btn btn-outline events__filter-btn events__filter-btn--active">Сегодня</button>
+                    <button class="btn btn-outline events__filter-btn">Завтра</button>
+                    <button class="btn btn-outline events__filter-btn">На этой неделе</button>
+                    <button class="btn btn-outline events__filter-btn">В этом месяце</button>
+                </div>
+            </div>
+            <div class="events__filter-group">
+                <label class="events__filter-label">Категория:</label>
+                <div class="events__filter-buttons">
+                    <button class="btn btn-outline events__filter-btn events__filter-btn--active">Все</button>
+                    <button class="btn btn-outline events__filter-btn">Культура</button>
+                    <button class="btn btn-outline events__filter-btn">Спорт</button>
+                    <button class="btn btn-outline events__filter-btn">Образование</button>
+                    <button class="btn btn-outline events__filter-btn">Развлечения</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сетка мероприятий -->
+        <div class="events__grid">
+            <!-- Карточка мероприятия 1 -->
+            <div class="events__item">
+                <div class="events__image">
+                    <div class="events__image-placeholder">Концерт</div>
+                </div>
+                <div class="events__content">
+                    <div class="events__header">
+                        <h3 class="events__name">Джазовый вечер в кафе "Мелодия"</h3>
+                        <span class="events__badge events__badge--new">Новое</span>
+                    </div>
+                    <div class="events__meta">
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="events__date">Сегодня, 19:00</span>
+                        </div>
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="events__location">ул. Ленина, 45</span>
+                        </div>
+                    </div>
+                    <p class="events__description">Тёплый джазовый вечер с живой музыкой в уютной атмосфере. Идеальное место для романтического свидания или встречи с друзьями.</p>
+                    <div class="events__footer">
+                        <div class="events__participants">
+                            <span class="events__participants-count">12 человек идут</span>
+                        </div>
+                        <div class="events__actions">
+                            <button class="btn btn-primary events__btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка мероприятия 2 -->
+            <div class="events__item">
+                <div class="events__image">
+                    <div class="events__image-placeholder">Выставка</div>
+                </div>
+                <div class="events__content">
+                    <div class="events__header">
+                        <h3 class="events__name">Выставка современного искусства</h3>
+                        <span class="events__badge">Популярное</span>
+                    </div>
+                    <div class="events__meta">
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="events__date">Завтра, 11:00 - 19:00</span>
+                        </div>
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="events__location">Центр современного искусства</span>
+                        </div>
+                    </div>
+                    <p class="events__description">Уникальная коллекция работ молодых художников со всей страны. Интерактивные инсталляции и мастер-классы от авторов.</p>
+                    <div class="events__footer">
+                        <div class="events__participants">
+                            <span class="events__participants-count">45 человек идут</span>
+                        </div>
+                        <div class="events__actions">
+                            <button class="btn btn-primary events__btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка мероприятия 3 -->
+            <div class="events__item">
+                <div class="events__image">
+                    <div class="events__image-placeholder">Йога</div>
+                </div>
+                <div class="events__content">
+                    <div class="events__header">
+                        <h3 class="events__name">Утренняя йога в парке</h3>
+                    </div>
+                    <div class="events__meta">
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="events__date">Пн, 15 мая, 8:00</span>
+                        </div>
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="events__location">Центральный парк</span>
+                        </div>
+                    </div>
+                    <p class="events__description">Начни день с заряда бодрости! Групповая практика хатха-йоги на свежем воздухе под руководством опытного инструктора.</p>
+                    <div class="events__footer">
+                        <div class="events__participants">
+                            <span class="events__participants-count">8 человек идут</span>
+                        </div>
+                        <div class="events__actions">
+                            <button class="btn btn-primary events__btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка мероприятия 4 -->
+            <div class="events__item">
+                <div class="events__image">
+                    <div class="events__image-placeholder">Квест</div>
+                </div>
+                <div class="events__content">
+                    <div class="events__header">
+                        <h3 class="events__name">Командный квест "Побег из тюрьмы"</h3>
+                        <span class="events__badge">Лимит мест</span>
+                    </div>
+                    <div class="events__meta">
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="events__date">Сб, 20 мая, 14:00</span>
+                        </div>
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="events__location">Квест-комната "Реальность"</span>
+                        </div>
+                    </div>
+                    <p class="events__description">Адреналиновый квест для команд от 2 до 6 человек. Сможете ли вы выбраться за 60 минут? Идеально для компании друзей!</p>
+                    <div class="events__footer">
+                        <div class="events__participants">
+                            <span class="events__participants-count">Осталось 3 места</span>
+                        </div>
+                        <div class="events__actions">
+                            <button class="btn btn-primary events__btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка мероприятия 5 -->
+            <div class="events__item">
+                <div class="events__image">
+                    <div class="events__image-placeholder">Мастер-класс</div>
+                </div>
+                <div class="events__content">
+                    <div class="events__header">
+                        <h3 class="events__name">Мастер-класс по керамике</h3>
+                    </div>
+                    <div class="events__meta">
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="events__date">Вс, 21 мая, 16:00</span>
+                        </div>
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="events__location">Арт-студия "Глина"</span>
+                        </div>
+                    </div>
+                    <p class="events__description">Научись создавать красивую керамику своими руками! Под руководством мастера ты сделаешь свою первую вазу или кружку.</p>
+                    <div class="events__footer">
+                        <div class="events__participants">
+                            <span class="events__participants-count">6 человек идут</span>
+                        </div>
+                        <div class="events__actions">
+                            <button class="btn btn-primary events__btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка мероприятия 6 -->
+            <div class="events__item">
+                <div class="events__image">
+                    <div class="events__image-placeholder">Встреча</div>
+                </div>
+                <div class="events__content">
+                    <div class="events__header">
+                        <h3 class="events__name">IT-митап для начинающих</h3>
+                        <span class="events__badge events__badge--new">Новое</span>
+                    </div>
+                    <div class="events__meta">
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span class="events__date">Чт, 25 мая, 19:00</span>
+                        </div>
+                        <div class="events__meta-item">
+                            <svg class="events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="events__location">Коворкинг "Бизнес-Хаб"</span>
+                        </div>
+                    </div>
+                    <p class="events__description">Дружелюбная встреча для тех, кто только начинает свой путь в IT. Обмен опытом, нетворкинг и полезные знакомства.</p>
+                    <div class="events__footer">
+                        <div class="events__participants">
+                            <span class="events__participants-count">23 человека идут</span>
+                        </div>
+                        <div class="events__actions">
+                            <button class="btn btn-primary events__btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пагинация -->
+        <div class="events__pagination">
+            <button class="btn btn-outline events__pagination-btn events__pagination-btn--disabled">Назад</button>
+            <button class="btn btn-outline events__pagination-btn events__pagination-btn--active">1</button>
+            <button class="btn btn-outline events__pagination-btn">2</button>
+            <button class="btn btn-outline events__pagination-btn">3</button>
+            <button class="btn btn-outline events__pagination-btn">Вперёд</button>
+        </div>
+    </div>
+</div>
+{% block extra_js %}
+<script src=""></script>
+{% endblock %}
+{% endblock %}
+

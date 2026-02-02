@@ -4,36 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Redone data base, done password reset procedure">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0002_article.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/settings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/survey.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/profile_change.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/user_information.html" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Made a lot of pages, started working for survey">
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/events.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/script.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/rate_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/rate_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/requirments.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/requirments.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +30,9 @@
         <option value="package.json" />
         <option value="Dockerfile" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
-        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -236,7 +216,11 @@
       <workItem from="1769739383519" duration="27000" />
       <workItem from="1769749809844" duration="13040000" />
       <workItem from="1769777229604" duration="3000" />
-      <workItem from="1769777656605" duration="39000" />
+      <workItem from="1769777656605" duration="539000" />
+      <workItem from="1769833685784" duration="1199000" />
+      <workItem from="1769864801002" duration="2765000" />
+      <workItem from="1769913261939" duration="1565000" />
+      <workItem from="1769997246101" duration="1283000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -294,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769437112408</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Made a lot of pages, started working for survey">
+      <option name="closed" value="true" />
+      <created>1769777804454</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1769777804455</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,6 +343,7 @@
     <MESSAGE value="Made three(3) pages - login, registration&#10;password reset.&#10;Started development of forms for this pages" />
     <MESSAGE value="q" />
     <MESSAGE value="Redone data base, done password reset procedure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redone data base, done password reset procedure" />
+    <MESSAGE value="Made a lot of pages, started working for survey" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made a lot of pages, started working for survey" />
   </component>
 </project>
