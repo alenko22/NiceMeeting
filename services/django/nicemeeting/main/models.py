@@ -88,9 +88,25 @@ class EventUser(models.Model):
 class Event(models.Model):
     id = models.AutoField(primary_key=True)
     external_id = models.IntegerField()
-    date_begin = models.DateField()
-    date_end = models.DateField()
-    date_deadline = models.DateField()
-    title = models.CharField(max_length=120, null=True)
-    place = models.CharField(max_length=120, null=True)
-    info = models.CharField(max_length=120, null=True)
+    date_begin = models.DateTimeField()
+    date_end = models.DateTimeField()
+    date_deadline = models.DateTimeField()
+    title = models.CharField(null=True)
+    place = models.CharField(null=True)
+    info = models.CharField(null=True)
+
+class Rating (models.Model):
+    id = models.AutoField(primary_key=True)
+    rater = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='rater', related_name='rater')
+    rated_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='rated_user', related_name='rated_user')
+    rating = models.IntegerField()
+    comment = models.CharField(null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'main"."rating'
+
+class Post(models.Model):
+    id = models.AutoField(primary_key=True)
+    image = models.ImageField(upload_to='public/posts/%Y/%m/%d', null=True)
+    text = models.TextField()

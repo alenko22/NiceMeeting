@@ -1,0 +1,109 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Мероприятие {{ event.title }}
+{% endblock %}
+
+{% block content %}
+<div class="event-detail">
+    <div class="container">
+        <h1 class="event-detail__title events__title">{{ event.title }}</h1>
+
+        <div class="event-detail__card">
+            <div class="event-detail__image events__image">
+                <div class="event-detail__image-placeholder events__image-placeholder">
+                    {{ event.title|slice:":20" }}
+                </div>
+            </div>
+
+            <div class="event-detail__content events__content">
+                <div class="event-detail__meta events__meta">
+                    <div class="event-detail__meta-item events__meta-item">
+                        <svg class="event-detail__meta-icon events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>{{ event.date_begin|date:"d E Y" }} в {{ event.date_begin|time }}</span>
+                    </div>
+
+                    <div class="event-detail__meta-item events__meta-item">
+                        <svg class="event-detail__meta-icon events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span>{{ event.place }}</span>
+                    </div>
+
+                    <div class="event-detail__meta-item events__meta-item">
+                        <svg class="event-detail__meta-icon events__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <span>{{ event.max_participants }} мест</span>
+                    </div>
+                </div>
+
+                <!-- Описание -->
+                <div class="event-detail__description events__description">
+                    <h2 class="event-detail__description-title">О мероприятии</h2>
+                    <p>{{ event.info }}</p>
+                </div>
+
+                <!-- Участники -->
+                <div class="event-detail__participants-section">
+                    <h2 class="event-detail__participants-title">Участники ({{ participants.count }})</h2>
+
+                    {% if participants %}
+                    <div class="event-detail__participants-grid">
+                        {% for participant in participants %}
+                        <div class="event-detail__participant-card rating-system__card">
+                            <div class="event-detail__participant-info rating-system__user-info">
+                                <div class="event-detail__participant-avatar rating-system__user-avatar">
+                                    {% if participant.avatar %}
+                                    <img src="{{ participant.avatar.url }}" alt="{{ participant.name }}" class="event-detail__avatar-img rating-system__avatar-img">
+                                    {% else %}
+                                    <div class="event-detail__avatar-img rating-system__avatar-img rating-system__avatar-img--placeholder">
+                                        {{ participant.user_id.first_name }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="event-detail__participant-details rating-system__user-details">
+                                    <h3 class="event-detail__participant-name rating-system__user-name">{{ participant.user_id.username }}</h3>
+                                    {% if participant.user_id.date_birth %}
+                                    <p class="event-detail__participant-age rating-system__user-age">{{ participant.user_id.date_birth }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="event-detail__no-participants">Пока никто не записался на это мероприятие. Будь первым!</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="event-detail__footer events__footer">
+                <div class="event-detail__participants-count events__participants">
+                    Уже записано: {{ participants.count }}
+                </div>
+                <div class="event-detail__actions events__actions">
+                    {% if user_is_registered %}
+                    <button class="event-detail__btn btn btn-primary" disabled>Вы записаны</button>
+                    {% else %}
+                    <button class="event-detail__btn btn-primary"
+                            data-event-id="{{ event.id }}"
+                            data-signup-url="{% url 'signup' event.id %}"
+                            data-csrf-token="{{ csrf_token }}">
+                        Записаться
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% block extra_js %}
+        <script src="{% static 'js/event_details.js' %}"></script>
+    {% endblock %}
+{% endblock %}
+

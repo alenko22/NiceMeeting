@@ -4,16 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Made a lot of pages, started working for survey">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/events.html" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started event developing and added some new features">
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/loader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/update_events.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/services.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0004_event_eventuser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0005_alter_event_date_begin_alter_event_date_deadline_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0006_alter_event_info_alter_event_place_alter_event_title.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/event_details.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/rate_list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/all_events.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/community_rules.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/event_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/privacy_policy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/user_agreement.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/events.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/events.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/profile_change.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/profile_change.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/rate_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/survey/rate_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/requirments.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +52,8 @@
         <option value="package.json" />
         <option value="Dockerfile" />
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="Python Script" />
+        <option value="JavaScript File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -97,11 +119,11 @@
       <recent name="D:\NiceMeeting\services\django\nicemeeting\survey" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting\api\management" />
       <recent name="D:\NiceMeeting\services\django\nicemeeting\main\templates" />
       <recent name="D:\NiceMeeting\services\django\nicemeeting" />
       <recent name="D:\NiceMeeting\services\django\nicemeeting\main\static\css" />
       <recent name="D:\NiceMeeting\services\django\nicemeeting\main\templates\main" />
-      <recent name="D:\NiceMeeting\services\django\nicemeeting\main\static" />
     </key>
   </component>
   <component name="RunManager" selected="Django Server.NiceMeeting">
@@ -220,7 +242,14 @@
       <workItem from="1769833685784" duration="1199000" />
       <workItem from="1769864801002" duration="2765000" />
       <workItem from="1769913261939" duration="1565000" />
-      <workItem from="1769997246101" duration="1283000" />
+      <workItem from="1769997246101" duration="3048000" />
+      <workItem from="1770003517082" duration="1178000" />
+      <workItem from="1770007784716" duration="11954000" />
+      <workItem from="1770084873305" duration="16778000" />
+      <workItem from="1770171393432" duration="13560000" />
+      <workItem from="1770210469648" duration="82000" />
+      <workItem from="1770216869966" duration="2000" />
+      <workItem from="1770258648184" duration="1459000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -286,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769777804455</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Started event developing and added some new features">
+      <option name="closed" value="true" />
+      <created>1769998547637</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1769998547637</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,6 +381,7 @@
     <MESSAGE value="q" />
     <MESSAGE value="Redone data base, done password reset procedure" />
     <MESSAGE value="Made a lot of pages, started working for survey" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made a lot of pages, started working for survey" />
+    <MESSAGE value="Started event developing and added some new features" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started event developing and added some new features" />
   </component>
 </project>

@@ -37,6 +37,7 @@
                     </button>
                     <ul class="user-menu" id="userMenu" role="menu" aria-label="Меню пользователя" hidden>
                         <li role="none"><a role="menuitem" href="{% url 'profile' %}" class="href">Профиль</a></li>
+                        <li role="none"><a role="menuitem" href="{% url 'public_profile' %}" class="href">Страница</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'ml_surveys:main' %}" class="href">Анкета</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'settings' %}" class="href">Настройки</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'logout' %}" class="href" id="logoutLink">Выйти</a></li>
@@ -92,7 +93,7 @@
     </div>
 
     <div class="footer-bottom">
-        <small>Политика конфиденциальности • Условия использования</small>
+        <small><a class="href" href="{% url 'privacy_policy' %}">Политика конфиденциальности</a> • <a class="href" href="{% url 'user_agreement' %}">Пользовательское соглашение</a> • <a class="href" href="{% url 'community_rules' %}">Правила сообщества</a></small>
     </div>
 </footer>
 <script src="{% static 'js/base.js' %}"></script>

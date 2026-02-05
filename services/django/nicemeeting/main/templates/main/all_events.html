@@ -1,0 +1,36 @@
+<!-- events_api/templates/events_api/all_events.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Все мероприятия</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .event {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .event-title { font-size: 18px; font-weight: bold; }
+        .event-meta { color: #666; font-size: 14px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Все мероприятия (всего: {{ events.count }})</h1>
+
+    {% for event in events %}
+    <div class="event">
+        <div class="event-title">{{ event.title }}</div>
+        <div class="event-meta">
+            📍 {{ event.place }}|
+            📅 {{ event.date_begin|date:"d.m.Y H:i" }}
+        </div>
+        {% if event.info %}
+        <p>{{ event.info|truncatechars:200 }}</p>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p>Нет мероприятий. Загрузите данные командой: python manage.py update_events</p>
+    {% endfor %}
+</body>
+</html>

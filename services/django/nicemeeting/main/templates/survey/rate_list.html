@@ -6,94 +6,127 @@
 <section class="rating-section">
     <div class="container">
         <h2 class="rating-section__title">Оцени анкеты</h2>
-        <p class="rating-section__description">Пожалуйста, честно оценивайте анкеты по шкале 1–9 и при желании оставляйте комментарий.</p>
+        <p class="rating-section__description">
+            Пожалуйста, честно оценивайте анкеты по шкале 1–9 и при желании оставляйте комментарий.
+        </p>
 
         <div class="rating-system">
-            <!-- Карточка анкеты будет выводиться из базы -->
-            <div class="rating-system__card">
-                <div class="rating-system__header">
-                    <h3 class="rating-system__card-title">Анкета пользователя</h3>
-                    <div class="rating-system__card-info">
-                        <span class="rating-system__card-number">Анкета 1 из 5</span>
-                    </div>
-                </div>
-
-                <div class="rating-system__content">
-                    <!-- Здесь будет информация об анкете из базы -->
-                    <div class="rating-system__user-info">
-                        <div class="rating-system__user-avatar">
-                            <img src="{% static 'images/default-avatar.png' %}" alt="Аватар" class="rating-system__avatar-img">
-                        </div>
-                        <div class="rating-system__user-details">
-                            <h4 class="rating-system__user-name">Иван Петров</h4>
-                            <p class="rating-system__user-age">25 лет</p>
-                            <p class="rating-system__user-city">Москва</p>
+            <!-- Пагинация: 3 анкеты на страницу -->
+            <div class="rating-system__cards">
+                {% for user in page_obj %}
+                <div class="rating-system__card" data-user-id="{{ user.id }}">
+                    <div class="rating-system__header">
+                        <h3 class="rating-system__card-title">{{ user.get_full_name }}</h3>
+                        <div class="rating-system__card-info">
+                            <span class="rating-system__card-number">Анкета {{ forloop.counter }} из {{ page_obj|length }}</span>
                         </div>
                     </div>
 
-                    <div class="rating-system__bio">
-                        <h5 class="rating-system__bio-title">О себе:</h5>
-                        <p class="rating-system__bio-text">Люблю путешествия, фотографию и хорошую музыку. Ищу единомышленников для совместных поездок и интересных проектов.</p>
+                    <div class="rating-system__content">
+                        <div class="rating-system__user-info">
+                            <div class="rating-system__user-avatar">
+                                {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar.url }}" alt="{{ user.get_full_name }}" class="rating-system__avatar-img">
+                                {% else %}
+                                    <div class="rating-system__avatar-img rating-system__avatar-img--placeholder">
+                                        {{ user.get_full_name|first|upper }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="rating-system__user-details">
+                                <h4 class="rating-system__user-name">{{ user.get_full_name }}</h4>
+                                {% if user.profile.age %}
+                                    <p class="rating-system__user-age">{{ user.profile.age }} лет</p>
+                                {% endif %}
+                                {% if user.profile.city %}
+                                    <p class="rating-system__user-city">{{ user.profile.city }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if user.profile.bio %}
+                        <div class="rating-system__bio">
+                            <h5 class="rating-system__bio-title">О себе:</h5>
+                            <p class="rating-system__bio-text">{{ user.profile.bio }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if user.profile.interests.all %}
+                        <div class="rating-system__interests">
+                            <h5 class="rating-system__interests-title">Интересы:</h5>
+                            <div class="rating-system__interests-list">
+                                {% for interest in user.profile.interests.all %}
+                                    <span class="rating-system__interest">{{ interest.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
 
-                    <div class="rating-system__interests">
-                        <h5 class="rating-system__interests-title">Интересы:</h5>
-                        <div class="rating-system__interests-list">
-                            <span class="rating-system__interest">Путешествия</span>
-                            <span class="rating-system__interest">Фотография</span>
-                            <span class="rating-system__interest">Музыка</span>
-                            <span class="rating-system__interest">Кино</span>
+                    <div class="rating-system__rating">
+                        <h4 class="rating-system__rating-title">Оцените анкету (1-9):</h4>
+                        <div class="rating-system__rating-scale">
+                            {% for i in '123456789'|make_list %}
+                            <label class="rating-system__rating-option">
+                                <input type="radio" name="rating-{{ user.id }}" value="{{ forloop.counter }}" class="rating-system__rating-input">
+                                <span class="rating-system__rating-label">{{ forloop.counter }}</span>
+                            </label>
+                            {% endfor %}
                         </div>
                     </div>
-                </div>
 
-                <div class="rating-system__rating">
-                    <h4 class="rating-system__rating-title">Оцените анкету (1-9):</h4>
-                    <div class="rating-system__rating-scale">
-                        {% for i in '123456789'|make_list %}
-                        <label class="rating-system__rating-option">
-                            <input type="radio" name="rating" value="{{ forloop.counter }}" class="rating-system__rating-input">
-                            <span class="rating-system__rating-label">{{ forloop.counter }}</span>
-                        </label>
-                        {% endfor %}
+                    <div class="rating-system__comment">
+                        <div class="form-field">
+                            <label for="comment-{{ user.id }}" class="form-field__label">Комментарий (необязательно):</label>
+                            <textarea id="comment-{{ user.id }}" name="comment" class="form-field__textarea" placeholder="Напишите свой комментарий здесь..." maxlength="500"></textarea>
+                            <span class="form-field__hint">Максимум 500 символов</span>
+                        </div>
+                    </div>
+
+                    <div class="rating-system__actions">
+                        <button type="button" class="btn btn-primary rating-system__btn-submit" data-user-id="{{ user.id }}" data-rate-url="{% url 'ml_surveys:save_rating' %}">
+                            Сохранить оценку
+                        </button>
                     </div>
                 </div>
-
-                <div class="rating-system__comment">
-                    <div class="form-field">
-                        <label for="comment" class="form-field__label">Комментарий (необязательно):</label>
-                        <textarea id="comment" name="comment" class="form-field__textarea" placeholder="Напишите свой комментарий здесь..."></textarea>
-                        <span class="form-field__hint">Максимум 500 символов</span>
-                    </div>
+                {% empty %}
+                <div class="rating-system__empty">
+                    <p class="rating-system__empty-text">Нет анкет для оценки</p>
                 </div>
-
-                <div class="rating-system__actions">
-                    <button type="button" class="btn btn-outline rating-system__btn-prev" disabled>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        Предыдущая
-                    </button>
-                    <button type="button" class="btn btn rating-system__btn-next">
-                        Следующая
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                    <button type="submit" class="btn btn-primary rating-system__btn-submit">
-                        Отправить оценку
-                    </button>
-                </div>
+                {% endfor %}
             </div>
 
-            <!-- Индикатор прогресса -->
-            <div class="rating-system__progress">
-                <div class="rating-system__progress-bar">
-                    <div class="rating-system__progress-fill" style="width: 20%"></div>
-                </div>
-                <span class="rating-system__progress-text">1 из 5 анкет оценено</span>
+            <!-- Пагинация -->
+            {% if page_obj %}
+            <div class="rating-system__pagination">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline rating-system__pagination-btn href">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Предыдущая
+                </a>
+                {% endif %}
+
+                <span class="rating-system__pagination-info">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn rating-system__pagination-btn href">
+                    Следующая
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                {% endif %}
             </div>
+            {% endif %}
         </div>
     </div>
 </section>
+
+{% block extra_js %}
+    <script src="{% static 'js/rate_list.js' %}"></script>
+{% endblock %}
 {% endblock %}

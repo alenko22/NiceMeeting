@@ -14,6 +14,9 @@
             <p><label for="{{ f.id_for_label }}" class="form-field__label">{{ f.label }}</label>{{ f }}</p>
             <div>{{ f.errors }}</div>
         {% endfor %}
+        <p class="form-field__hint">
+            <a href="{% url 'privacy_policy' %}" class="href">Наша политика конфиденциальности</a>
+        </p>
         <div class="form-field">
             <button type="submit" class="btn btn-primary">Подтвердить изменения</button>
         </div>

@@ -16,5 +16,12 @@ urlpatterns = [
     path("profile", views.profile, name="profile"),
     path("profile/edit", ChangeProfile.as_view(), name="profile_edit"),
     path("chats", views.chats, name="chats"),
-    path("events", Events.as_view(), name="events"),
+    path("events", views.events, name="events"),
+    path("events/<int:event_id>", views.event_details, name="event_details"),
+    path("events/<int:event_id>/signup", views.event_sign_up, name="signup" ),
+    # path("all_events", views.all_events, name="all_events"),
+    path("privacy_policy", views.privacy_policy, name="privacy_policy"),
+    path("user_agreement", views.user_agreement, name="user_agreement"),
+    path("community_rules", views.community_rules, name="community_rules"),
+    path("public_profile", views.public_profile, name="public_profile"),
 ]
