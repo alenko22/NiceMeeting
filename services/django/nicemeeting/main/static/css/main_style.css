@@ -3389,3 +3389,114 @@ font-size: 1.1rem;
         min-width: auto;
     }
 }
+
+/* COMMENTS PAGE STYLES */
+.post-comments__title {
+font-size: 2rem;
+font-weight: 700;
+color: var(--accent-2);
+margin-bottom: 30px;
+text-align: center;
+}
+.post-comments__form-section {
+margin-top: 30px;
+margin-bottom: 40px;
+}
+.post-comments__form-title {
+font-size: 1.5rem;
+font-weight: 700;
+color: var(--accent-2);
+margin-bottom: 20px;
+}
+.post-comments__form-actions {
+display: flex;
+gap: 12px;
+margin-top: 16px;
+}
+.post-comments__comments-section {
+margin-top: 40px;
+}
+.post-comments__comments-title {
+font-size: 1.5rem;
+font-weight: 700;
+color: var(--accent-2);
+margin-bottom: 24px;
+}
+.post-comments__list {
+display: flex;
+flex-direction: column;
+gap: 24px;
+}
+.post-comments__comment {
+margin-bottom: 0;
+}
+.post-comments__comment--reply {
+margin-left: 48px;
+max-width: calc(70% - 48px);
+}
+.post-comments__comment-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 8px;
+gap: 12px;
+flex-wrap: wrap;
+}
+.post-comments__comment-author {
+font-size: 1.1rem;
+font-weight: 600;
+color: var(--text);
+}
+.post-comments__comment-date {
+font-size: 0.85rem;
+color: rgba(54, 26, 34, 0.6);
+white-space: nowrap;
+}
+.post-comments__comment-actions {
+display: flex;
+gap: 8px;
+margin-top: 12px;
+}
+.post-comments__comment-like,
+.post-comments__comment-reply {
+padding: 6px 12px;
+font-size: 0.9rem;
+}
+.post-comments__comment-like svg {
+width: 14px;
+height: 14px;
+}
+.post-comments__post-comment-btn {
+flex-grow: 1;
+justify-content: center;
+}
+/* Адаптивность */
+@media (max-width: 768px) {
+.post-comments__title {
+font-size: 1.75rem;
+}
+.post-comments__form-section {
+margin-top: 20px;
+margin-bottom: 30px;
+}
+.post-comments__comments-section {
+margin-top: 30px;
+}
+.post-comments__list {
+gap: 16px;
+}
+.post-comments__comment--reply {
+margin-left: 24px;
+max-width: calc(85% - 24px);
+}
+}
+@media (max-width: 480px) {
+.post-comments__comment--reply {
+margin-left: 16px;
+max-width: calc(90% - 16px);
+}
+.post-comments__comment-header {
+flex-direction: column;
+align-items: flex-start;
+}
+}

@@ -140,3 +140,6 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'public'

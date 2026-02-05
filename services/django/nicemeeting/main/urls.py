@@ -24,4 +24,5 @@ urlpatterns = [
     path("user_agreement", views.user_agreement, name="user_agreement"),
     path("community_rules", views.community_rules, name="community_rules"),
     path("public_profile", views.public_profile, name="public_profile"),
+    path("commentaries", commentaries, name="commentaries"),
 ]

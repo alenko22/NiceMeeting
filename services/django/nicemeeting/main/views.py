@@ -98,6 +98,9 @@ def community_rules(request):
 def public_profile(request):
     return render(request, "main/public_profile.html")
 
+def commentaries(request):
+    return render(request, "main/commentaries.html")
+
 def event_details(request, event_id):
     event = get_object_or_404(Event, id = event_id)
     participants = EventUser.objects.filter(event_id = event_id).select_related('user_id')

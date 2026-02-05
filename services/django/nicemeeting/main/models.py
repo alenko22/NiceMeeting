@@ -5,9 +5,15 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+import os
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+import uuid
+from datetime import datetime
+
 
 class AstralSign(models.Model):
     sign_id = models.AutoField(primary_key=True)
@@ -106,7 +112,42 @@ class Rating (models.Model):
         managed = True
         db_table = 'main"."rating'
 
+def post_image_path(instance, filename):
+    ext = filename.split('.')[-1]
+
+    unique_id = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4().hex[:8]}.{ext}"
+    year = timezone.now().strftime('%Y')
+    month = timezone.now().strftime('%m')
+    return os.path.join('posts', year, month, unique_id)
+
+
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to='public/posts/%Y/%m/%d', null=True)
+    image = models.ImageField(upload_to=post_image_path, blank=True, null=True)
     text = models.TextField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='author')
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        managed = True
+        db_table = 'main"."post'
+
+    def delete(self, *args, **kwargs):
+        if self.image:
+            if os.path.exists(self.image.path):
+                os.remove(self.image.path)
+        super().delete(*args, **kwargs)
+
+class Commentaries(models.Model):
+    id = models.AutoField(primary_key=True)
+    post = models.ForeignKey('Post', models.DO_NOTHING, db_column='post')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='author')
+    text = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    parent_comment = models.ForeignKey('self', models.DO_NOTHING, null=True, blank=True, db_column='parent_comment')
+
+    class Meta:
+        managed = True
+        db_table = 'main"."commentaries'
+
+

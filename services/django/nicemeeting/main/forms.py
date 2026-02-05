@@ -150,3 +150,19 @@ class MainChangeProfilePostForm(forms.ModelForm):
                 "class": "form-field__input",
             }),
         }
+
+class MainPostPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["text", "image"]
+        widgets = {
+            "text": forms.Textarea(attrs={
+                "placeholder": "Здесь ваш текст поста",
+                "class": "form-field__input",
+            }),
+            "image": forms.FileInput(attrs={
+                "placeholder": "Здесь изображение для вашего поста (необязательно)",
+                "class": "form-field__input",
+                "accept": "image/*",
+            })
+        }
