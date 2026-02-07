@@ -12,41 +12,57 @@
         <div class="container">
             <div class="public-profile__header-content">
                 <div class="public-profile__avatar-wrapper">
-                    <img src="{% static 'images/default-avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar">
+                    {% else %}
+                        <img src="{% static 'images/default-avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar">
+                    {% endif %}
                 </div>
                 <div class="public-profile__info">
-                    <h1 class="public-profile__name">Иван Петров</h1>
-                    <p class="public-profile__bio">Люблю путешествия, фотографию и хорошую музыку</p>
+                    <h1 class="public-profile__name">{{ user.get_full_name|default:user.username }}</h1>
+                    {% if user.bio %}
+                        <p class="public-profile__bio">{{ user.bio }}</p>
+                    {% endif %}
                     <div class="public-profile__stats">
                         <div class="public-profile__stat-item">
-                            <span class="public-profile__stat-value">156</span>
+                            <span class="public-profile__stat-value">{{ user.posts.count|default:0 }}</span>
                             <span class="public-profile__stat-label">Постов</span>
                         </div>
                         <div class="public-profile__stat-item">
-                            <span class="public-profile__stat-value">3.2K</span>
+                            <span class="public-profile__stat-value">{{ user.followers.count|default:0 }}</span>
                             <span class="public-profile__stat-label">Подписчиков</span>
                         </div>
                         <div class="public-profile__stat-item">
-                            <span class="public-profile__stat-value">428</span>
+                            <span class="public-profile__stat-value">{{ user.following.count|default:0 }}</span>
                             <span class="public-profile__stat-label">Подписок</span>
                         </div>
                     </div>
                     <div class="public-profile__actions">
-                        <button class="btn btn-primary public-profile__follow-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                            Подписаться
-                        </button>
-                        <button class="btn btn-outline public-profile__message-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                            Написать
-                        </button>
+                        {% if request.user.is_authenticated and request.user != user %}
+                            <button class="btn btn-primary public-profile__follow-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                Подписаться
+                            </button>
+                            <button class="btn btn-outline public-profile__message-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Написать
+                            </button>
+                        {% elif request.user.is_authenticated and request.user == user %}
+                            <a href="{% url 'create_post' %}" class="btn btn-primary public-profile__add-post-btn href">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Добавить пост
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -58,12 +74,11 @@
         <div class="container">
             <h2 class="public-profile__section-title">Интересы</h2>
             <div class="public-profile__interests-list">
-                <span class="public-profile__interest">Путешествия</span>
-                <span class="public-profile__interest">Фотография</span>
-                <span class="public-profile__interest">Музыка</span>
-                <span class="public-profile__interest">Кино</span>
-                <span class="public-profile__interest">Книги</span>
-                <span class="public-profile__interest">Спорт</span>
+                {% for interest in user.interests.all %}
+                    <span class="public-profile__interest">{{ interest.name }}</span>
+                {% empty %}
+                    <p class="public-profile__no-interests">Интересы не указаны</p>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -81,101 +96,48 @@
             </div>
 
             <div class="public-profile__posts-grid">
-                <!-- Пост 1 -->
-                <article class="public-profile__post">
+                {% for post in posts|slice:":3" %}
+                <article class="public-profile__post" data-post-id="{{ post.id }}">
                     <div class="public-profile__post-header">
                         <div class="public-profile__post-meta">
-                            <span class="public-profile__post-date">2 часа назад</span>
+                            <span class="public-profile__post-date">{{ post.date_posted|timesince }} назад</span>
+                            {% if request.user.is_authenticated and request.user == user %}
+                                    <button
+                                        class="btn btn-outline public-profile__post-delete-btn"
+                                        title="Удалить пост"
+                                        data-delete-url="{% url 'delete_post' post.id %}"
+                                    >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="public-profile__post-image">
-                        <img src="{% static 'images/post-sample.jpg' %}" alt="Фотография" class="public-profile__post-img">
-                    </div>
+                    {% if post.image %}
+                        <div class="public-profile__post-image">
+                            <img src="{{ post.image.url }}" alt="{{ post.text }}" class="public-profile__post-img">
+                        </div>
+                    {% endif %}
                     <div class="public-profile__post-content">
                         <p class="public-profile__post-text">
-                            Потрясающий закат на море! 🌅 Никогда не надоедает любоваться такой красотой.
+                            {{ post.text }}
                         </p>
+
                     </div>
                     <div class="public-profile__post-footer">
-                        <a class="btn btn-outline public-profile__post-comment-btn href" href="{% url 'commentaries' %}">
+                        <a href="{% url 'commentaries' post.id %}" class="btn btn-outline public-profile__post-comment-btn href">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                             </svg>
-                            15
+                            {{ post.comments_count|default:0 }}
                         </a>
                     </div>
                 </article>
-
-                <!-- Пост 2 -->
-                <article class="public-profile__post">
-                    <div class="public-profile__post-header">
-                        <div class="public-profile__post-meta">
-                            <span class="public-profile__post-date">5 часов назад</span>
-                            <span class="public-profile__post-likes">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                </svg>
-                                28
-                            </span>
-                        </div>
-                    </div>
-                    <div class="public-profile__post-content">
-                        <p class="public-profile__post-text">
-                            Сегодня закончил читать потрясающую книгу "451 градус по Фаренгейту". Очень рекомендую всем любителям антиутопий! 📚
-                        </p>
-                    </div>
-                    <div class="public-profile__post-footer">
-                        <button class="btn btn-outline public-profile__post-comment-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                            8
-                        </button>
-                        <button class="btn btn-outline public-profile__post-like-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg>
-                            Нравится
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Пост 3 -->
-                <article class="public-profile__post">
-                    <div class="public-profile__post-header">
-                        <div class="public-profile__post-meta">
-                            <span class="public-profile__post-date">Вчера</span>
-                            <span class="public-profile__post-likes">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                </svg>
-                                67
-                            </span>
-                        </div>
-                    </div>
-                    <div class="public-profile__post-image">
-                        <img src="{% static 'images/post-sample2.jpg' %}" alt="Фотография" class="public-profile__post-img">
-                    </div>
-                    <div class="public-profile__post-content">
-                        <p class="public-profile__post-text">
-                            Путешествие по горам — это всегда вдохновение! 🏔️ Природа лечит душу.
-                        </p>
-                    </div>
-                    <div class="public-profile__post-footer">
-                        <button class="btn btn-outline public-profile__post-comment-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                            23
-                        </button>
-                        <button class="btn btn-outline public-profile__post-like-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg>
-                            Нравится
-                        </button>
-                    </div>
-                </article>
+                {% empty %}
+                <p class="public-profile__no-posts">Пользователь ещё не добавил ни одного поста</p>
+                {% endfor %}
             </div>
 
             <!-- Пагинация -->

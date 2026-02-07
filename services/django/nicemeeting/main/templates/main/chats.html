@@ -24,90 +24,52 @@
                 </div>
 
                 <div class="chats__list-items">
-                    <!-- Пример чата -->
-                    <div class="chat-item chat-item--active">
+                    {% for chat_data in chats %}
+                    <div class="chat-item {% if chat.chat.id == current_chat_id %}chat-item--active{% endif %}" data-chat-id="{{ chat.chat.id }}">
                         <div class="chat-item__avatar">
                             <div class="chat-item__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="chat-item__avatar-letter">А</span>
+                                <span class="chat-item__avatar-letter">{{ chat_data.other_user.username|slice:":1"|upper }}</span>
                             </div>
                         </div>
                         <div class="chat-item__content">
                             <div class="chat-item__header">
-                                <h3 class="chat-item__name">Александр Петров</h3>
-                                <span class="chat-item__time">10:30</span>
+                                <h3 class="chat-item__name">{{ chat_data.other_user.username }}</h3>
+                                {% if chat_data.last_message %}
+                                <span class="chat-item__time">{{ chat_data.last_message.date_time|date:"H:i" }}</span>
+                                {% endif %}
                             </div>
                             <div class="chat-item__message">
-                                <span class="chat-item__message-text">Привет! Как дела?</span>
-                                <span class="chat-item__unread">2</span>
+                                {% if chat_data.last_message %}
+                                <span class="chat-item__message-text">{{ chat_data.last_message.text|truncatechars:30 }}</span>
+                                {% endif %}
+                                {% if chat_data.unread_count > 0 %}
+                                <span class="chat-item__unread">{{ chat_data.unread_count }}</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-
+                    {% empty %}
                     <div class="chat-item">
-                        <div class="chat-item__avatar">
-                            <div class="chat-item__avatar-img" style="background: linear-gradient(135deg, var(--accent-2), var(--accent));">
-                                <span class="chat-item__avatar-letter">М</span>
-                            </div>
-                        </div>
                         <div class="chat-item__content">
-                            <div class="chat-item__header">
-                                <h3 class="chat-item__name">Мария Иванова</h3>
-                                <span class="chat-item__time">Вчера</span>
-                            </div>
-                            <div class="chat-item__message">
-                                <span class="chat-item__message-text">Спасибо за помощь с проектом!</span>
-                            </div>
+                            <p class="chat-item__message-text">У вас пока нет чатов</p>
                         </div>
                     </div>
-
-                    <div class="chat-item">
-                        <div class="chat-item__avatar">
-                            <div class="chat-item__avatar-img" style="background: linear-gradient(135deg, var(--muted), var(--accent));">
-                                <span class="chat-item__avatar-letter">Д</span>
-                            </div>
-                        </div>
-                        <div class="chat-item__content">
-                            <div class="chat-item__header">
-                                <h3 class="chat-item__name">Дмитрий Соколов</h3>
-                                <span class="chat-item__time">09:15</span>
-                            </div>
-                            <div class="chat-item__message">
-                                <span class="chat-item__message-text">Можешь помочь с задачей?</span>
-                                <span class="chat-item__unread">1</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-item">
-                        <div class="chat-item__avatar">
-                            <div class="chat-item__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--muted));">
-                                <span class="chat-item__avatar-letter">Е</span>
-                            </div>
-                        </div>
-                        <div class="chat-item__content">
-                            <div class="chat-item__header">
-                                <h3 class="chat-item__name">Елена Козлова</h3>
-                                <span class="chat-item__time">Пн</span>
-                            </div>
-                            <div class="chat-item__message">
-                                <span class="chat-item__message-text">Отличная работа над последним проектом!</span>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
             <!-- Область сообщений -->
+            {% if chat %}
             <div class="chats__messages">
                 <div class="chats__messages-header">
                     <div class="chats__messages-info">
                         <div class="chats__messages-avatar">
                             <div class="chats__messages-avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="chats__messages-avatar-letter">А</span>
+                                <span class="chats__messages-avatar-letter">{{ other_user.username|slice:":1"|upper }}</span>
                             </div>
                         </div>
                         <div class="chats__messages-details">
-                            <h2 class="chats__messages-name">Александр Петров</h2>
+                            <h2 class="chats__messages-name">{{ other_user.username }}</h2>
                             <p class="chats__messages-status">Онлайн</p>
                         </div>
                     </div>
@@ -126,59 +88,25 @@
                 </div>
 
                 <div class="chats__messages-content">
-                    <div class="message message--received">
+                    {% for message in messages %}
+                    <div class="message {% if message.sender == current_user %}message--sent{% else %}message--received{% endif %}">
+                        {% if message.sender != current_user %}
                         <div class="message__avatar">
                             <div class="message__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="message__avatar-letter">А</span>
+                                <span class="message__avatar-letter">{{ message.sender.username|slice:":1"|upper }}</span>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="message__content">
-                            <p class="message__text">Привет! Как дела?</p>
-                            <span class="message__time">10:30</span>
+                            <p class="message__text">{{ message.text }}</p>
+                            <span class="message__time">{{ message.date_time|date:"H:i" }}</span>
                         </div>
                     </div>
-
-                    <div class="message message--sent">
-                        <div class="message__content">
-                            <p class="message__text">Привет! Все отлично, спасибо. А у тебя как?</p>
-                            <span class="message__time">10:32</span>
-                        </div>
-                    </div>
-
-                    <div class="message message--received">
-                        <div class="message__avatar">
-                            <div class="message__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="message__avatar-letter">А</span>
-                            </div>
-                        </div>
-                        <div class="message__content">
-                            <p class="message__text">У меня тоже все хорошо. Хотел спросить, сможешь помочь мне с проектом на выходных?</p>
-                            <span class="message__time">10:35</span>
-                        </div>
-                    </div>
-
-                    <div class="message message--sent">
-                        <div class="message__content">
-                            <p class="message__text">Конечно, с удовольствием помогу! Расскажи подробнее, что нужно сделать.</p>
-                            <span class="message__time">10:37</span>
-                        </div>
-                    </div>
-
-                    <div class="message message--received">
-                        <div class="message__avatar">
-                            <div class="message__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="message__avatar-letter">А</span>
-                            </div>
-                        </div>
-                        <div class="message__content">
-                            <p class="message__text">Это будет небольшой веб-проект. Нужно сделать верстку и немного логики. Покажу детали позже.</p>
-                            <span class="message__time">10:40</span>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <div class="chats__messages-footer">
-                    <form class="chats__message-form">
+                    <form class="chats__message-form" data-chat-id="{{ chat.id }}">
                         <div class="form-field__wrapper">
                             <input type="text" class="form-field__input chats__message-input" placeholder="Напишите сообщение..." required>
                             <button type="button" class="form-field__toggle-password chats__message-attachment">
@@ -196,6 +124,13 @@
                     </form>
                 </div>
             </div>
+            {% else %}
+            <div class="chats__messages">
+                <div class="chats__messages-empty">
+                    <p>Выберите чат для просмотра сообщений</p>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

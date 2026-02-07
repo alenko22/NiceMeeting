@@ -55,17 +55,35 @@ class MeetingType(models.Model):
         managed = True
         db_table = 'main"."meeting_type'
 
+class Chat(models.Model):
+    id = models.AutoField(primary_key=True)
+    user1 = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user1', related_name='chat_user1')
+    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user2', related_name='chat_user2')
+
+    class Meta:
+        managed = True
+        db_table = 'main"."chat'
+        unique_together = ('user1', 'user2')
+
+    def get_other_user(self, current_user):
+        return self.user2 if current_user == self.user1 else self.user1
+
+    def get_last_message(self):
+        return self.messages.order_by('-date_time').first()
 
 class Message(models.Model):
-    pk = models.CompositePrimaryKey('sender_id', 'recipient_id')
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING)
-    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, related_name='message_recipient_set')
-    date_time = models.DateTimeField()
-    text = models.CharField()
+    pk = models.CompositePrimaryKey('sender', 'recipient')
+    chat = models.ForeignKey(Chat, models.DO_NOTHING, db_column='chat', related_name='messages', default=None)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='sender', related_name='sent_messages')
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='recipient', related_name='received_messages')
+    datetime = models.DateTimeField(default=timezone.now)
+    text = models.TextField()
+    is_read = models.BooleanField(default=False)
 
     class Meta:
         managed = True
         db_table = 'main"."message'
+        ordering = ['datetime']
 
 
 class SocialStatus(models.Model):
@@ -140,14 +158,16 @@ class Post(models.Model):
 
 class Commentaries(models.Model):
     id = models.AutoField(primary_key=True)
-    post = models.ForeignKey('Post', models.DO_NOTHING, db_column='post')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='author')
+    post = models.ForeignKey('Post', models.DO_NOTHING, db_column='post', related_name='comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='author', related_name='commentaries')
     text = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    parent_comment = models.ForeignKey('self', models.DO_NOTHING, null=True, blank=True, db_column='parent_comment')
+    parent_comment = models.ForeignKey('self', models.DO_NOTHING, null=True, blank=True, db_column='parent_comment', related_name='replies')
 
     class Meta:
         managed = True
         db_table = 'main"."commentaries'
 
-
+    @property
+    def is_reply(self):
+        return self.parent is not None

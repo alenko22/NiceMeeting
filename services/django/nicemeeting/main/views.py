@@ -1,18 +1,22 @@
 import json
 
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db.models import Count, F, Func, Q
+from django.db.models.functions import ExtractYear
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, request, JsonResponse
-from django.urls import reverse_lazy
+from django.http import HttpResponse, request, JsonResponse, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from api.loader import EventLoader
+from datetime import date
 
 from .forms import *
 from .models import *
@@ -25,8 +29,6 @@ class Home(ListView):
 
     def get_queryset(self):
         return Article.objects.all()
-
-
 
 class Register(CreateView):
     form_class = MainRegisterPostForm
@@ -58,6 +60,53 @@ class ChangeProfile(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+class CreatePost(CreateView):
+    model = Post
+    form_class = MainCreatePostPostForm
+    template_name = "main/create_post.html"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("public_profile", kwargs={"user_id": self.request.user.id})
+
+class AddComment(CreateView):
+    model = Commentaries
+    form_class = MainCreateCommentPostForm
+    http_method_names = ["post"]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+
+        # Отладка: выводим все данные из POST
+        print("POST data:", self.request.POST)
+        print("Parent from POST:", self.request.POST.get('parent'))
+
+        parent_id = self.request.POST.get("parent")
+        if parent_id:
+            form.instance.parent = Commentaries.objects.get(id=parent_id)
+
+        response = super().form_valid(form)
+
+        post = self.object.post
+        post.save()
+
+        messages.success(self.request, "Comment added successfully")
+
+        return response
+
+    def form_invalid(self, form):
+        print("Form errors:", form.errors)
+
+        messages.error(self.request, "Something went wrong")
+
+        # Возвращаем редирект на предыдущую страницу
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', '/'))
+
+    def get_success_url(self):
+        return reverse_lazy("commentaries", kwargs={"post_id": self.object.post.id})
 def index(request):
     return render(request, "main/index.html")
 
@@ -95,11 +144,102 @@ def user_agreement(request):
 def community_rules(request):
     return render(request, "main/community_rules.html")
 
-def public_profile(request):
-    return render(request, "main/public_profile.html")
+def search(request):
+    form = MainSearchUserForm(request.GET or None)
+    users = User.objects.none()
+    query_params = {}
 
-def commentaries(request):
-    return render(request, "main/commentaries.html")
+    if form.is_valid():
+        users = User.objects.all().annotate(
+            age = ExtractYear(date.today()) - ExtractYear(F("date_birth")),
+        )
+
+        q = form.cleaned_data.get('q')
+        if q:
+            users = users.filter(
+                Q(username__icontains=q) |
+                Q(first_name__icontains=q) |
+                Q(last_name__icontains=q)
+            )
+            query_params['q'] = q
+
+        age_min = form.cleaned_data.get('age_min')
+        age_max = form.cleaned_data.get('age_max')
+
+        if age_min:
+            users = users.filter(age__gte=age_min)
+            query_params['age_min'] = age_min
+
+        if age_max:
+            users = users.filter(age__lte=age_max)
+            query_params['age_max'] = age_max
+
+            # Фильтр по полу
+        sex = form.cleaned_data.get('sex')
+        if sex and sex != '':
+            users = users.filter(sex=sex)
+            query_params['sex'] = sex
+
+        # Исключаем текущего пользователя из результатов
+        if request.user.is_authenticated:
+            users = users.exclude(id=request.user.id)
+
+    paginator = Paginator(users, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "form": form,
+        "users": users,
+        "page_obj": page_obj,
+        "is_paginated": page_obj.has_other_pages(),
+        "query_params": query_params,
+    }
+
+    return render(request, "main/search.html", context)
+
+def public_profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    posts = Post.objects.filter(author=user).annotate(
+        comments_count=Count("comments"),
+    )
+
+    context = {
+        "user": user,
+        "posts": posts,
+        "MEDIA_URL": settings.MEDIA_URL,
+    }
+    return render(request, "main/public_profile.html", context)
+
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if post.author != request.user:
+        return JsonResponse({'error': 'У вас нет прав для удаления этого поста'}, status=403)
+
+    if request.method == "POST":
+        post.delete()
+        return JsonResponse({
+            'success': True,
+            'message': 'Пост успешно удален'
+        })
+
+    return JsonResponse({'error': 'Неверный метод запроса'}, status=405)
+
+def commentaries(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    comments = Commentaries.objects.filter(parent_comment__isnull=True).select_related("author").prefetch_related("replies__author").order_by("-date_posted")
+    comments_count = comments.count()
+
+    form = MainCreateCommentPostForm(initial={"post_id": post.id})
+
+    context = {
+        "post": post,
+        "comments": comments,
+        "form": form,
+        "comments_count": comments_count,
+    }
+    return render(request, "main/commentaries.html", context)
 
 def event_details(request, event_id):
     event = get_object_or_404(Event, id = event_id)
@@ -148,3 +288,116 @@ def events(request):
         "page_obj": page_obj,
     }
     return render(request, "main/events.html", context)
+
+def chats_list(request):
+    user = request.user
+    chats = Chat.objects.filter(
+        Q(user1=user) | Q(user2=user)
+    ).select_related("user1", "user2").prefetch_related("users")
+
+    chat_data = []
+
+    for chat in chats:
+        other_user = chat.get_other_user(user)
+        last_message = chat.get_last_message()
+
+        chat_data.append({
+            "chat": chat,
+            "other_user": other_user,
+            "last_message": last_message,
+            "unread_count": chat.message.filter(recipient=user, is_read=False).count(),
+        })
+
+    context = {
+        "chats": chats,
+        "current_user": user,
+    }
+
+    return render(request, "main/chats.html", context)
+
+def chat_detail(request, chat_id):
+    user = request.user
+    chat = get_object_or_404(Chat, id=chat_id)
+
+    if user not in [chat.user1, chat.user2]:
+        return redirect("chats_list")
+
+    other_user = chat.get_other_user(user)
+
+    Message.objects.filter(chat=chat, recipient=user, is_read=False).update(is_read=True)
+
+    messages = chat.messages.all()
+
+    context = {
+        "chat": chat,
+        "other_user": other_user,
+        "messages": messages,
+        "current_user": user,
+    }
+
+    return render(request, "main/chat_detail.html", context)
+
+
+def send_message(request, chat_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    user = request.user
+    chat = get_object_or_404(Chat, id=chat_id)
+
+    if user not in [chat.user1, chat.user2]:
+        return JsonResponse({'error': 'Access denied'}, status=403)
+
+    form = MainMessageForm(request.POST)
+    if form.is_valid():
+        recipient = chat.get_other_user(user)
+
+        message = Message.objects.create(
+            chat=chat,
+            sender=user,
+            recipient=recipient,
+            text=form.cleaned_data['text']
+        )
+
+        return JsonResponse({
+            'success': True,
+            'message': {
+                'id': message.id,
+                'text': message.text,
+                'date_time': message.date_time.isoformat(),
+                'sender': user.username
+            }
+        })
+
+    return JsonResponse({'error': form.errors}, status=400)
+
+
+def create_chat(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    user = request.user
+    recipient_id = request.POST.get('recipient_id')
+
+    if not recipient_id:
+        return JsonResponse({'error': 'Recipient ID is required'}, status=400)
+
+    try:
+        recipient = get_user_model().objects.get(id=recipient_id)
+    except get_user_model().DoesNotExist:
+        return JsonResponse({'error': 'Recipient not found'}, status=404)
+
+    if user == recipient:
+        return JsonResponse({'error': 'Cannot chat with yourself'}, status=400)
+
+    chat, created = Chat.objects.get_or_create(
+        user1=user,
+        user2=recipient,
+        defaults={'user1': user, 'user2': recipient}
+    )
+
+    return JsonResponse({
+        'success': True,
+        'chat_id': chat.id,
+        'redirect_url': reverse('chat_detail', kwargs={'chat_id': chat.id})
+    })

@@ -1,0 +1,198 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Поиск
+{% endblock %}
+
+{% block content %}
+<div class="container container--wide">
+    <h1 class="rating-section__title">Поиск пользователей</h1>
+    <p class="rating-section__description">Найдите интересных людей по имени, возрасту или другим параметрам</p>
+
+    <!-- Форма поиска -->
+    <div class="settings-section">
+        <h2 class="settings-section__title">Параметры поиска</h2>
+        <div class="settings-section__content">
+            <form method="get" class="search-form">
+                <!-- Поисковое поле -->
+                <div class="form-field">
+                    <label for="id_q" class="form-field__label">Поиск по имени или никнейму</label>
+                    <div class="form-field__wrapper">
+                        {{ form.q }}
+                    </div>
+                    {% if form.q.errors %}
+                        <div class="form-field__error">{{ form.q.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Фильтры возраста -->
+                <div class="events__filter-group">
+                    <label class="events__filter-label">Возраст</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;">
+                        <div class="form-field">
+                            {{ form.age_min.label_tag }}
+                            {{ form.age_min }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.age_max.label_tag }}
+                            {{ form.age_max }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Фильтр пола -->
+                <div class="events__filter-group">
+                    <label class="events__filter-label">Пол</label>
+                    <div class="form-field" style="margin-top: 12px;">
+                        {{ form.sex }}
+                    </div>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="form-field">
+                    <div class="form-field__actions" style="display: flex; gap: 16px;">
+                        <button type="submit" class="btn btn-primary" style="flex-grow: 1;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            Найти
+                        </button>
+                        <a href="{% url 'search' %}" class="btn btn-outline">
+                            Очистить
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Результаты поиска -->
+    {% if users %}
+    <div class="settings-section">
+        <h2 class="settings-section__title">Результаты поиска ({{ users.paginator.count }})</h2>
+        <div class="settings-section__content">
+            <div class="search-users__grid">
+                {% for user in users %}
+                <div class="search-users__item">
+                    <div class="search-users__content">
+                        <div class="search-users__header">
+                            <h3 class="search-users__name">
+                                <a href="{% url 'public_profile' user.id %}" class="href">
+                                    {% if user.first_name or user.last_name %}
+                                        {{ user.get_full_name }}
+                                    {% else %}
+                                        {{ user.username }}
+                                    {% endif %}
+                                </a>
+                            </h3>
+                            {% if user.sex %}
+                            <span class="search-users__badge">
+                                {% if user.sex == 'Мужской' %}♂{% else %}♀{% endif %}
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="search-users__meta">
+                            {% if user.age %}
+                            <div class="search-users__meta-item">
+                                <svg class="search-users__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                    <path d="M12 21.7C12 16.5 7.5 13 2 13h18c-5.5 0-10 3.5-10 8.7z"></path>
+                                </svg>
+                                <span>{{ user.age }} лет</span>
+                            </div>
+                            {% endif %}
+
+                            {% if user.astral_sign %}
+                            <div class="search-users__meta-item">
+                                <svg class="search-users__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2v4"></path>
+                                    <path d="M12 20v4"></path>
+                                    <path d="M4.93 4.93l2.83 2.83"></path>
+                                    <path d="M16.24 16.24l2.83 2.83"></path>
+                                    <path d="M2 12h4"></path>
+                                    <path d="M18 12h4"></path>
+                                    <path d="M4.93 19.07l2.83-2.83"></path>
+                                    <path d="M16.24 7.76l2.83-2.83"></path>
+                                </svg>
+                                <span>{{ user.astral_sign.name }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% if user.social_status %}
+                            <div class="search-users__meta-item">
+                                <svg class="search-users__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <span>{{ user.social_status.name }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% if user.date_birth %}
+                        <div class="search-users__info">
+                            <strong>Дата рождения:</strong> {{ user.date_birth|date:"d.m.Y" }}
+                        </div>
+                        {% endif %}
+
+                        <div class="search-users__footer">
+                            <div class="search-users__participants">
+                                Пользователь с {{ user.date_joined|date:"M Y" }}
+                            </div>
+                            <div class="search-users__actions">
+                                <a href="{% url 'public_profile' user.id %}" class="btn btn-primary search-users__btn">
+                                    Посмотреть профиль
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if is_paginated %}
+            <div class="events__pagination">
+                {% if page_obj.has_previous %}
+                <a href="?page=1{% for key, value in query_params.items %}&{{ key }}={{ value }}{% endfor %}" class="btn events__pagination-btn">&laquo; Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% for key, value in query_params.items %}&{{ key }}={{ value }}{% endfor %}" class="btn events__pagination-btn">&lsaquo; Предыдущая</a>
+                {% endif %}
+
+                <span class="btn events__pagination-btn events__pagination-btn--active">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% for key, value in query_params.items %}&{{ key }}={{ value }}{% endfor %}" class="btn events__pagination-btn">Следующая &rsaquo;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% for key, value in query_params.items %}&{{ key }}={{ value }}{% endfor %}" class="btn events__pagination-btn">Последняя &raquo;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% elif request.GET %}
+    <div class="settings-section">
+        <div class="settings-section__content">
+            <div class="search-users__empty">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path>
+                    <polyline points="14 4 14 10 20 10"></polyline>
+                </svg>
+                <p>Ничего не найдено</p>
+                <p style="margin-top: 8px;">Попробуйте изменить параметры поиска</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/search.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Вход
+{% endblock %}
+
+{% block content %}
+<div class="container container--narrow">
+    <h1>Добавить пост</h1>
+    <form method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-field">{{ form.non_field_errors }}</div>
+        {% for f in form %}
+            <p><label for="{{ f.id_for_label }}" class="form-field__label">{{ f.label }}</label>{{ f }}</p>
+            <div>{{ f.errors }}</div>
+        {% endfor %}
+        <div class="form-field">
+            <button type="submit" class="btn btn-primary">Подтвердить изменения</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
