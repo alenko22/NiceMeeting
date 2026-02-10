@@ -16,6 +16,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from api.loader import EventLoader
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from datetime import date
 
 from .forms import *
@@ -293,7 +294,7 @@ def chats_list(request):
     user = request.user
     chats = Chat.objects.filter(
         Q(user1=user) | Q(user2=user)
-    ).select_related("user1", "user2").prefetch_related("users")
+    ).select_related("user1", "user2")
 
     chat_data = []
 
@@ -305,11 +306,11 @@ def chats_list(request):
             "chat": chat,
             "other_user": other_user,
             "last_message": last_message,
-            "unread_count": chat.message.filter(recipient=user, is_read=False).count(),
+            "unread_count": chat.messages.filter(recipient=user, is_read=False).count(),
         })
 
     context = {
-        "chats": chats,
+        "chats": chat_data,
         "current_user": user,
     }
 
@@ -324,20 +325,40 @@ def chat_detail(request, chat_id):
 
     other_user = chat.get_other_user(user)
 
+    # Отмечаем сообщения как прочитанные
     Message.objects.filter(chat=chat, recipient=user, is_read=False).update(is_read=True)
 
     messages = chat.messages.all()
 
+    # === ВАЖНО: Получаем список ВСЕХ чатов пользователя для левой панели ===
+    chats = Chat.objects.filter(
+        Q(user1=user) | Q(user2=user)
+    ).select_related("user1", "user2")
+
+    chat_data = []
+    for c in chats:
+        other = c.get_other_user(user)
+        last_message = c.get_last_message()
+        chat_data.append({
+            "chat": c,
+            "other_user": other,
+            "last_message": last_message,
+            "unread_count": c.messages.filter(recipient=user, is_read=False).count(),
+        })
+
     context = {
-        "chat": chat,
+        "chat": chat,  # Текущий чат для правой панели
         "other_user": other_user,
         "messages": messages,
         "current_user": user,
+        "chats": chat_data,  # Список всех чатов для левой панели
+        "current_chat_id": chat.id,  # Для выделения активного чата
     }
 
-    return render(request, "main/chat_detail.html", context)
+    return render(request, "main/chats.html", context)
 
 
+# views.py
 def send_message(request, chat_id):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
@@ -348,28 +369,32 @@ def send_message(request, chat_id):
     if user not in [chat.user1, chat.user2]:
         return JsonResponse({'error': 'Access denied'}, status=403)
 
-    form = MainMessageForm(request.POST)
-    if form.is_valid():
-        recipient = chat.get_other_user(user)
+    # Получаем текст из textarea
+    text = request.POST.get('text', '').strip()
 
-        message = Message.objects.create(
-            chat=chat,
-            sender=user,
-            recipient=recipient,
-            text=form.cleaned_data['text']
-        )
+    if not text:
+        return JsonResponse({'error': 'Message text is required'}, status=400)
 
-        return JsonResponse({
-            'success': True,
-            'message': {
-                'id': message.id,
-                'text': message.text,
-                'date_time': message.date_time.isoformat(),
-                'sender': user.username
-            }
-        })
+    recipient = chat.get_other_user(user)
 
-    return JsonResponse({'error': form.errors}, status=400)
+    message = Message.objects.create(
+        chat=chat,
+        sender=user,
+        recipient=recipient,
+        text=text
+    )
+
+    return JsonResponse({
+        'success': True,
+        'message': {
+            'id': message.id,
+            'text': message.text,
+            'datetime': message.datetime.isoformat(),
+            'sender_id': user.id,
+            'sender_username': user.username,
+            'is_sent': True
+        }
+    })
 
 
 def create_chat(request):
@@ -401,3 +426,82 @@ def create_chat(request):
         'chat_id': chat.id,
         'redirect_url': reverse('chat_detail', kwargs={'chat_id': chat.id})
     })
+
+
+def search_users(request):
+    """Поиск пользователей по полнотекстовому индексу"""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    query = request.GET.get('q', '').strip()
+
+    if not query:
+        return JsonResponse({
+            'success': True,
+            'users': []
+        })
+
+    # Получаем текущего пользователя
+    current_user = request.user
+
+    # Ищем пользователей с использованием полнотекстового поиска
+    # Предполагаем, что у пользователя есть поля: username, first_name, last_name, patronymic
+    users = get_user_model().objects.annotate(
+        search=SearchVector(
+            'username',
+            'first_name',
+            'last_name',
+            'patronymic',
+        ),
+        rank=SearchRank(
+            SearchVector('username', 'first_name', 'last_name', 'patronymic', config='russian'),
+            SearchQuery(query, config='russian')
+        )
+    ).filter(
+        search=SearchQuery(query, config='russian')
+    ).exclude(
+        id=current_user.id
+    ).order_by('-rank')[:15]
+
+    # Исключаем пользователей, с которыми уже есть чат
+    existing_chat_recipients = Chat.objects.filter(
+        Q(user1=current_user) | Q(user2=current_user)
+    ).values_list('user1_id', 'user2_id')
+
+    existing_ids = set()
+    for user1_id, user2_id in existing_chat_recipients:
+        if user1_id != current_user.id:
+            existing_ids.add(user1_id)
+        if user2_id != current_user.id:
+            existing_ids.add(user2_id)
+
+    # Фильтруем пользователей
+    users = [user for user in users if user.id not in existing_ids]
+
+    users_data = [{
+        'id': user.id,
+        'username': user.username,
+        'first_name': getattr(user, 'first_name', ''),
+        'last_name': getattr(user, 'last_name', ''),
+        'patronymic': getattr(user, 'patronymic', ''),
+        'full_name': f"{getattr(user, 'last_name', '')} {getattr(user, 'first_name', '')} {getattr(user, 'patronymic', '')}".strip() or user.username,
+    } for user in users]
+
+    return JsonResponse({
+        'success': True,
+        'users': users_data
+    })
+
+def meetings(request):
+
+    meetings = Meeting.objects.filter(user1=request.user).select_related("user2", "event").order_by("-datetime")
+    paginator = Paginator(meetings, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'meetings': meetings,
+    }
+
+    return render(request, "main/meetings.html", context)

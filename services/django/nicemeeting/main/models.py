@@ -69,11 +69,11 @@ class Chat(models.Model):
         return self.user2 if current_user == self.user1 else self.user1
 
     def get_last_message(self):
-        return self.messages.order_by('-date_time').first()
+        return self.messages.order_by('-datetime').first()
 
 class Message(models.Model):
-    pk = models.CompositePrimaryKey('sender', 'recipient')
-    chat = models.ForeignKey(Chat, models.DO_NOTHING, db_column='chat', related_name='messages', default=None)
+    id = models.BigAutoField(primary_key=True, db_column='id')
+    chat = models.ForeignKey(Chat, models.DO_NOTHING, db_column='chat', related_name='messages', default=" ")
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='sender', related_name='sent_messages')
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='recipient', related_name='received_messages')
     datetime = models.DateTimeField(default=timezone.now)
@@ -171,3 +171,15 @@ class Commentaries(models.Model):
     @property
     def is_reply(self):
         return self.parent is not None
+
+class Meeting (models.Model):
+    id = models.AutoField(primary_key=True)
+    user1 = models.ManyToManyField(settings.AUTH_USER_MODEL, db_column='user1', related_name='user1')
+    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user2', related_name='user2')
+    event = models.ForeignKey('Event', models.DO_NOTHING, db_column='event', related_name='event', null=True)
+    datetime = models.DateTimeField(default=timezone.now)
+    place = models.CharField(null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'main"."meeting'

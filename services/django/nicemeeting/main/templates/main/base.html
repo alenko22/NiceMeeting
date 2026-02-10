@@ -39,6 +39,7 @@
                     <ul class="user-menu" id="userMenu" role="menu" aria-label="Меню пользователя" hidden>
                         <li role="none"><a role="menuitem" href="{% url 'profile' %}" class="href">Профиль</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'public_profile' request.user.id %}" class="href">Страница</a></li>
+                        <li role="none"><a role="menuitem" href="{% url 'meetings' %}" class="href" id="logoutLink">Встречи</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'ml_surveys:main' %}" class="href">Анкета</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'settings' %}" class="href">Настройки</a></li>
                         <li role="none"><a role="menuitem" href="{% url 'logout' %}" class="href" id="logoutLink">Выйти</a></li>

@@ -3847,3 +3847,661 @@ align-items: flex-start;
         font-size: 1.1rem;
     }
 }
+
+/* Обертка формы сообщения */
+.chats__message-form {
+    display: flex;
+    gap: var(--gap);
+    padding: 16px;
+    background: var(--bg);
+    border-top: 1px solid var(--soft-border);
+    align-items: flex-end;
+}
+
+/* Обертка поля ввода */
+.chats__message-input-wrapper {
+    flex: 1;
+    display: flex;
+    gap: var(--gap);
+    align-items: flex-end;
+    background: var(--bg);
+    border: 2px solid var(--soft-border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    transition: border-color 0.3s ease;
+}
+
+.chats__message-input-wrapper:focus-within {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 3px rgba(242, 159, 176, 0.2);
+}
+
+/* Кнопки действий */
+.chats__message-attachment-btn,
+.chats__message-emoji-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    opacity: 0.6;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.chats__message-attachment-btn:hover,
+.chats__message-emoji-btn:hover {
+    background: var(--muted);
+    color: var(--accent-2);
+    opacity: 1;
+}
+
+/* Поле ввода сообщения */
+.chats__message-textarea {
+    flex: 1;
+    min-height: 48px;
+    max-height: 200px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    padding: 4px 0;
+    overflow-y: auto;
+}
+
+.chats__message-textarea::placeholder {
+    color: var(--accent);
+    opacity: 0.7;
+}
+
+.chats__message-textarea:focus {
+    outline: none;
+}
+
+/* Кнопка отправки */
+.chats__send-btn {
+    min-width: 110px;
+    padding: 14px 20px;
+    background: var(--accent-2);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(242, 159, 176, 0.3);
+}
+
+.chats__send-btn:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(242, 159, 176, 0.4);
+}
+
+.chats__send-btn:active {
+    transform: translateY(0);
+}
+
+.chats__send-btn svg {
+    flex-shrink: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .chats__message-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .chats__send-btn {
+        min-width: auto;
+        width: 100%;
+        padding: 16px;
+        font-size: 15px;
+    }
+
+    .chats__message-input-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .chats__message-textarea {
+        min-height: 60px;
+    }
+}
+
+/* Стили для скролла */
+.chats__message-textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chats__message-textarea::-webkit-scrollbar-track {
+    background: var(--muted);
+    border-radius: 3px;
+}
+
+.chats__message-textarea::-webkit-scrollbar-thumb {
+    background: var(--accent-2);
+    border-radius: 3px;
+}
+
+.chats__message-textarea::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Модальное окно */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+}
+
+.modal__dialog {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    width: 480px;
+    z-index: 1001;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal.active .modal__dialog {
+    transform: translateY(0);
+}
+
+.modal__content {
+    background: var(--bg);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--soft-border);
+    background: var(--bg);
+}
+
+.modal__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.modal__close-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    opacity: 0.6;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.modal__close-btn:hover {
+    background: var(--muted);
+    opacity: 1;
+}
+
+.modal__body {
+    padding: 24px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--soft-border);
+    background: var(--bg);
+}
+
+/* Результаты поиска */
+.search-results {
+    margin-top: 20px;
+}
+
+.search-results__empty,
+.search-results__loading,
+.search-results__not-found {
+    text-align: center;
+    padding: 24px 0;
+    color: var(--text);
+    opacity: 0.6;
+    font-size: 14px;
+}
+
+.search-results__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.search-results__list {
+    display: grid;
+    gap: 8px;
+}
+
+/* Карточка пользователя */
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--soft-border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.user-card:hover {
+    background: var(--muted);
+    border-color: var(--accent);
+    transform: translateX(4px);
+}
+
+.user-card__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.user-card__info {
+    flex: 1;
+}
+
+.user-card__name {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.user-card__username {
+    margin: 0;
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--accent);
+    opacity: 0.8;
+}
+
+/* Кнопка очистки поиска */
+.search-clear-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    opacity: 0.4;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.search-clear-btn:hover {
+    background: var(--muted);
+    opacity: 1;
+    color: var(--accent-2);
+}
+
+/* Адаптивность */
+@media (max-width: 576px) {
+    .modal__dialog {
+        width: 95%;
+    }
+
+    .modal__header {
+        padding: 16px 20px;
+    }
+
+    .modal__body {
+        padding: 20px;
+    }
+
+    .modal__footer {
+        padding: 12px 20px;
+    }
+}
+
+/* Стили для скролла */
+.modal__body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal__body::-webkit-scrollbar-track {
+    background: var(--muted);
+    border-radius: 3px;
+}
+
+.modal__body::-webkit-scrollbar-thumb {
+    background: var(--accent-2);
+    border-radius: 3px;
+}
+
+.modal__body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* MEETINGS PAGE STYLES */
+.meetings__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.meetings__subtitle {
+    text-align: center;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Сетка встреч */
+.meetings__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Карточка встречи */
+.meetings__item {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--soft-border);
+}
+
+.meetings__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--accent);
+}
+
+.meetings__content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.meetings__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.meetings__name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    margin: 0;
+    line-height: 1.3;
+    flex-grow: 1;
+}
+
+/* Мета-информация */
+.meetings__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--soft-border);
+}
+
+.meetings__meta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--text);
+    font-size: 1rem;
+    padding: 8px 0;
+}
+
+.meetings__meta-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--accent-2);
+    stroke-width: 2;
+}
+
+.meetings__meta-text {
+    line-height: 1.5;
+}
+
+.meetings__countdown-value {
+    color: var(--accent-2);
+    font-weight: 700;
+}
+
+/* Футер карточки */
+.meetings__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+}
+
+.meetings__actions {
+    flex-shrink: 0;
+}
+
+/* Пустой результат */
+.meetings__empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--bg);
+    border-radius: var(--radius);
+    border: 2px dashed var(--soft-border);
+}
+
+.meetings__empty-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    color: var(--accent);
+    opacity: 0.6;
+}
+
+.meetings__empty-text {
+    font-size: 1.3rem;
+    margin: 0 0 24px 0;
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Пагинация */
+.meetings__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+    flex-wrap: nowrap;
+}
+
+.meetings__pagination-btn {
+    min-width: 160px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+}
+
+.meetings__pagination-info {
+    color: var(--text);
+    font-weight: 600;
+    min-width: 200px;
+    text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .meetings__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .meetings__title {
+        font-size: 1.8rem;
+    }
+
+    .meetings__subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    .meetings__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .meetings__content {
+        padding: 20px;
+    }
+
+    .meetings__name {
+        font-size: 1.3rem;
+    }
+
+    .meetings__meta-item {
+        font-size: 0.95rem;
+        gap: 10px;
+    }
+
+    .meetings__meta-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .meetings__pagination {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .meetings__pagination-btn {
+        width: 100%;
+    }
+
+    .meetings__pagination-info {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .meetings__title {
+        font-size: 1.5rem;
+    }
+
+    .meetings__subtitle {
+        font-size: 0.95rem;
+    }
+
+    .meetings__content {
+        padding: 16px;
+    }
+
+    .meetings__name {
+        font-size: 1.2rem;
+    }
+
+    .meetings__empty {
+        padding: 40px 20px;
+    }
+
+    .meetings__empty-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .meetings__empty-text {
+        font-size: 1.1rem;
+    }
+}
