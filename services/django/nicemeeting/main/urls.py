@@ -35,4 +35,8 @@ urlpatterns = [
     path('chats/create/', views.create_chat, name='create_chat'),
     path('search/users/', views.search_users, name='search_users'),
     path('meetings/', views.meetings, name='meetings'),
+    path('meeting/create/', views.create_meeting, name='create_meeting'),
+    path('meeting/<int:meeting_id>/', views.meeting_details, name='meeting_details'),
+    path('meeting/<int:meeting_id>/edit/', views.edit_meeting, name='edit_meeting'),
+    path('meeting/<int:meeting_id>/delete/', views.delete_meeting, name='delete_meeting'),
 ]

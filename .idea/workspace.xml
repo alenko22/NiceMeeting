@@ -4,19 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Regular backup commit">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Done chats, started developing meetings">
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/middleware.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/signals.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/themes.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meeting_details.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meeting_details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0010_alter_message_options_remove_message_date_time_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,10 +39,10 @@
         <option value="TypeScript JSX File" />
         <option value="package.json" />
         <option value="Dockerfile" />
-        <option value="CSS File" />
-        <option value="Python Script" />
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -244,7 +251,8 @@
       <workItem from="1770443796531" duration="62000" />
       <workItem from="1770620308920" duration="7821000" />
       <workItem from="1770640007264" duration="16000" />
-      <workItem from="1770694612408" duration="3056000" />
+      <workItem from="1770694612408" duration="3396000" />
+      <workItem from="1770699472704" duration="6374000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -342,7 +350,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770443815207</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Done chats, started developing meetings">
+      <option name="closed" value="true" />
+      <created>1770697862495</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1770697862495</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,6 +419,7 @@
     <MESSAGE value="Started event developing and added some new features" />
     <MESSAGE value="done events, details of certain event, done event signin up, started public profile" />
     <MESSAGE value="Regular backup commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Regular backup commit" />
+    <MESSAGE value="Done chats, started developing meetings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done chats, started developing meetings" />
   </component>
 </project>

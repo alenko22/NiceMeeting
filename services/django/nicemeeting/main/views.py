@@ -18,6 +18,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from api.loader import EventLoader
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from datetime import date
+from django.conf import settings
 
 from .forms import *
 from .models import *
@@ -128,7 +129,25 @@ def password_reset_done(request):
     return render(request, "main/password_reset_done.html")
 
 def settings_page(request):
-    return render(request, "main/settings.html")
+    user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+
+    if request.method == "POST":
+        form = MainUserSettingsForm(request.POST, instance=user_settings)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Settings updated successfully")
+
+            if 'theme' in form.changed_data:
+                request.session['theme'] = form.cleaned_data['theme']
+    else:
+        form = MainUserSettingsForm(instance=user_settings)
+
+    context = {
+        "form": form,
+        "user_settings": user_settings,
+    }
+
+    return render(request, "main/settings.html", context)
 
 def profile(request):
     return render(request, "main/profile.html")
@@ -199,15 +218,22 @@ def search(request):
 
     return render(request, "main/search.html", context)
 
+from django.utils import timezone
+
 def public_profile(request, user_id):
-    user = User.objects.get(id=user_id)
+    user = get_object_or_404(User, id=user_id)
     posts = Post.objects.filter(author=user).annotate(
         comments_count=Count("comments"),
     )
+    # Получаем актуальные мероприятия для выбора при назначении встречи
+    events = Event.objects.filter(date_end__gt=timezone.now()).order_by('date_begin')[:20]
 
     context = {
         "user": user,
         "posts": posts,
+        "events": events,
+        "now": timezone.now(),
+        "create_meeting_url": reverse('create_meeting'),  # Добавляем URL
         "MEDIA_URL": settings.MEDIA_URL,
     }
     return render(request, "main/public_profile.html", context)
@@ -505,3 +531,282 @@ def meetings(request):
     }
 
     return render(request, "main/meetings.html", context)
+
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from datetime import datetime
+from .models import Meeting, Event, User
+
+
+def create_meeting(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    try:
+        # Получаем данные из запроса
+        user2_id = request.POST.get('user2_id')
+        meeting_type = request.POST.get('type')
+        datetime_str = request.POST.get('datetime')
+        event_id = request.POST.get('event')
+        place = request.POST.get('place', '').strip()
+
+        # Валидация обязательных полей
+        if not user2_id or not meeting_type or not datetime_str:
+            return JsonResponse({
+                'success': False,
+                'message': 'Недостаточно данных для создания встречи'
+            }, status=400)
+
+        # Получаем второго пользователя (который будет в user2 ForeignKey)
+        user2 = get_object_or_404(User, id=user2_id)
+
+        # Проверка: нельзя назначить встречу самому себе
+        if request.user.id == user2.id:
+            return JsonResponse({
+                'success': False,
+                'message': 'Нельзя назначить встречу самому себе'
+            }, status=400)
+
+        # Проверка: пользователи не должны быть уже в одной встрече на это время
+        try:
+            meeting_datetime = datetime.fromisoformat(datetime_str)
+            meeting_datetime = timezone.make_aware(meeting_datetime)
+        except ValueError:
+            return JsonResponse({
+                'success': False,
+                'errors': {'datetime': 'Неверный формат даты и времени'}
+            }, status=400)
+
+        # Проверка: встреча должна быть в будущем
+        if meeting_datetime < timezone.now():
+            return JsonResponse({
+                'success': False,
+                'errors': {'datetime': 'Дата встречи должна быть в будущем'}
+            }, status=400)
+
+        # Создаём встречу
+        meeting = Meeting.objects.create(
+            user2=user2,  # Устанавливаем user2 как ForeignKey
+            datetime=meeting_datetime,
+            place=place if meeting_type == 'place' else None,
+            event_id=event_id if meeting_type == 'event' else None
+        )
+
+        # Добавляем текущего пользователя в ManyToMany поле user1
+        meeting.user1.add(request.user)
+
+        # Обработка типа встречи
+        if meeting_type == 'event':
+            if not event_id:
+                meeting.delete()
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'event': 'Пожалуйста, выберите мероприятие'}
+                }, status=400)
+
+            event = get_object_or_404(Event, id=event_id)
+
+            # Проверка актуальности мероприятия
+            if event.date_end < timezone.now():
+                meeting.delete()
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'event': 'Выбранное мероприятие уже прошло'}
+                }, status=400)
+
+            meeting.event = event
+            meeting.place = None
+
+        elif meeting_type == 'place':
+            if not place:
+                meeting.delete()
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'place': 'Пожалуйста, укажите место встречи'}
+                }, status=400)
+
+            meeting.place = place
+            meeting.event = None
+
+        else:
+            meeting.delete()
+            return JsonResponse({
+                'success': False,
+                'message': 'Неверный тип встречи'
+            }, status=400)
+
+        meeting.save()
+
+        # Формируем ответ
+        response_data = {
+            'success': True,
+            'message': f'Встреча с {user2.get_full_name() or user2.username} успешно назначена!',
+            'meeting': {
+                'id': meeting.id,
+                'user1': [{'id': request.user.id, 'name': request.user.get_full_name() or request.user.username}],
+                'user2': {'id': user2.id, 'name': user2.get_full_name() or user2.username},
+                'datetime': meeting.datetime.strftime('%d.%m.%Y %H:%M'),
+                'type': meeting_type,
+            }
+        }
+
+        if meeting_type == 'event':
+            response_data['meeting']['event'] = event.title
+            response_data['meeting']['event_place'] = event.place
+        else:
+            response_data['meeting']['place'] = place
+
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        print(f"Error creating meeting: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({
+            'success': False,
+            'message': 'Произошла ошибка при создании встречи. Попробуйте позже.'
+        }, status=500)
+
+
+def meeting_details(request, meeting_id):
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+
+    # Проверка доступа: текущий пользователь должен быть участником встречи
+    user1_participants = meeting.user1.all()
+
+    if request.user != meeting.user2 and request.user not in user1_participants:
+        return render(request, 'main/403.html', status=403)
+
+    # Проверка статуса встречи
+    now = timezone.now()
+    is_past = meeting.datetime < now
+    is_today = meeting.datetime.date() == now.date()
+    is_upcoming = meeting.datetime > now
+
+    # Расчет времени до встречи
+    time_until_meeting = None
+    if is_upcoming:
+        diff = meeting.datetime - now
+        days = diff.days
+        hours = diff.seconds // 3600
+        minutes = (diff.seconds % 3600) // 60
+
+        if days > 0:
+            time_until_meeting = f"{days} дн. {hours} ч."
+        elif hours > 0:
+            time_until_meeting = f"{hours} ч. {minutes} мин."
+        else:
+            time_until_meeting = f"{minutes} мин."
+
+    # Определяем роль текущего пользователя
+    is_organizer = request.user in user1_participants
+    is_invited = request.user == meeting.user2
+
+    # Получаем всех участников
+    all_participants = list(user1_participants) + [meeting.user2]
+
+    context = {
+        'meeting': meeting,
+        'user1_participants': user1_participants,
+        'all_participants': all_participants,
+        'is_past': is_past,
+        'is_today': is_today,
+        'is_upcoming': is_upcoming,
+        'is_organizer': is_organizer,
+        'is_invited': is_invited,
+        'time_until_meeting': time_until_meeting,
+        'now': now,
+    }
+
+    return render(request, 'main/meeting_details.html', context)
+
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from datetime import datetime
+
+
+@login_required
+def edit_meeting(request, meeting_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+
+    # Проверка прав: только организатор может редактировать
+    if request.user not in meeting.user1.all():
+        return JsonResponse({
+            'success': False,
+            'message': 'Только организатор может редактировать встречу'
+        }, status=403)
+
+    try:
+        datetime_str = request.POST.get('datetime')
+
+        if not datetime_str:
+            return JsonResponse({
+                'success': False,
+                'errors': {'datetime': 'Укажите дату и время'}
+            }, status=400)
+
+        # Парсинг и валидация даты
+        try:
+            meeting_datetime = datetime.fromisoformat(datetime_str)
+            meeting_datetime = timezone.make_aware(meeting_datetime)
+        except ValueError:
+            return JsonResponse({
+                'success': False,
+                'errors': {'datetime': 'Неверный формат даты и времени'}
+            }, status=400)
+
+        if meeting_datetime < timezone.now():
+            return JsonResponse({
+                'success': False,
+                'errors': {'datetime': 'Дата встречи должна быть в будущем'}
+            }, status=400)
+
+        meeting.datetime = meeting_datetime
+        meeting.save()
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Встреча успешно обновлена'
+        })
+
+    except Exception as e:
+        print(f"Error editing meeting: {e}")
+        return JsonResponse({
+            'success': False,
+            'message': 'Произошла ошибка при обновлении встречи'
+        }, status=500)
+
+
+@login_required
+def delete_meeting(request, meeting_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+
+    # Проверка прав: только организатор может удалить
+    if request.user not in meeting.user1.all():
+        return JsonResponse({
+            'success': False,
+            'message': 'Только организатор может отменить встречу'
+        }, status=403)
+
+    try:
+        meeting.delete()
+        return JsonResponse({
+            'success': True,
+            'message': 'Встреча успешно отменена'
+        })
+    except Exception as e:
+        print(f"Error deleting meeting: {e}")
+        return JsonResponse({
+            'success': False,
+            'message': 'Произошла ошибка при отмене встречи'
+        }, status=500)

@@ -175,7 +175,7 @@ class Commentaries(models.Model):
 class Meeting (models.Model):
     id = models.AutoField(primary_key=True)
     user1 = models.ManyToManyField(settings.AUTH_USER_MODEL, db_column='user1', related_name='user1')
-    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user2', related_name='user2')
+    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user2', related_name='user2', default=None)
     event = models.ForeignKey('Event', models.DO_NOTHING, db_column='event', related_name='event', null=True)
     datetime = models.DateTimeField(default=timezone.now)
     place = models.CharField(null=True)
@@ -183,3 +183,16 @@ class Meeting (models.Model):
     class Meta:
         managed = True
         db_table = 'main"."meeting'
+
+class UserSettings(models.Model):
+    id = models.AutoField(primary_key=True)
+    THEME_CHOICES = [
+        ('light', 'Светлая'),
+        ('dark', 'Тёмная'),
+        ('auto', 'Авто'),
+    ]
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, models.DO_NOTHING, related_name='settings')
+    theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='auto')
+    email_notifications = models.BooleanField(default=True)
+    push_notifications = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)

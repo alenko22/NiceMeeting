@@ -246,3 +246,13 @@ class MainMessageForm(forms.Form):
             'required': True
         })
     )
+
+class MainUserSettingsForm(forms.ModelForm):
+    class Meta:
+        model = UserSettings
+        fields = ['theme', 'email_notifications', 'push_notifications']
+        widgets = {
+            'theme': forms.RadioSelect(attrs={'class': 'theme-toggle'}),
+            'email_notifications': forms.CheckboxInput(attrs={'class': 'switch__input'}),
+            'push_notifications': forms.CheckboxInput(attrs={'class': 'switch__input'}),
+        }

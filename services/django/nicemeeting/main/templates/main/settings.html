@@ -10,56 +10,94 @@
     <div class="container container--narrow settings">
         <h1 class="settings__title">Настройки приложения</h1>
 
-        <!-- Тема -->
-        <section class="settings-section">
-            <h2 class="settings-section__title">Внешний вид</h2>
-            <div class="settings-section__content">
-                <div class="settings-option">
-                    <div class="settings-option__label">
-                        <h3 class="settings-option__title">Тема оформления</h3>
-                        <p class="settings-option__description">Выберите цветовую схему интерфейса</p>
-                    </div>
-                    <div class="theme-toggle">
-                        <input type="radio" id="theme-light" name="theme" value="light" class="theme-toggle__input" checked>
-                        <label for="theme-light" class="theme-toggle__label">Светлая</label>
-                        <input type="radio" id="theme-dark" name="theme" value="dark" class="theme-toggle__input">
-                        <label for="theme-dark" class="theme-toggle__label">Тёмная</label>
-                        <span class="theme-toggle__slider"></span>
-                    </div>
-                </div>
+        <!-- Сообщения -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="
+                padding: 12px 16px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                background-color: var(--accent);
+                color: white;
+            ">
+                {{ message }}
             </div>
-        </section>
+            {% endfor %}
+        </div>
+        {% endif %}
 
-        <!-- Уведомления -->
-        <section class="settings-section">
-            <h2 class="settings-section__title">Уведомления</h2>
-            <div class="settings-section__content">
-                <div class="settings-option">
-                    <div class="settings-option__label">
-                        <h3 class="settings-option__title">Email-уведомления</h3>
-                        <p class="settings-option__description">Получать уведомления о важных событиях на почту</p>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" class="switch__input" checked>
-                        <span class="switch__slider"></span>
-                    </label>
-                </div>
+        <form method="post" class="settings-form">
+            {% csrf_token %}
 
-                <div class="settings-option">
-                    <div class="settings-option__label">
-                        <h3 class="settings-option__title">Push-уведомления</h3>
-                        <p class="settings-option__description">Мгновенные уведомления в браузере</p>
+            <!-- Тема -->
+            <section class="settings-section">
+                <h2 class="settings-section__title">Внешний вид</h2>
+                <div class="settings-section__content">
+                    <div class="settings-option">
+                        <div class="settings-option__label">
+                            <h3 class="settings-option__title">Тема оформления</h3>
+                            <p class="settings-option__description">Выберите цветовую схему интерфейса</p>
+                        </div>
+                        <div class="theme-toggle">
+                            {% for radio in form.theme %}
+                            <div style="display: inline-block; margin-right: 10px;">
+                                {{ radio.tag }}
+                                <label for="{{ radio.id_for_label }}" class="theme-toggle__label">
+                                    {{ radio.choice_label }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    <label class="switch">
-                        <input type="checkbox" class="switch__input" checked>
-                        <span class="switch__slider"></span>
-                    </label>
                 </div>
+            </section>
+
+            <!-- Уведомления -->
+            <section class="settings-section">
+                <h2 class="settings-section__title">Уведомления</h2>
+                <div class="settings-section__content">
+                    <div class="settings-option">
+                        <div class="settings-option__label">
+                            <h3 class="settings-option__title">Email-уведомления</h3>
+                            <p class="settings-option__description">Получать уведомления о важных событиях на почту</p>
+                        </div>
+                        <label class="switch">
+                            {{ form.email_notifications }}
+                            <span class="switch__slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="settings-option">
+                        <div class="settings-option__label">
+                            <h3 class="settings-option__title">Push-уведомления</h3>
+                            <p class="settings-option__description">Мгновенные уведомления в браузере</p>
+                        </div>
+                        <label class="switch">
+                            {{ form.push_notifications }}
+                            <span class="switch__slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <div class="settings-actions" style="margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="
+                    padding: 12px 24px;
+                    background-color: var(--accent);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 16px;
+                ">
+                    Сохранить настройки
+                </button>
             </div>
-        </section>
+        </form>
 
         <!-- Безопасность -->
-        <section class="settings-section">
+        <section class="settings-section" style="margin-top: 40px;">
             <h2 class="settings-section__title">Безопасность</h2>
             <div class="settings-section__content">
                 <div class="settings-option settings-option--action">
@@ -67,9 +105,18 @@
                         <h3 class="settings-option__title">Смена пароля</h3>
                         <p class="settings-option__description">Изменить пароль для входа в аккаунт</p>
                     </div>
-                    <button class="btn btn-primary" id="change-password-btn">
+                    <a href="" class="btn btn-primary" style="
+                        padding: 8px 16px;
+                        background-color: var(--accent);
+                        color: white;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        text-decoration: none;
+                        display: inline-block;
+                    ">
                         Сменить пароль
-                    </button>
+                    </a>
                 </div>
 
                 <div class="settings-option settings-option--action">
@@ -77,8 +124,15 @@
                         <h3 class="settings-option__title">Двухфакторная аутентификация</h3>
                         <p class="settings-option__description">Дополнительная защита аккаунта через код подтверждения</p>
                     </div>
-                    <button class="btn btn-primary" id="setup-2fa-btn">
-                        Настроить
+                    <button class="btn btn-primary" id="setup-2fa-btn" style="
+                        padding: 8px 16px;
+                        background-color: var(--muted);
+                        color: var(--text);
+                        border: 1px solid var(--soft-border);
+                        border-radius: 6px;
+                        cursor: pointer;
+                    " disabled>
+                        Скоро будет доступно
                     </button>
                 </div>
             </div>
