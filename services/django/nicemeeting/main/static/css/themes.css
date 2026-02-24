@@ -13,15 +13,15 @@
 
 /* Переменные для темной темы */
 .theme-dark {
-    --bg: #1a0f14;
-    --muted: #2a1a22;
-    --accent: #f29fb0;
-    --accent-2: #f7c7d4;
-    --text: #f8eef2;
-    --soft-border: rgba(242, 159, 176, 0.2);
-    --card-bg: #241920;
-    --shadow: rgba(0, 0, 0, 0.25);
-    --hover-bg: #2e2028;
+    --bg: #2a151d;
+    --muted: #3d252e;
+    --accent: #e89aa9;
+    --accent-2: #d67084;
+    --text: #f5e8ed;
+    --soft-border: rgba(232, 154, 169, 0.15);
+    --card-bg: #250f17;
+    --shadow: rgba(232, 154, 169, 0.12);
+    --hover-bg: #2c1119;
 }
 
 /* Применение переменных */
@@ -29,94 +29,4 @@ body {
     background-color: var(--bg);
     color: var(--text);
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.site-header,
-.site-footer,
-.btn,
-.card {
-    background-color: var(--card-bg);
-    border-color: var(--soft-border);
-    box-shadow: 0 2px 8px var(--shadow);
-}
-
-.nav-link,
-.footer-link {
-    color: var(--text);
-}
-
-.nav-link:hover,
-.footer-link:hover {
-    background-color: var(--hover-bg);
-}
-
-/* Стили для переключателя темы в настройках */
-.theme-toggle {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.theme-toggle__input {
-    display: none;
-}
-
-.theme-toggle__label {
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: var(--muted);
-    color: var(--text);
-    transition: all 0.3s ease;
-}
-
-.theme-toggle__input:checked + .theme-toggle__label {
-    background-color: var(--accent);
-    color: white;
-}
-
-/* Стили для переключателей уведомлений */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 26px;
-}
-
-.switch__input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.switch__slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--muted);
-    transition: .4s;
-    border-radius: 34px;
-}
-
-.switch__slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
-
-.switch__input:checked + .switch__slider {
-    background-color: var(--accent);
-}
-
-.switch__input:checked + .switch__slider:before {
-    transform: translateX(24px);
 }

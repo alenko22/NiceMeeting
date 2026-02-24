@@ -71,7 +71,7 @@
     <!-- Результаты поиска -->
     {% if users %}
     <div class="settings-section">
-        <h2 class="settings-section__title">Результаты поиска ({{ users.paginator.count }})</h2>
+        <h2 class="settings-section__title">Результаты поиска ({{ users.count }})</h2>
         <div class="settings-section__content">
             <div class="search-users__grid">
                 {% for user in users %}
@@ -97,10 +97,6 @@
                         <div class="search-users__meta">
                             {% if user.age %}
                             <div class="search-users__meta-item">
-                                <svg class="search-users__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                    <path d="M12 21.7C12 16.5 7.5 13 2 13h18c-5.5 0-10 3.5-10 8.7z"></path>
-                                </svg>
                                 <span>{{ user.age }} лет</span>
                             </div>
                             {% endif %}

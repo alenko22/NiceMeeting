@@ -2,6 +2,8 @@ from tokenize import Comment
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm
+from datetime import date, timedelta
+from django.core.validators import RegexValidator
 
 from .models import *
 from django.contrib.auth import get_user_model
@@ -91,67 +93,136 @@ class MainChangePasswordConfirmPostForm(PasswordChangeForm):
         'class': 'form-field__input',
     }))
 
+
 class MainChangeProfilePostForm(forms.ModelForm):
+    # Валидатор для кириллических букв
+    cyrillic_validator = RegexValidator(
+        regex=r'^[а-яА-ЯёЁ\s]+$',
+        message='Поле должно содержать только кириллические буквы'
+    )
+
+    # Поля ФИО с валидацией
+    first_name = forms.CharField(
+        max_length=255,
+        validators=[cyrillic_validator],
+        label="Ваше имя",
+        widget=forms.TextInput(attrs={
+            "placeholder": "Здесь ваше имя",
+            "class": "form-field__input",
+        })
+    )
+
+    last_name = forms.CharField(
+        max_length=255,
+        validators=[cyrillic_validator],
+        label="Ваша фамилия",
+        widget=forms.TextInput(attrs={
+            "placeholder": "Здесь ваша фамилия",
+            "class": "form-field__input",
+        })
+    )
+
+    patronymic = forms.CharField(
+        max_length=255,
+        validators=[cyrillic_validator],
+        label="Ваше отчество (при наличии)",
+        required=False,
+        widget=forms.TextInput(attrs={
+            "placeholder": "Здесь ваше отчество",
+            "class": "form-field__input",
+        })
+    )
+
+    # Поле даты рождения с ограничением 18 лет
+    date_birth = forms.DateField(
+        label="Ваша дата рождения",
+        widget=forms.DateInput(attrs={
+            "type": "date",
+            "class": "form-field__input date-birth-input",
+        })
+    )
+
+    # Поле пола с выбором
+    sex = forms.ChoiceField(
+        choices=[('Мужской', 'Мужской'), ('Женский', 'Женский')],
+        label="Ваш пол",
+        widget=forms.Select(attrs={
+            "class": "form-field__input",
+        })
+    )
+
+    # Знак зодиака - выбор из модели
+    astral_sign = forms.ModelChoiceField(
+        queryset=AstralSign.objects.all(),
+        label="Ваш знак зодиака",
+        widget=forms.Select(attrs={
+            "class": "form-field__input",
+        })
+    )
+
+    # Уровень образования - выбор из модели
+    educational_level = forms.ModelChoiceField(
+        queryset=EducationalLevel.objects.all(),
+        label="Ваш уровень образования",
+        widget=forms.Select(attrs={
+            "class": "form-field__input",
+        })
+    )
+
+    # Поле для вредных привычек
+    bad_habits = forms.CharField(
+        max_length=255,
+        required=False,
+        label="Ваши вредные привычки",
+        widget=forms.TextInput(attrs={
+            "placeholder": "Здесь ваши вредные привычки",
+            "class": "form-field__input",
+        })
+    )
+
+    # Количество детей
+    children_quantity = forms.IntegerField(
+        min_value=0,
+        required=False,
+        label="Сколько у вас детей",
+        widget=forms.NumberInput(attrs={
+            "placeholder": "Здесь ваше количество детей",
+            "class": "form-field__input",
+        })
+    )
+
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "patronymic", "date_birth", "sex", "educational_level", "bad_habits", "astral_sign", "children_quantity"]
-        labels = {
-            "first_name" : "Ваше имя",
-            "last_name" : "Ваша фамилия",
-            "patronymic" : "Ваше отчество (при наличии)",
-            "date_birth" : "Ваша дата рождения",
-            "sex" : "Ваш пол",
-            "educational_level" : "Ваш уровень образования",
-            "bad_habits" : "Ваши вредные привычки",
-            "astral_sign" : "Ваш знак зодиака",
-            "children_quantity" : "Сколько у вас детей"
-        }
-        widgets = {
-            "first_name": forms.TextInput(attrs={
-                "placeholder": "Здесь ваше имя",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "last_name": forms.TextInput(attrs={
-                "placeholder": "Здесь ваша фамилия",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "patronymic": forms.TextInput(attrs={
-                "placeholder": "Здесь ваше отчество",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "date_birth": forms.DateInput(attrs={
-                "placeholder": "Здесь ваша дата рождения",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "sex": forms.TextInput(attrs={
-                "placeholder": "Здесь ваш пол",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "educational_level": forms.TextInput(attrs={
-                "placeholder": "Здесь ваш уровень образования",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "bad_habits": forms.TextInput(attrs={
-                "placeholder": "Здесь ваши вредные привычки",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "astral_sign": forms.TextInput(attrs={
-                "placeholder": "Здесь ваш знак зодиака",
-                "maxlength": "50",
-                "class": "form-field__input",
-            }),
-            "children_quantity": forms.NumberInput(attrs={
-                "placeholder": "Здесь ваше количество детей",
-                "class": "form-field__input",
-            }),
-        }
+        fields = ["first_name", "last_name", "patronymic", "date_birth", "sex",
+                  "educational_level", "bad_habits", "astral_sign", "children_quantity"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Устанавливаем ограничения для поля даты рождения всегда
+        today = date.today()
+        max_date = date(today.year - 18, today.month, today.day)
+        min_date = date(today.year - 100, today.month, today.day)
+
+        self.fields['date_birth'].widget.attrs['max'] = max_date.isoformat()
+        self.fields['date_birth'].widget.attrs['min'] = min_date.isoformat()
+
+        self.fields['astral_sign'].label_from_instance = lambda obj: obj.sign_name
+        self.fields['educational_level'].label_from_instance = lambda obj: obj.level_name
+
+    def clean_date_birth(self):
+        date_birth = self.cleaned_data.get('date_birth')
+        today = date.today()
+        max_date = date(today.year - 18, today.month, today.day)
+
+        if date_birth and date_birth > max_date:
+            raise forms.ValidationError('Вы должны быть не моложе 18 лет')
+
+        min_date = date(today.year - 100, today.month, today.day)
+        if date_birth and date_birth < min_date:
+            raise forms.ValidationError('Некорректная дата рождения')
+
+        return date_birth
 
 class MainCreatePostPostForm(forms.ModelForm):
     class Meta:
@@ -204,7 +275,7 @@ class MainSearchUserForm(forms.Form):
             "placeholder": "От",
             "class": "form-field__input",
             "min": 18,
-            "max": 100
+            "max": 100,
         })
     )
 
@@ -215,7 +286,7 @@ class MainSearchUserForm(forms.Form):
             "placeholder": "До",
             "class": "form-field__input",
             "min": 18,
-            "max": 100
+            "max": 100,
         })
     )
 

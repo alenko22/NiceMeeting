@@ -1,5 +1,4 @@
 :root{
-    --soft-border: rgba(179, 80, 104, 0.12);
     --radius:12px;
     --gap:12px;
     font-family: Inter, "Helvetica Neue", Arial, sans-serif;
@@ -17,7 +16,7 @@
     height:72px;
     padding:0 16px;
     border-bottom:1px solid var(--soft-border);
-    background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+    background:var(--bg);
     gap:8px;
 }
 
@@ -103,7 +102,7 @@
     border-radius:12px;
     min-width:150px;
     box-shadow:0 6px 18px rgba(45,20,30,0.08);
-    background:white;
+    background:var(--card-bg);
     border:1px solid var(--soft-border);
     z-index: 100;
 }
@@ -135,7 +134,7 @@
 .site-footer{
     margin-top:40px;
     padding:28px 16px;
-    background:linear-gradient(180deg,#fff6f7,#fff);
+    background:linear-gradient(180deg, var(--card-bg), var(--bg));
     border-top:1px solid var(--soft-border);
 }
 .footer-grid{
@@ -163,7 +162,7 @@
     .app-title{font-size:16px;left:50%}
     .main-nav{display:none} /* прячем навигацию за гамбургером */
     .hamburger{display:inline-flex}
-    .main-nav.open{display:flex;position:absolute;right:16px;top:72px;flex-direction:column;background:white;padding:10px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);border:1px solid var(--soft-border)}
+    .main-nav.open{display:flex;position:absolute;right:16px;top:72px;flex-direction:column;background:var(--card-bg);padding:10px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);border:1px solid var(--soft-border)}
     .logo-text{display:none} /* опционально */
     .footer-grid{grid-template-columns:1fr}
     .site-header{height:64px}
@@ -185,10 +184,10 @@
 }
 
 .modal-content {
-    background-color: var(--bg);
+    background-color: var(--card-bg);
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 8px 32px var(--soft-border);
+    box-shadow: 0 8px 32px var(--shadow);
     max-width: 400px;
     width: 90%;
     border: 1px solid var(--accent);
@@ -289,10 +288,10 @@
 }
 
 .container {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
     padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     margin: 20px auto;
     max-width: 1200px;
 }
@@ -316,55 +315,6 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-}
-
-.form-field__input,
-.form-field__select,
-.form-field__textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--soft-border);
-    border-radius: var(--radius);
-    background: white;
-    color: var(--text);
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-.form-field__input:focus,
-.form-field__select:focus,
-.form-field__textarea:focus {
-    outline: none;
-    border-color: var(--accent-2);
-    box-shadow: 0 0 0 2px rgba(242, 159, 176, 0.2);
-}
-
-.form-field__textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.form-field__error {
-    color: #f44336;
-    font-size: 14px;
-    margin-top: 4px;
-}
-
-.form-field__hint {
-    display: block;
-    margin-top: 4px;
-    color: rgba(54, 26, 34, 0.6);
-    font-size: 13px;
-}
-
-.form-field {
-    margin-bottom: 20px;
-}
-
-.form-field__label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
     color: var(--text);
 }
 
@@ -375,7 +325,7 @@
     padding: 12px;
     border: 1px solid var(--soft-border);
     border-radius: var(--radius);
-    background: white;
+    background: var(--card-bg);
     color: var(--text);
     font-size: 16px;
     transition: all 0.3s ease;
@@ -407,7 +357,10 @@
     font-size: 13px;
 }
 
-/* Стили для toggle password (можно использовать на всех формах) */
+.form-field {
+    margin-bottom: 20px;
+}
+
 .form-field__wrapper {
     position: relative;
 }
@@ -445,7 +398,7 @@
 .slider {
     position: relative;
     height: 500px;
-    background: linear-gradient(135deg, #fff6f7, #fdf2f5);
+    background: linear-gradient(135deg, var(--bg), var(--muted));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -484,9 +437,9 @@
 
 .slider__item {
     flex: 1;
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px var(--shadow);
     overflow: hidden;
     transition: all 0.4s ease;
     height: 420px;
@@ -495,7 +448,7 @@
 }
 .slider__item:hover {
     transform: translateY(-12px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 40px var(--shadow);
 }
 
 .slider__item-img {
@@ -534,7 +487,8 @@
     line-height: 1.3;
 }
 .slider__item-desc {
-    color: rgba(54, 26, 34, 0.75);
+    color: var(--text);
+    opacity: 0.75;
     font-size: 1rem;
     line-height: 1.6;
     flex-grow: 1;
@@ -548,7 +502,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: white;
+    background: var(--card-bg);
     border: 2px solid var(--soft-border);
     cursor: pointer;
     display: flex;
@@ -556,7 +510,7 @@
     justify-content: center;
     transition: all 0.3s ease;
     z-index: 10;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px var(--shadow);
 }
 .slider__btn:hover {
     background: var(--accent);
@@ -617,9 +571,9 @@
 }
 
 .tabs {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 40px var(--shadow);
     overflow: hidden;
 }
 
@@ -657,7 +611,7 @@
 
 .tabs__content {
     min-height: 400px;
-    background: white;
+    background: var(--card-bg);
     padding: 40px;
     line-height: 1.7;
 }
@@ -740,7 +694,7 @@
 }
 .expert-article:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 25px var(--shadow);
     border-color: var(--accent);
 }
 .expert-article h3 {
@@ -758,7 +712,7 @@
 /* FEATURE SECTION - улучшенная версия */
 .feature-section {
     padding: 80px 20px;
-    background: linear-gradient(135deg, #fff6f7, #fdf2f5);
+    background: linear-gradient(135deg, var(--bg), var(--muted));
     position: relative;
 }
 .feature-section::before {
@@ -768,7 +722,7 @@
     left: 0;
     right: 0;
     height: 100px;
-    background: linear-gradient(to bottom, white 0%, transparent 100%);
+    background: linear-gradient(to bottom, var(--card-bg) 0%, transparent 100%);
 }
 .feature-section::after {
     content: '';
@@ -777,16 +731,16 @@
     left: 0;
     right: 0;
     height: 100px;
-    background: linear-gradient(to top, white 0%, transparent 100%);
+    background: linear-gradient(to top, var(--card-bg) 0%, transparent 100%);
 }
 
 .feature-section__item {
     max-width: 1000px;
     margin: 0 auto 60px auto;
-    background: white;
+    background: var(--card-bg);
     padding: 40px;
     border-radius: var(--radius);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 30px var(--shadow);
     position: relative;
 }
 .feature-section__item::before {
@@ -941,9 +895,9 @@
 }
 
 .settings-section {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     margin-bottom: 24px;
     overflow: hidden;
 }
@@ -989,7 +943,8 @@
 }
 
 .settings-option__description {
-    color: rgba(54, 26, 34, 0.7);
+    color: var(--text);
+    opacity: 0.7;
     font-size: 0.95rem;
     margin: 0;
     line-height: 1.5;
@@ -1174,9 +1129,9 @@
 }
 
 .profile__section {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     margin-bottom: 24px;
     overflow: hidden;
 }
@@ -1217,7 +1172,8 @@
 
 .profile__info-value {
     flex: 1;
-    color: rgba(54, 26, 34, 0.9);
+    color: var(--text);
+    opacity: 0.9;
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -1321,9 +1277,9 @@
 
 /* Chat List */
 .chats__list {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -1415,7 +1371,8 @@
 
 .chat-item__time {
     font-size: 0.85rem;
-    color: rgba(54, 26, 34, 0.6);
+    color: var(--text);
+    opacity: 0.6;
     white-space: nowrap;
 }
 
@@ -1426,7 +1383,8 @@
 }
 
 .chat-item__message-text {
-    color: rgba(54, 26, 34, 0.7);
+    color: var(--text);
+    opacity: 0.7;
     font-size: 0.95rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1449,9 +1407,9 @@
 .chats__messages {
     display: flex;
     flex-direction: column;
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     height: 100%;
 }
 
@@ -1586,7 +1544,8 @@
 
 .message__time {
     font-size: 0.75rem;
-    color: rgba(54, 26, 34, 0.6);
+    color: var(--text);
+    opacity: 0.6;
     display: block;
     text-align: right;
 }
@@ -1711,10 +1670,10 @@
 }
 
 .survey-page__container {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
     padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     margin: 0 auto;
     max-width: 600px;
 }
@@ -1879,9 +1838,9 @@
 }
 
 .rating-system {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     padding: 30px;
     margin-bottom: 24px;
 }
@@ -1908,7 +1867,8 @@
 }
 
 .rating-system__card-info {
-    color: rgba(54, 26, 34, 0.7);
+    color: var(--text);
+    opacity: 0.7;
     font-size: 0.95rem;
 }
 
@@ -2025,7 +1985,7 @@
     cursor: pointer;
     padding: 12px 8px;
     border-radius: 10px;
-    background: white;
+    background: var(--card-bg);
     border: 2px solid var(--soft-border);
     transition: all 0.3s ease;
     text-align: center;
@@ -2206,10 +2166,10 @@ line-height: 1.6;
 }
 /* Фильтры */
 .events__filters {
-background: white;
+background: var(--card-bg);
 padding: 24px;
 border-radius: var(--radius);
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+box-shadow: 0 4px 20px var(--shadow);
 margin-bottom: 40px;
 }
 .events__filter-group {
@@ -2249,9 +2209,9 @@ margin-bottom: 40px;
 }
 /* Карточка мероприятия */
 .events__item {
-background: white;
+background: var(--card-bg);
 border-radius: var(--radius);
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+box-shadow: 0 4px 20px var(--shadow);
 overflow: hidden;
 transition: all 0.3s ease;
 display: flex;
@@ -2260,7 +2220,7 @@ height: 100%;
 }
 .events__item:hover {
 transform: translateY(-5px);
-box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+box-shadow: 0 8px 30px var(--shadow);
 border-color: var(--accent);
 }
 .events__image {
@@ -2368,7 +2328,8 @@ gap: 16px;
 }
 .events__participants {
 font-size: 0.9rem;
-color: rgba(54, 26, 34, 0.7);
+color: var(--text);
+opacity: 0.7;
 }
 .events__actions {
 flex-shrink: 0;
@@ -2492,10 +2453,10 @@ font-size: 1.1rem;
 
 .privacy-page__section {
     margin-bottom: 30px;
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
 }
 
 .privacy-page__section-title {
@@ -2613,10 +2574,10 @@ font-size: 1.1rem;
 
 .user-agreement__section {
     margin-bottom: 30px;
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
 }
 
 .user-agreement__section-title {
@@ -2734,10 +2695,10 @@ font-size: 1.1rem;
 
 .community-rules__section {
     margin-bottom: 30px;
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
 }
 
 .community-rules__section-title {
@@ -2841,16 +2802,16 @@ font-size: 1.1rem;
 }
 
 .rating-system__card {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     padding: 30px;
     transition: all 0.3s ease;
     border: 1px solid var(--soft-border);
 }
 
 .rating-system__card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px var(--shadow);
     transform: translateY(-2px);
 }
 
@@ -2944,7 +2905,7 @@ font-size: 1.1rem;
     padding: 15px 20px;
     border-radius: 5px;
     z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px var(--shadow);
     animation: fadeInOut 3s ease;
 }
 
@@ -2953,9 +2914,9 @@ font-size: 1.1rem;
     padding: 60px 0;
 }
 .event-detail__card {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     overflow: hidden;
 }
 .event-detail__image {
@@ -2991,7 +2952,8 @@ font-size: 1.1rem;
     text-align: center;
     padding: 40px 20px;
     font-style: italic;
-    color: rgba(54, 26, 34, 0.6);
+    color: var(--text);
+    opacity: 0.6;
 }
 .event-detail__footer {
     padding: 20px 30px;
@@ -3038,7 +3000,7 @@ font-size: 1.1rem;
 
 /* Header Section */
 .public-profile__header {
-    background: linear-gradient(135deg, #fff6f7, #fdf2f5);
+    background: linear-gradient(135deg, var(--bg), var(--muted));
     padding: 60px 0 40px;
     margin-bottom: 40px;
 }
@@ -3059,7 +3021,7 @@ font-size: 1.1rem;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid var(--accent);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px var(--shadow);
 }
 
 .public-profile__info {
@@ -3100,7 +3062,8 @@ font-size: 1.1rem;
 
 .public-profile__stat-label {
     font-size: 0.9rem;
-    color: rgba(54, 26, 34, 0.7);
+    color: var(--text);
+    opacity: 0.7;
 }
 
 .public-profile__actions {
@@ -3182,9 +3145,9 @@ font-size: 1.1rem;
 
 /* Post Card */
 .public-profile__post {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     overflow: hidden;
     transition: all 0.3s ease;
     display: flex;
@@ -3194,7 +3157,7 @@ font-size: 1.1rem;
 
 .public-profile__post:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px var(--shadow);
     border-color: var(--accent);
 }
 
@@ -3208,7 +3171,8 @@ font-size: 1.1rem;
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
-    color: rgba(54, 26, 34, 0.6);
+    color: var(--text);
+    opacity: 0.6;
 }
 
 .public-profile__post-date {
@@ -3307,8 +3271,8 @@ font-size: 1.1rem;
 
 .public-profile__post-delete-btn:hover {
     opacity: 1;
-    background: #ffebee;
-    border-color: #ffcdd2;
+    background: var(--muted);
+    border-color: var(--accent);
     transform: scale(1.1);
 }
 
@@ -3434,7 +3398,8 @@ font-size: 1.1rem;
 /* Empty posts message */
 .public-profile__no-posts {
     text-align: center;
-    color: rgba(54, 26, 34, 0.6);
+    color: var(--text);
+    opacity: 0.6;
     font-size: 1.1rem;
     padding: 40px 20px;
     grid-column: 1 / -1;
@@ -3499,7 +3464,8 @@ color: var(--text);
 }
 .post-comments__comment-date {
 font-size: 0.85rem;
-color: rgba(54, 26, 34, 0.6);
+color: var(--text);
+opacity: 0.6;
 white-space: nowrap;
 }
 .post-comments__comment-actions {
@@ -3549,7 +3515,7 @@ justify-content: center;
 
 .post-comments__comment--reply {
     margin-left: 40px;
-    border-left: 3px solid #e0e0e0;
+    border-left: 3px solid var(--soft-border);
     padding-left: 20px;
 }
 
@@ -3557,18 +3523,19 @@ justify-content: center;
     margin-top: 10px;
     margin-bottom: 20px;
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: var(--bg);
     border-radius: 8px;
 }
 
 .post-comments__comment-author-badge {
     font-size: 0.8em;
-    color: #6c757d;
+    color: var(--text);
+    opacity: 0.7;
     margin-left: 5px;
 }
 
 #reply-to-author {
-    color: #007bff;
+    color: var(--accent-2);
     font-weight: normal;
 }
 /* Адаптивность */
@@ -3616,9 +3583,9 @@ align-items: flex-start;
 
 /* Карточка пользователя */
 .search-users__item {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     overflow: hidden;
     transition: all 0.3s ease;
     display: flex;
@@ -3629,7 +3596,7 @@ align-items: flex-start;
 
 .search-users__item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 40px var(--shadow);
     border-color: var(--accent);
 }
 
@@ -3723,7 +3690,8 @@ align-items: flex-start;
 
 .search-users__participants {
     font-size: 0.95rem;
-    color: rgba(54, 26, 34, 0.7);
+    color: var(--text);
+    opacity: 0.7;
     line-height: 1.5;
 }
 
@@ -3743,7 +3711,8 @@ align-items: flex-start;
 .search-users__empty {
     text-align: center;
     padding: 60px 20px;
-    color: rgba(54, 26, 34, 0.6);
+    color: var(--text);
+    opacity: 0.6;
 }
 
 .search-users__empty svg {
@@ -4046,9 +4015,9 @@ align-items: flex-start;
 }
 
 .modal__content {
-    background: var(--bg);
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px var(--shadow);
     overflow: hidden;
 }
 
@@ -4279,9 +4248,9 @@ align-items: flex-start;
 
 /* Карточка встречи */
 .meetings__item {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     overflow: hidden;
     transition: all 0.3s ease;
     display: flex;
@@ -4292,7 +4261,7 @@ align-items: flex-start;
 
 .meetings__item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px var(--shadow);
     border-color: var(--accent);
 }
 
@@ -4549,9 +4518,9 @@ align-items: flex-start;
 }
 
 .modal__content {
-    background: var(--bg);
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px var(--shadow);
     overflow: hidden;
 }
 
@@ -4654,7 +4623,7 @@ align-items: flex-start;
     z-index: 2000;
     padding: 16px 24px;
     border-radius: var(--radius);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px var(--shadow);
     display: flex;
     align-items: center;
     gap: 16px;
@@ -4771,9 +4740,9 @@ align-items: flex-start;
 
 /* Карточка встречи */
 .meeting-detail__card {
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px var(--shadow);
     overflow: hidden;
     border: 1px solid var(--soft-border);
 }
@@ -4799,8 +4768,8 @@ align-items: flex-start;
 }
 
 .meeting-detail__status--past {
-    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-    color: #616161;
+    background: linear-gradient(135deg, var(--muted), var(--soft-border));
+    color: var(--text);
 }
 
 .meeting-detail__status-icon {
@@ -4846,7 +4815,7 @@ align-items: flex-start;
 }
 
 .meeting-detail__info-item {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
     display: flex;
     gap: 16px;
@@ -5044,4 +5013,76 @@ align-items: flex-start;
     .meeting-detail__actions {
         padding: 12px;
     }
+}
+
+/* Стили для кнопки редактирования интересов */
+.public-profile__section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.public-profile__edit-interests-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Стили для мини-блоков интересов */
+.public-profile__interests-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.public-profile__interest {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f0f4f8;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a365d;
+    transition: all 0.3s ease;
+}
+
+.public-profile__interest:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+/* Стили для модального окна редактирования интересов */
+.modal--edit-interests .modal__dialog {
+    max-width: 500px;
+}
+
+.edit-interests-form__textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.edit-interests-form__textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+}
+
+.form-field__helper {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #718096;
+}
+
+/* Стили для пустого состояния */
+.public-profile__no-interests {
+    color: #718096;
+    font-style: italic;
+    padding: 20px;
 }

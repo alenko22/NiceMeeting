@@ -23,16 +23,24 @@ class AstralSign(models.Model):
         managed = True
         db_table = 'main"."astral_sign'
 
+class EducationalLevel(models.Model):
+    level_id = models.AutoField(primary_key=True)
+    level_name = models.CharField()
+
+    class Meta:
+        managed = True
+        db_table = 'main"."educational_level'
+
 class User(AbstractUser):
     patronymic = models.CharField(max_length=120, null=True)
     date_birth = models.DateField(null=True)
     address = models.CharField(max_length=120, null=True)
     sex = models.CharField(max_length=120, null=True)
     astral_sign = models.ForeignKey(AstralSign, models.DO_NOTHING, db_column='astral_sign', null=True)
-    social_status = models.ForeignKey('SocialStatus', models.DO_NOTHING, db_column='social_status', null=True)
-    educational_level = models.SmallIntegerField(null=True)
+    educational_level = models.ForeignKey(EducationalLevel, models.DO_NOTHING, db_column='educational_level', null=True)
     children_quantity = models.SmallIntegerField(null=True)
     bad_habits = models.CharField(null=True)
+    interests = models.CharField(null=True)
 
 
 class MeetingClient(models.Model):
@@ -84,15 +92,6 @@ class Message(models.Model):
         managed = True
         db_table = 'main"."message'
         ordering = ['datetime']
-
-
-class SocialStatus(models.Model):
-    status_id = models.AutoField(primary_key=True)
-    status_name = models.CharField()
-
-    class Meta:
-        managed = True
-        db_table = 'main"."social_status'
 
 class Article(models.Model):
     id = models.AutoField(primary_key=True)

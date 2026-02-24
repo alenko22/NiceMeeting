@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %}
 Вход
@@ -10,19 +11,82 @@
     <form method="post" class="form">
         {% csrf_token %}
         <div class="form-field">{{ form.non_field_errors }}</div>
-        {% for f in form %}
-            <p><label for="{{ f.id_for_label }}" class="form-field__label">{{ f.label }}</label>{{ f }}</p>
-            <div>{{ f.errors }}</div>
-        {% endfor %}
+
+        <!-- Имя -->
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}" class="form-field__label">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+            <div class="form-error">{{ form.first_name.errors }}</div>
+        </div>
+
+        <!-- Фамилия -->
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}" class="form-field__label">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+            <div class="form-error">{{ form.last_name.errors }}</div>
+        </div>
+
+        <!-- Отчество -->
+        <div class="form-group">
+            <label for="{{ form.patronymic.id_for_label }}" class="form-field__label">{{ form.patronymic.label }}</label>
+            {{ form.patronymic }}
+            <div class="form-error">{{ form.patronymic.errors }}</div>
+        </div>
+
+        <!-- Дата рождения -->
+        <div class="form-group">
+            <label for="{{ form.date_birth.id_for_label }}" class="form-field__label">{{ form.date_birth.label }}</label>
+            {{ form.date_birth }}
+            <div class="form-error">{{ form.date_birth.errors }}</div>
+            <small class="form-hint">Выберите дату из календаря (только для лиц 18+)</small>
+        </div>
+
+        <!-- Пол -->
+        <div class="form-group">
+            <label for="{{ form.sex.id_for_label }}" class="form-field__label">{{ form.sex.label }}</label>
+            {{ form.sex }}
+            <div class="form-error">{{ form.sex.errors }}</div>
+        </div>
+
+        <!-- Уровень образования -->
+        <div class="form-group">
+            <label for="{{ form.educational_level.id_for_label }}" class="form-field__label">{{ form.educational_level.label }}</label>
+            {{ form.educational_level }}
+            <div class="form-error">{{ form.educational_level.errors }}</div>
+        </div>
+
+        <!-- Вредные привычки -->
+        <div class="form-group">
+            <label for="{{ form.bad_habits.id_for_label }}" class="form-field__label">{{ form.bad_habits.label }}</label>
+            {{ form.bad_habits }}
+            <div class="form-error">{{ form.bad_habits.errors }}</div>
+        </div>
+
+        <!-- Знак зодиака -->
+        <div class="form-group">
+            <label for="{{ form.astral_sign.id_for_label }}" class="form-field__label">{{ form.astral_sign.label }}</label>
+            {{ form.astral_sign }}
+            <div class="form-error">{{ form.astral_sign.errors }}</div>
+        </div>
+
+        <!-- Количество детей -->
+        <div class="form-group">
+            <label for="{{ form.children_quantity.id_for_label }}" class="form-field__label">{{ form.children_quantity.label }}</label>
+            {{ form.children_quantity }}
+            <div class="form-error">{{ form.children_quantity.errors }}</div>
+        </div>
+
         <p class="form-field__hint">
             <a href="{% url 'privacy_policy' %}" class="href">Наша политика конфиденциальности</a>
         </p>
+
         <div class="form-field">
             <button type="submit" class="btn btn-primary">Подтвердить изменения</button>
         </div>
     </form>
 </div>
-    <div class="modal-overlay" id="consentModal">
+
+<div class="modal-overlay" id="consentModal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Соглашение об обработке персональных данных</h3>
@@ -47,4 +111,8 @@
         </div>
     </div>
 </div>
+
+{% block extra_js %}
+    <script src="{% static 'js/profile_change.js' %}"></script>
+{% endblock %}
 {% endblock %}

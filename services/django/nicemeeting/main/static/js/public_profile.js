@@ -277,4 +277,123 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return cookieValue;
     }
+    // ========== МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ ИНТЕРЕСОВ ==========
+    const editInterestsBtn = document.getElementById('editInterestsBtn');
+    const editInterestsModal = document.getElementById('editInterestsModal');
+    const closeEditInterestsModalBtns = document.querySelectorAll('#closeEditInterestsModal, #closeEditInterestsModalBtn');
+    const editInterestsForm = document.getElementById('editInterestsForm');
+    const interestsTextarea = document.querySelector('.edit-interests-form__textarea');
+    const interestsError = document.querySelector('.edit-interests-form__error');
+    const interestsList = document.getElementById('interestsList');
+
+    // Открытие модального окна
+    if (editInterestsBtn) {
+        editInterestsBtn.addEventListener('click', function() {
+            // Очистить ошибки
+            interestsError.textContent = '';
+
+            openModal(editInterestsModal);
+        });
+    }
+
+    // Закрытие модального окна
+    closeEditInterestsModalBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            closeModal(editInterestsModal);
+        });
+    });
+
+    // Закрытие по клику на бэкдроп
+    if (editInterestsModal) {
+        editInterestsModal.querySelector('.modal__backdrop').addEventListener('click', function() {
+            closeModal(editInterestsModal);
+        });
+    }
+
+    // Отправка формы редактирования интересов
+    if (editInterestsForm) {
+        editInterestsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Валидация
+            let isValid = true;
+            interestsError.textContent = '';
+
+            const interestsValue = interestsTextarea.value.trim();
+
+            if (!interestsValue) {
+                interestsError.textContent = 'Пожалуйста, введите хотя бы один интерес';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Отправка данных
+            const formData = new FormData(this);
+
+            // Получаем URL из атрибута формы
+            const actionUrl = this.getAttribute('data-action-url');
+
+            // Отправляем запрос
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Обновляем отображение интересов
+                    updateInterestsDisplay(data.interests);
+
+                    showNotification('Интересы успешно обновлены!', 'success');
+                    closeModal(editInterestsModal);
+                    editInterestsForm.reset();
+                } else {
+                    if (data.errors && data.errors.interests) {
+                        interestsError.textContent = data.errors.interests;
+                    }
+                    showNotification(data.message || 'Ошибка при обновлении интересов', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Произошла ошибка. Попробуйте снова.', 'error');
+            });
+        });
+    }
+
+    // Функция обновления отображения интересов
+    function updateInterestsDisplay(interestsString) {
+        if (!interestsList) return;
+
+        // Очищаем текущий список
+        interestsList.innerHTML = '';
+
+        if (!interestsString || interestsString.trim() === '') {
+            interestsList.innerHTML = '<p class="public-profile__no-interests">Интересы не указаны</p>';
+            return;
+        }
+
+        // Разбиваем строку на отдельные интересы
+        const interestsArray = interestsString.trim().split(/\s+/);
+
+        // Создаем мини-блоки для каждого интереса
+        interestsArray.forEach(interest => {
+            if (interest.trim() !== '') {
+                const interestElement = document.createElement('span');
+                interestElement.className = 'public-profile__interest';
+                // Делаем первую букву заглавной
+                interestElement.textContent = capitalizeFirstLetter(interest.trim());
+                interestsList.appendChild(interestElement);
+            }
+        });
+    }
+
+    // Функция для заглавной буквы
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
 });

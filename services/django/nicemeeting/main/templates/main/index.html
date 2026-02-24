@@ -9,101 +9,65 @@
 {% block content %}
 <section class="slider">
     <div class="slider__container">
+        <!-- Трек слайдера -->
         <div class="slider__track">
-            <!-- Слайд 1 -->
+            {% for item in slider_data %}
             <div class="slider__slide">
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 1</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Как начать знакомство без страха</h3>
-                            <p class="slider__item-desc">Простые шаги для первого сообщения и первых встреч.</p>
-                        </div>
+                <div class="slider__item {% if item.has_post %}post-card{% else %}profile-card{% endif %}">
+                    <!-- Блок изображения (декоративный) -->
+                    <div class="slider__item-img">
+                        {% if item.has_post %}
+                            📝 Пост
+                        {% else %}
+                            👤 Профиль
+                        {% endif %}
                     </div>
-                </a>
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 2</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Безопасность в онлайн-знакомствах</h3>
-                            <p class="slider__item-desc">Как распознать мошенника и защитить свои данные.</p>
-                        </div>
-                    </div>
-                </a>
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 3</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Психология искренности</h3>
-                            <p class="slider__item-desc">Почему честность — лучшая стратегия в отношениях.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
 
-            <!-- Слайд 2 -->
-            <div class="slider__slide">
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 4</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Как создать привлекательный профиль</h3>
-                            <p class="slider__item-desc">Советы по оформлению анкеты, которая привлечет внимание.</p>
-                        </div>
+                    <!-- Контент карточки -->
+                    <div class="slider__item-content">
+                        {% if item.post %}
+                            <h3 class="slider__item-title">{{ item.post.text|default:item.post.text|truncatechars:60 }}</h3>
+                            <div class="post-meta">
+                                <span>{{ item.post.date_posted|date:"d.m.Y" }}</span>
+                            </div>
+                            <a href="{% url 'commentaries' item.post.id %}" class="btn btn-primary slider__item-btn">
+                                Читать пост
+                            </a>
+                        {% else %}
+                            <h3 class="slider__item-title">{{ item.user.get_full_name }}</h3>
+                            <div class="profile-info">
+                                {% if item.user.date_birth %}
+                                    <p><strong>Возраст:</strong> {{ item.user.date_birth|timesince }}</p>
+                                {% endif %}
+                                {% if item.user.educational_level %}
+                                    <p><strong>Образование:</strong> {{ item.user.educational_level.name }}</p>
+                                {% endif %}
+                                {% if item.user.astral_sign %}
+                                    <p><strong>Знак зодиака:</strong> {{ item.user.astral_sign.name }}</p>
+                                {% endif %}
+                                {% if item.user.interests %}
+                                    <p><strong>Интересы:</strong> {{ item.user.interests|truncatechars:100 }}</p>
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'public_profile' item.user.id %}" class="btn btn-primary slider__item-btn">
+                                Посмотреть профиль
+                            </a>
+                        {% endif %}
                     </div>
-                </a>
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 5</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Искусство общения в чатах</h3>
-                            <p class="slider__item-desc">Как поддерживать интересный диалог и не скучать.</p>
-                        </div>
-                    </div>
-                </a>
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 6</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Первое свидание: что ожидать</h3>
-                            <p class="slider__item-desc">Практические рекомендации для успешной первой встречи.</p>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
-
-            <!-- Слайд 3 -->
+            {% empty %}
             <div class="slider__slide">
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 7</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Как понять, что человек вам подходит</h3>
-                            <p class="slider__item-desc">Признаки совместимости и красные флаги в отношениях.</p>
-                        </div>
+                <div class="slider__item">
+                    <div class="slider__item-content">
+                        <p>Нет рекомендаций</p>
                     </div>
-                </a>
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 8</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Долгосрочные отношения: секреты успеха</h3>
-                            <p class="slider__item-desc">Как строить крепкие и счастливые отношения.</p>
-                        </div>
-                    </div>
-                </a>
-                <a class="slider__link href" href="">
-                    <div class="slider__item">
-                        <div class="slider__item-img">Статья 9</div>
-                        <div class="slider__item-content">
-                            <h3 class="slider__item-title">Саморазвитие для счастливых отношений</h3>
-                            <p class="slider__item-desc">Почему работа над собой важна для гармонии в паре.</p>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
+            {% endfor %}
         </div>
 
+        <!-- Кнопки навигации (работают с готовым JS или могут быть стилизованы) -->
         <button class="slider__btn slider__btn-prev" aria-label="Предыдущий слайд">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -115,10 +79,13 @@
             </svg>
         </button>
 
+        <!-- Точки пагинации (генерируйте циклом, здесь для примера) -->
         <div class="slider__dots">
-            <button class="slider__dot slider__dot-active" aria-label="Слайд 1" data-slide="0"></button>
-            <button class="slider__dot" aria-label="Слайд 2" data-slide="1"></button>
-            <button class="slider__dot" aria-label="Слайд 3" data-slide="2"></button>
+            {% for item in slider_data %}
+                <button class="slider__dot {% if forloop.first %}slider__dot-active{% endif %}"
+                        aria-label="Слайд {{ forloop.counter }}"
+                        data-slide="{{ forloop.counter0 }}"></button>
+            {% endfor %}
         </div>
     </div>
 </section>

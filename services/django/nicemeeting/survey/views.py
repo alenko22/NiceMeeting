@@ -43,8 +43,14 @@ def index(request):
         "has_missing": has_missing,
     })
 
+
 def rating(request):
-    users = User.objects.exclude(id=request.user.id).filter(is_active=True)
+    already_rated_ids = Rating.objects.filter(rater=request.user).values_list('rated_user_id', flat=True)
+
+    users = User.objects.exclude(id=request.user.id) \
+        .exclude(id__in=already_rated_ids) \
+        .filter(is_active=True)
+
     paginator = Paginator(users, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

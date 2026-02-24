@@ -19,18 +19,11 @@ from api.loader import EventLoader
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from datetime import date
 from django.conf import settings
+from ML.recommendation_engine import get_recommendations
 
 from .forms import *
 from .models import *
 
-
-class Home(ListView):
-    template_name = 'main/index.html'
-    model = Article
-    context_object_name = 'articles'
-
-    def get_queryset(self):
-        return Article.objects.all()
 
 class Register(CreateView):
     form_class = MainRegisterPostForm
@@ -110,7 +103,20 @@ class AddComment(CreateView):
     def get_success_url(self):
         return reverse_lazy("commentaries", kwargs={"post_id": self.object.post.id})
 def index(request):
-    return render(request, "main/index.html")
+    if request.user.is_anonymous:
+        return render(request, "main/index.html")
+    recommended_users = get_recommendations(request.user)
+
+    slider_data = []
+    for user in recommended_users:
+        last_post = Post.objects.filter(author=user).order_by('-date_posted').first()
+
+        slider_data.append({
+            "user": user,
+            "post": last_post,
+            "has_post" : last_post is not None,
+        })
+    return render(request, "main/index.html", {"slider_data": slider_data})
 
 
 #
@@ -225,6 +231,10 @@ def public_profile(request, user_id):
     posts = Post.objects.filter(author=user).annotate(
         comments_count=Count("comments"),
     )
+
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     # Получаем актуальные мероприятия для выбора при назначении встречи
     events = Event.objects.filter(date_end__gt=timezone.now()).order_by('date_begin')[:20]
 
@@ -235,6 +245,7 @@ def public_profile(request, user_id):
         "now": timezone.now(),
         "create_meeting_url": reverse('create_meeting'),  # Добавляем URL
         "MEDIA_URL": settings.MEDIA_URL,
+        "page_obj": page_obj,
     }
     return render(request, "main/public_profile.html", context)
 
@@ -255,7 +266,7 @@ def delete_post(request, post_id):
 
 def commentaries(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    comments = Commentaries.objects.filter(parent_comment__isnull=True).select_related("author").prefetch_related("replies__author").order_by("-date_posted")
+    comments = Commentaries.objects.filter(post=post, parent_comment__isnull=True).select_related("author").prefetch_related("replies__author").order_by("-date_posted")
     comments_count = comments.count()
 
     form = MainCreateCommentPostForm(initial={"post_id": post.id})
@@ -423,7 +434,7 @@ def send_message(request, chat_id):
     })
 
 
-def create_chat(request):
+def create_chat(request, recipient_id=None):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
@@ -810,3 +821,25 @@ def delete_meeting(request, meeting_id):
             'success': False,
             'message': 'Произошла ошибка при отмене встречи'
         }, status=500)
+
+@login_required
+@require_http_methods(["POST"])
+def edit_interests(request):
+    try:
+        # Получаем данные из POST (не из JSON!)
+        interests = request.POST.get('interests', '').strip()
+
+        request.user.interests = interests
+        request.user.save()
+
+        return JsonResponse({
+            'success': True,
+            'interests': interests,
+            'message': 'Интересы успешно обновлены'
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'message': f'Ошибка при обновлении интересов: {str(e)}'
+        }, status=400)

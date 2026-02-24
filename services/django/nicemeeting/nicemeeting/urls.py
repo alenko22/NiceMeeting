@@ -25,7 +25,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/hello/", hello),
     path("", include("main.urls"), name="main"),
-    path("survey/", include("survey.urls"), name="survey")
+    path("survey/", include("survey.urls"), name="survey"),
+    path("ML/", include("ML.urls"), name="ML"),
 ]
 
 if settings.DEBUG:

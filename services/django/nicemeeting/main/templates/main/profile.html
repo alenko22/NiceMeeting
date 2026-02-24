@@ -43,7 +43,7 @@
                 </div>
                 <div class="profile__info-item">
                     <div class="profile__info-label">Уровень образования</div>
-                    <div class="profile__info-value">{{ user.educational_level|default:"Не указано" }}</div>
+                    <div class="profile__info-value">{{ user.educational_level.level_name|default:"Не указано" }}</div>
                 </div>
             </div>
         </div>

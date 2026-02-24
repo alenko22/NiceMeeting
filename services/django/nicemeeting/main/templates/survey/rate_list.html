@@ -51,11 +51,11 @@
                         </div>
                         {% endif %}
 
-                        {% if user.profile.interests.all %}
+                        {% if user.interests %}
                         <div class="rating-system__interests">
                             <h5 class="rating-system__interests-title">Интересы:</h5>
                             <div class="rating-system__interests-list">
-                                {% for interest in user.profile.interests.all %}
+                                {% for interest in user.interests %}
                                     <span class="rating-system__interest">{{ interest.name }}</span>
                                 {% endfor %}
                             </div>
