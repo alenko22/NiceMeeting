@@ -89,7 +89,7 @@
                     <div class="meeting-detail__info-content">
                         <div class="meeting-detail__info-label">Мероприятие</div>
                         <div class="meeting-detail__info-value">
-                            <a href="{% url 'event_detail' meeting.event.id %}" class="meeting-detail__event-link">{{ meeting.event.title }}</a>
+                            <a href="{% url 'event_details' meeting.event.id %}" class="meeting-detail__event-link">{{ meeting.event.title }}</a>
                         </div>
                         {% if meeting.event.place %}
                         <div class="meeting-detail__info-subvalue">

@@ -17,7 +17,7 @@
                     <!-- Блок изображения (декоративный) -->
                     <div class="slider__item-img">
                         {% if item.has_post %}
-                            📝 Пост
+                            <img src="{{ item.post.image }}" alt="">
                         {% else %}
                             👤 Профиль
                         {% endif %}

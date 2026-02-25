@@ -224,8 +224,6 @@ def search(request):
 
     return render(request, "main/search.html", context)
 
-from django.utils import timezone
-
 def public_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
     posts = Post.objects.filter(author=user).annotate(
