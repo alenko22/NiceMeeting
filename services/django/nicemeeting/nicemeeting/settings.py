@@ -83,16 +83,10 @@ WSGI_APPLICATION = 'nicemeeting.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Nice_Meeting',
-        'USER' : 'postgres',
-        'PASSWORD' : 'seMpe555',
-        'PORT' : '5432',
-        'OPTIONS' : {
-            'options' : '-c search_path=main'
-        },
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600
+    )
 }
 
 
