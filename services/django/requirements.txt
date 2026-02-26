@@ -1,7 +1,9 @@
-Django>=4.2
+    Django>=4.2
 djangorestframework
 django-cors-headers
 psycopg2-binary
 gunicorn
 Pillow
 requests
+whitenoise
+dj-database-url
