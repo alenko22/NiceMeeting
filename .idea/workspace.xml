@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Regular backup commit">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="modified db connection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +253,7 @@
       <workItem from="1772024105312" duration="2935000" />
       <workItem from="1772092293980" duration="1111000" />
       <workItem from="1772093426576" duration="82000" />
-      <workItem from="1772093524707" duration="2489000" />
+      <workItem from="1772093524707" duration="3415000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -404,7 +407,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772098066890</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="modified db connection">
+      <option name="closed" value="true" />
+      <created>1772099017439</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1772099017439</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -468,6 +479,7 @@
     <MESSAGE value="Done meetings, started settings" />
     <MESSAGE value="Pre-production commit" />
     <MESSAGE value="Regular backup commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Regular backup commit" />
+    <MESSAGE value="modified db connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified db connection" />
   </component>
 </project>
