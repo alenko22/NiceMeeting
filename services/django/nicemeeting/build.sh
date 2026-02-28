@@ -8,8 +8,9 @@ python manage.py collectstatic --noinput
 
 python manage.py migrate
 
+# Синхронизация структуры таблиц с моделями (безопасно)
 python manage.py shell <<EOF
-from django.db import connection
+from django.db import connection, models
 from django.apps import apps
 from django.contrib.auth import get_user_model
 
@@ -49,13 +50,18 @@ for model in app_models:
         """, [table_name])
         existing_columns = {row[0] for row in cursor.fetchall()}
 
-    # Получаем поля модели (исключая отношения)
+    # Получаем поля модели (исключая отношения и обратные связи)
     model_fields = {}
     for field in model._meta.get_fields():
-        if field.is_relation and not (field.many_to_one or field.one_to_many):
+        # Пропускаем обратные связи (их нет в таблице)
+        if isinstance(field, models.fields.related.RelatedField) and field.related_model:
             continue
+        if isinstance(field, models.fields.related.ManyToManyField):
+            continue
+        # Пропускаем автоматическое поле id, если оно primary key
         if field.primary_key and field.name == 'id':
             continue
+        # Для обычных полей сохраняем колонку
         if hasattr(field, 'column') and field.column:
             model_fields[field.column] = field
 
