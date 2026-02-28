@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="modified db connection">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Modified models">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/survey/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/survey/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +252,8 @@
       <workItem from="1772024105312" duration="2935000" />
       <workItem from="1772092293980" duration="1111000" />
       <workItem from="1772093426576" duration="82000" />
-      <workItem from="1772093524707" duration="3415000" />
+      <workItem from="1772093524707" duration="3645000" />
+      <workItem from="1772279391255" duration="726000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -415,7 +415,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772099017439</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Modified models">
+      <option name="closed" value="true" />
+      <created>1772099663696</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1772099663696</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -480,6 +488,7 @@
     <MESSAGE value="Pre-production commit" />
     <MESSAGE value="Regular backup commit" />
     <MESSAGE value="modified db connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified db connection" />
+    <MESSAGE value="Modified models" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified models" />
   </component>
 </project>

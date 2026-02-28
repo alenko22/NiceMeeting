@@ -17,6 +17,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunSQL(
+            sql="CREATE SCHEMA IF NOT EXISTS main;",
+            reverse_sql="DROP SCHEMA IF EXISTS main CASCADE;"
+        ),
         migrations.CreateModel(
             name='AstralSign',
             fields=[
