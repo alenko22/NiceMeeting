@@ -4,9 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Modified models">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0001_initial.py" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Modified first migration, now it creates schema">
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0002_article.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0003_remove_user_eye_color_remove_user_hair_color_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0004_event_eventuser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0005_alter_event_date_begin_alter_event_date_deadline_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0006_alter_event_info_alter_event_place_alter_event_title.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0007_rating.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0008_post_commentaries.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0009_alter_commentaries_author_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0010_alter_message_options_remove_message_date_time_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0011_meeting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0012_remove_meeting_user1_meeting_user1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0013_alter_meeting_options_remove_meeting_user1_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0014_alter_meeting_options_remove_meeting_created_at_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0015_usersettings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0016_educationallevel_alter_user_social_status_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0017_remove_user_social_status_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0018_alter_user_educational_level.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/migrations/0019_user_interests.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +270,7 @@
       <workItem from="1772092293980" duration="1111000" />
       <workItem from="1772093426576" duration="82000" />
       <workItem from="1772093524707" duration="3645000" />
-      <workItem from="1772279391255" duration="726000" />
+      <workItem from="1772279391255" duration="1586000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -423,7 +440,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772099663696</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Modified first migration, now it creates schema">
+      <option name="closed" value="true" />
+      <created>1772280163540</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1772280163540</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,6 +514,7 @@
     <MESSAGE value="Regular backup commit" />
     <MESSAGE value="modified db connection" />
     <MESSAGE value="Modified models" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified models" />
+    <MESSAGE value="Modified first migration, now it creates schema" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified first migration, now it creates schema" />
   </component>
 </project>

@@ -21,7 +21,7 @@ class AstralSign(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."astral_sign'
+        db_table = 'astral_sign'
 
 class EducationalLevel(models.Model):
     level_id = models.AutoField(primary_key=True)
@@ -29,7 +29,7 @@ class EducationalLevel(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."educational_level'
+        db_table = 'educational_level'
 
 class User(AbstractUser):
     patronymic = models.CharField(max_length=120, null=True)
@@ -52,7 +52,7 @@ class MeetingClient(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."meeting_client'
+        db_table = 'meeting_client'
 
 
 class MeetingType(models.Model):
@@ -61,7 +61,7 @@ class MeetingType(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."meeting_type'
+        db_table = 'meeting_type'
 
 class Chat(models.Model):
     id = models.AutoField(primary_key=True)
@@ -70,7 +70,7 @@ class Chat(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."chat'
+        db_table = 'chat'
         unique_together = ('user1', 'user2')
 
     def get_other_user(self, current_user):
@@ -90,7 +90,7 @@ class Message(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."message'
+        db_table = 'message'
         ordering = ['datetime']
 
 class Article(models.Model):
@@ -127,7 +127,7 @@ class Rating (models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."rating'
+        db_table = 'rating'
 
 def post_image_path(instance, filename):
     ext = filename.split('.')[-1]
@@ -147,7 +147,7 @@ class Post(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."post'
+        db_table = 'post'
 
     def delete(self, *args, **kwargs):
         if self.image:
@@ -165,7 +165,7 @@ class Commentaries(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."commentaries'
+        db_table = 'commentaries'
 
     @property
     def is_reply(self):
@@ -181,7 +181,7 @@ class Meeting (models.Model):
 
     class Meta:
         managed = True
-        db_table = 'main"."meeting'
+        db_table = 'meeting'
 
 class UserSettings(models.Model):
     id = models.AutoField(primary_key=True)
