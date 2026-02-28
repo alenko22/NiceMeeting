@@ -251,7 +251,7 @@
       <workItem from="1772092293980" duration="1111000" />
       <workItem from="1772093426576" duration="82000" />
       <workItem from="1772093524707" duration="3645000" />
-      <workItem from="1772279391255" duration="6227000" />
+      <workItem from="1772279391255" duration="6264000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -477,7 +477,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772285953476</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Redone build.sh">
+      <option name="closed" value="true" />
+      <created>1772286495932</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1772286495932</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
