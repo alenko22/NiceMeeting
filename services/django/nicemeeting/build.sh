@@ -13,9 +13,9 @@ from django.contrib.auth import get_user_model
 import os
 
 User = get_user_model()
-username = os.getenv('DJANGO_SUPERUSER_USERNAME')
-email = os.getenv('DJANGO_SUPERUSER_EMAIL')
-password = os.getenv('DJANGO_SUPERUSER_PASSWORD')
+username = os.getenv('ADMIN_USERNAME')
+email = os.getenv('ADMIN_EMAIL')
+password = os.getenv('ADMIN_PASSWORD')
 
 if username and password and email:
     if not User.objects.filter(username=username).exists():

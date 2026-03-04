@@ -93,16 +93,6 @@ class Message(models.Model):
         db_table = 'message'
         ordering = ['datetime']
 
-class Article(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=120, null=True)
-    description = models.TextField()
-    image = models.ImageField(
-        upload_to='public/articles_img/%Y/%m/%d',
-    )
-    class Meta:
-        managed = True
-
 class EventUser(models.Model):
     id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user_id')
