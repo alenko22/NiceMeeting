@@ -136,7 +136,9 @@ class MainChangeProfilePostForm(forms.ModelForm):
     # Поле даты рождения с ограничением 18 лет
     date_birth = forms.DateField(
         label="Ваша дата рождения",
-        widget=forms.DateInput(attrs={
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
+            attrs={
             "type": "date",
             "class": "form-field__input date-birth-input",
         })

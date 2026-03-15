@@ -20,6 +20,9 @@ from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from datetime import date
 from django.conf import settings
 from ML.recommendation_engine import get_recommendations
+from django.core.paginator import Paginator
+from datetime import datetime, timedelta
+import calendar
 
 from .forms import *
 from .models import *
@@ -229,6 +232,7 @@ def public_profile(request, user_id):
     posts = Post.objects.filter(author=user).annotate(
         comments_count=Count("comments"),
     )
+    total_posts = posts.count()
 
     paginator = Paginator(posts, 6)
     page_number = request.GET.get('page')
@@ -244,6 +248,7 @@ def public_profile(request, user_id):
         "create_meeting_url": reverse('create_meeting'),  # Добавляем URL
         "MEDIA_URL": settings.MEDIA_URL,
         "page_obj": page_obj,
+        "total_posts": total_posts,
     }
     return render(request, "main/public_profile.html", context)
 
@@ -312,18 +317,39 @@ def event_sign_up(request, event_id):
             "error": str(e)
         })
 
+
 def events(request):
-    now = timezone.now()
+    now = timezone.now().date()  # используем date(), т.к. в модели DateField
+    date_filter = request.GET.get('date_filter', '')
+
     events = Event.objects.filter(date_begin__gte=now)
+
+    if date_filter == 'today':
+        events = events.filter(date_begin=now)
+
+    elif date_filter == 'tomorrow':
+        tomorrow = now + timedelta(days=1)
+        events = events.filter(date_begin=tomorrow)
+
+    elif date_filter == 'week':
+        week_end = now + timedelta(days=7)
+        events = events.filter(date_begin__lte=week_end)
+
+    elif date_filter == 'month':
+        # Последний день текущего месяца
+        last_day = calendar.monthrange(now.year, now.month)[1]
+        month_end = datetime(now.year, now.month, last_day).date()
+        events = events.filter(date_begin__lte=month_end)
+
     paginator = Paginator(events, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "events": events,
-        "page_obj": page_obj,
+        'page_obj': page_obj,
+        'current_filter': date_filter,
     }
-    return render(request, "main/events.html", context)
+    return render(request, 'main/events.html', context)
 
 def chats_list(request):
     user = request.user
