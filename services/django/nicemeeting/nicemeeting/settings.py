@@ -145,3 +145,5 @@ EMAIL_PORT = 1025
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'public'
+
+UPDATE_SECRET_TOKEN = os.getenv('UPDATE_SECRET_TOKEN', '')

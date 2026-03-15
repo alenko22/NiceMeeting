@@ -1,0 +1,14 @@
+name: Update events from API
+
+on:
+  schedule:
+    - cron: '0 4,16 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call update endpoint
+        run: |
+          curl --fail -X GET "https://nicemeeting.onrender.com/api/update_events/?token=${{ secrets.UPDATE_TOKEN }}"
