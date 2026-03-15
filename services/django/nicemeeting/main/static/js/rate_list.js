@@ -1,3 +1,4 @@
+// rate_list.js
 document.addEventListener('DOMContentLoaded', function() {
     // Кэш для сохранённых оценок
     const savedRatings = JSON.parse(localStorage.getItem('savedRatings')) || {};
@@ -5,6 +6,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Отслеживаем уже отправленные оценки и кнопки в процессе отправки
     const submittedRatings = new Set();
     const processingButtons = new Set();
+
+    // --- Выделение выбранной оценки ---
+    function setupRatingSelection() {
+        document.querySelectorAll('.rating-system__rating-input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const name = this.name;
+                // Убираем класс у всех опций этой группы
+                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                    input.closest('.rating-system__rating-option').classList.remove('rating-system__rating-option--selected');
+                });
+                // Добавляем класс выбранной опции
+                this.closest('.rating-system__rating-option').classList.add('rating-system__rating-option--selected');
+            });
+        });
+    }
 
     // Восстанавливаем сохранённые оценки
     restoreSavedRatings();
@@ -59,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('rating-system__rating-option--hover');
         });
     });
+
+    // Вызываем функцию для выделения выбранной оценки
+    setupRatingSelection();
 
     // Функция сохранения оценки
     function saveRating(userId, button) {
@@ -171,6 +190,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (ratingInput) {
                 ratingInput.checked = true;
+                // Добавляем класс выбранной опции для визуального выделения
+                const option = ratingInput.closest('.rating-system__rating-option');
+                if (option) {
+                    option.classList.add('rating-system__rating-option--selected');
+                }
             }
 
             if (commentInput) {

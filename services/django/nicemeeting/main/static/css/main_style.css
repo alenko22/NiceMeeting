@@ -2179,6 +2179,13 @@
     text-align: center;
 }
 
+.rating-system__rating-option--selected {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: white;
+    transform: translateY(-2px);
+}
+
 /* ===== МЕРОПРИЯТИЯ ===== */
 .events__title {
     font-size: 2.2rem;
@@ -4551,4 +4558,45 @@
     .site-header {
         height: 64px;
     }
+}
+
+/* ===== УСЕЧЕНИЕ ДЛИННОГО ТЕКСТА ===== */
+.comment-text {
+    /* базовый класс для всех текстов, к которым применяется укорачивание */
+}
+
+.comment-text--truncated {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;          /* количество видимых строк */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;          /* чтобы длинные слова не ломали вёрстку */
+}
+
+.comment-text--expanded {
+    display: block;                  /* обычное отображение */
+}
+
+/* Кнопка переключения */
+.comment-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--accent-2);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 4px 0;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 4px;
+    transition: opacity 0.2s;
+}
+
+.comment-toggle-btn:hover {
+    color: var(--accent);
+    opacity: 0.8;
+}
+
+/* Контейнер для кнопки (чтобы не нарушать отступы) */
+.comment-toggle-wrapper {
+    margin-top: 4px;
 }
