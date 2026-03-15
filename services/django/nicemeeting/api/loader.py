@@ -40,17 +40,27 @@ class EventLoader(object):
     @transaction.atomic
     def load_to_db(self):
         events = self.client.fetch_events()
+        if not events:
+            logger.info("API вернул пустой список")
+            return 0
+
         events_data = [self._map_to_model(event) for event in events]
-        # Убираем события, у которых external_id не определился (на всякий случай)
         events_data = [e for e in events_data if e['external_id'] is not None]
-        event_objs = [Event(**data) for data in events_data]
 
-        # Массовый upsert (требует unique constraint на external_id)
-        Event.objects.bulk_create(
-            event_objs,
-            update_conflicts=True,
-            update_fields=['date_begin', 'date_end', 'date_deadline', 'title', 'place', 'info'],
-            unique_fields=['external_id']
-        )
+        existing_ids = set(Event.objects.values_list('external_id', flat=True))
 
-        return len(events)
+        new_events = [e for e in events_data if e['external_id'] not in existing_ids]
+
+        if new_events:
+            event_objs = [Event(**data) for data in new_events]
+            Event.objects.bulk_create(event_objs)
+            logger.info(f"Добавлено {len(new_events)} новых событий")
+        else:
+            logger.info("Новых событий нет")
+
+        now = timezone.now()
+        deleted_count, _ = Event.objects.filter(date_end__lt=now).delete()
+        if deleted_count:
+            logger.info(f"Удалено {deleted_count} устаревших событий")
+
+        return len(new_events)
