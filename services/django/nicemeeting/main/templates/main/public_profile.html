@@ -40,7 +40,7 @@
                     </div>
                     <div class="public-profile__actions">
                         {% if request.user.is_authenticated and request.user != user %}
-                            <button class="btn btn-primary public-profile__follow-btn visually-hidden">
+                            <button class="btn btn-primary public-profile__follow-btn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="9" cy="7" r="4"></circle>
@@ -49,7 +49,10 @@
                                 </svg>
                                 Подписаться
                             </button>
-                            <a class="btn btn-outline public-profile__message-btn href visually-hidden" href="{% url 'create_chat' %}">
+                            <a class="btn btn-outline public-profile__message-btn"
+                               href="{% url 'create_chat' %}"
+                               data-recipient-id="{{ user.id }}"
+                               data-url="{% url 'create_chat' %}">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                 </svg>
@@ -65,7 +68,7 @@
                                 Назначить встречу
                             </button>
                         {% elif request.user.is_authenticated and request.user == user %}
-                            <a href="{% url 'create_post' %}" class="btn btn-primary public-profile__add-post-btn href">
+                            <a href="{% url 'create_post' %}" class="btn btn-primary public-profile__add-post-btn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>

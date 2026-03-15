@@ -16,11 +16,10 @@
             <div class="events__filter-group">
                 <label class="events__filter-label">Дата:</label>
                 <div class="events__filter-buttons">
-                    <a href="?date_filter=today" class="btn btn-outline events__filter-btn {% if current_filter == 'today' %}events__filter-btn--active{% endif %}">Сегодня</a>
-                    <a href="?date_filter=tomorrow" class="btn btn-outline events__filter-btn {% if current_filter == 'tomorrow' %}events__filter-btn--active{% endif %}">Завтра</a>
-                    <a href="?date_filter=week" class="btn btn-outline events__filter-btn {% if current_filter == 'week' %}events__filter-btn--active{% endif %}">На этой неделе</a>
-                    <a href="?date_filter=month" class="btn btn-outline events__filter-btn {% if current_filter == 'month' %}events__filter-btn--active{% endif %}">В этом месяце</a>
-                    <!-- Кнопка сброса фильтра (все события) -->
+                    <a href="?date_filter=today" class="href btn btn-outline events__filter-btn {% if current_filter == 'today' %}events__filter-btn--active{% endif %}">Сегодня</a>
+                    <a href="?date_filter=tomorrow" class="href btn btn-outline events__filter-btn {% if current_filter == 'tomorrow' %}events__filter-btn--active{% endif %}">Завтра</a>
+                    <a href="?date_filter=week" class="href btn btn-outline events__filter-btn {% if current_filter == 'week' %}events__filter-btn--active{% endif %}">На этой неделе</a>
+                    <a href="?date_filter=month" class="href btn btn-outline events__filter-btn {% if current_filter == 'month' %}events__filter-btn--active{% endif %}">В этом месяце</a>
                     <a href="?" class="btn btn-outline events__filter-btn {% if not current_filter %}events__filter-btn--active{% endif %}">Все</a>
                 </div>
             </div>

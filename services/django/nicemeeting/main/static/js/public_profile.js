@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Отправка формы
-    // Отправка формы
     if (scheduleMeetingForm) {
         scheduleMeetingForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -277,6 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return cookieValue;
     }
+
     // ========== МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ ИНТЕРЕСОВ ==========
     const editInterestsBtn = document.getElementById('editInterestsBtn');
     const editInterestsModal = document.getElementById('editInterestsModal');
@@ -396,4 +396,50 @@ document.addEventListener('DOMContentLoaded', function() {
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
+
+    // ========== НАПИСАТЬ СООБЩЕНИЕ ==========
+    const messageBtn = document.querySelector('.public-profile__message-btn');
+    if (messageBtn) {
+        messageBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Отменяем переход по ссылке
+
+            const recipientId = this.dataset.recipientId;
+            const url = this.dataset.url;
+
+            if (!recipientId || !url) {
+                console.error('Missing recipient ID or URL');
+                showNotification('Ошибка: не удалось создать чат', 'error');
+                return;
+            }
+
+            // Получаем CSRF-токен с помощью существующей функции
+            const csrftoken = getCSRFToken();
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: new URLSearchParams({
+                    'recipient_id': recipientId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Перенаправляем на страницу чата
+                    window.location.href = data.redirect_url;
+                } else {
+                    showNotification('Ошибка: ' + (data.error || 'Неизвестная ошибка'), 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Произошла ошибка при создании чата', 'error');
+            });
+        });
+    }
+
 });
