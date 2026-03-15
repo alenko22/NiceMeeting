@@ -10,11 +10,22 @@ class EventLoader(object):
 
     def _map_to_model(self, event):
         def make_aware(dt_str):
-            if dt_str:
-                dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
-                if timezone.is_naive(dt):
-                    return timezone.make_aware(dt, timezone.utc)
-            return None
+            if not dt_str:
+                return None
+            try:
+                # Пытаемся распарсить ISO-строку (с T или пробелом)
+                dt = datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
+            except ValueError:
+                # Если не получилось, пробуем исходный формат (на случай, если API иногда шлёт по-другому)
+                try:
+                    dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
+                except ValueError as e:
+                    logger.error(f"Не удалось распарсить дату '{dt_str}': {e}")
+                    return None
+            # Преобразуем naive datetime в aware (UTC)
+            if timezone.is_naive(dt):
+                return timezone.make_aware(dt, timezone.utc)
+            return dt
 
         return {
             'external_id': event.get('ItemId'),
