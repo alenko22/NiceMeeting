@@ -867,3 +867,12 @@ def edit_interests(request):
             'success': False,
             'message': f'Ошибка при обновлении интересов: {str(e)}'
         }, status=400)
+
+def FAQ(request):
+    return render(request, "main/FAQ.html")
+
+def safety_rules(request):
+    return render(request, "main/safety_rules.html")
+
+def how_it_works(request):
+    return render(request, "main/how_it_works.html")

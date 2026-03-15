@@ -1,0 +1,150 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}FAQ — Nice Meeting{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Дополнительные стили для аккордеона */
+    .faq-page {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .faq-page__title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent-2);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .faq-page__section {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: 0 4px 20px var(--shadow);
+        padding: 1.5rem;
+    }
+
+    .faq-item {
+        border-bottom: 1px solid var(--soft-border);
+    }
+
+    .faq-item:last-child {
+        border-bottom: none;
+    }
+
+    .faq-question {
+        width: 100%;
+        text-align: left;
+        padding: 1.2rem 1rem;
+        background: transparent;
+        border: none;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.2s ease;
+    }
+
+    .faq-question:hover {
+        background: var(--muted);
+    }
+
+    .faq-question::after {
+        content: '▼';
+        font-size: 0.8rem;
+        color: var(--accent-2);
+        transition: transform 0.3s ease;
+    }
+
+    .faq-question[aria-expanded="true"]::after {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0 1rem 1.2rem 1rem;
+        line-height: 1.6;
+        color: var(--text);
+        opacity: 0.9;
+        display: none;
+    }
+
+    .faq-answer.show {
+        display: block;
+    }
+
+    @media (max-width: 640px) {
+        .faq-page__title {
+            font-size: 1.75rem;
+        }
+        .faq-question {
+            padding: 1rem;
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container container--narrow">
+        <div class="faq-page">
+            <h1 class="faq-page__title">Часто задаваемые вопросы</h1>
+            <div class="faq-page__section">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Как работает нейросеть для подбора пар?</button>
+                    <div class="faq-answer">
+                        Наш алгоритм анализирует ваши интересы, цели знакомства и поведение на сайте, чтобы предлагать наиболее совместимых людей. Чем больше вы заполняете профиль и участвуете в жизни сообщества, тем точнее рекомендации.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Безопасно ли использовать сайт?</button>
+                    <div class="faq-answer">
+                        Мы уделяем большое внимание безопасности: все профили проходят модерацию, вы можете блокировать пользователей, а общение происходит в защищённом чате. Рекомендуем также ознакомиться с разделом «Правила безопасности».
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Нужно ли платить?</button>
+                    <div class="faq-answer">
+                        Основные функции (регистрация, просмотр анкет, лайки) бесплатны. Дополнительные возможности, такие как расширенный поиск и приоритетная поддержка, доступны по подписке.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Как удалить аккаунт?</button>
+                    <div class="faq-answer">
+                        Зайдите в настройки профиля, внизу страницы нажмите «Удалить аккаунт». Удаление необратимо, все данные будут стёрты.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Могу ли я кого-то пожаловаться?</button>
+                    <div class="faq-answer">
+                        Да, на странице пользователя или в чате есть кнопка «Пожаловаться». Мы рассмотрим жалобу в течение 24 часов.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function() {
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true' ? false : true;
+                this.setAttribute('aria-expanded', expanded);
+                const answer = this.nextElementSibling;
+                if (answer && answer.classList.contains('faq-answer')) {
+                    answer.classList.toggle('show');
+                }
+            });
+        });
+    })();
+</script>
+{% endblock %}

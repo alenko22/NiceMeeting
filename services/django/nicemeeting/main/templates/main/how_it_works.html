@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Как это работает — Nice Meeting{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container container--narrow">
+        <div class="user-agreement"> <!-- используем готовый стиль user-agreement -->
+            <h1 class="user-agreement__title">Как это работает</h1>
+
+            <div class="user-agreement__intro">
+                <p class="user-agreement__text">
+                    Nice Meeting — это платформа для знакомств, где нейросеть помогает найти людей, близких вам по духу. Весь процесс состоит из четырёх простых шагов.
+                </p>
+            </div>
+
+            <div class="user-agreement__section">
+                <h2 class="user-agreement__section-title">1. Регистрация и анкета</h2>
+                <div class="user-agreement__section-content">
+                    <p class="user-agreement__text">
+                        Создайте аккаунт, укажите имя, возраст, город. Затем заполните расширенную анкету: ваши интересы, цели знакомства, любимые занятия. Чем подробнее заполнена анкета, тем точнее подберёт нейросеть.
+                    </p>
+                </div>
+            </div>
+
+            <div class="user-agreement__section">
+                <h2 class="user-agreement__section-title">2. Обучение нейросети</h2>
+                <div class="user-agreement__section-content">
+                    <p class="user-agreement__text">
+                        Наш алгоритм анализирует вашу анкету, а также ваши действия (лайки, просмотры, пропуски). Постепенно модель понимает, какие люди вам интересны, и учится предсказывать взаимную симпатию.
+                    </p>
+                </div>
+            </div>
+
+            <div class="user-agreement__section">
+                <h2 class="user-agreement__section-title">3. Ежедневные рекомендации</h2>
+                <div class="user-agreement__section-content">
+                    <p class="user-agreement__text">
+                        Каждый день вы получаете подборку из 10–20 анкет, наиболее подходящих именно вам. Вы можете ставить лайки, дизлайки или пропускать. Взаимные лайки открывают возможность начать чат.
+                    </p>
+                </div>
+            </div>
+
+            <div class="user-agreement__section">
+                <h2 class="user-agreement__section-title">4. Общение и встречи</h2>
+                <div class="user-agreement__section-content">
+                    <p class="user-agreement__text">
+                        После взаимного лайка вы попадаете в общий чат. Там можно обсудить интересы, договориться о встрече или просто пообщаться. Также доступны групповые мероприятия и форум.
+                    </p>
+                </div>
+            </div>
+
+            <div class="user-agreement__section">
+                <h2 class="user-agreement__section-title">💡 Советы для лучшего опыта</h2>
+                <div class="user-agreement__section-content">
+                    <ul class="user-agreement__list">
+                        <li class="user-agreement__list-item">Загрузите качественное фото (улыбка увеличивает шансы на 30%).</li>
+                        <li class="user-agreement__list-item">Регулярно обновляйте интересы – нейросеть подстроится под новые увлечения.</li>
+                        <li class="user-agreement__list-item">Участвуйте в мероприятиях: там можно найти друзей без романтического подтекста.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="user-agreement__footer">
+                <p class="user-agreement__text">Начните прямо сейчас – <a href="{% url 'register' %}" class="href btn btn-primary">Зарегистрироваться</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

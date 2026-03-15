@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Правила безопасности — Nice Meeting{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container container--narrow">
+        <div class="privacy-page"> <!-- используем готовый стиль privacy-page -->
+            <h1 class="privacy-page__title">Правила безопасности</h1>
+
+            <div class="privacy-page__intro">
+                <p class="privacy-page__text">
+                    Наша главная цель — сделать ваше знакомство приятным и безопасным. Пожалуйста, ознакомьтесь с простыми правилами, которые помогут избежать неприятных ситуаций.
+                </p>
+            </div>
+
+            <div class="privacy-page__section">
+                <h2 class="privacy-page__section-title">👤 Личная информация</h2>
+                <div class="privacy-page__section-content">
+                    <p class="privacy-page__text">
+                        • Никогда не передавайте незнакомцам свои финансовые данные (номера карт, паспорта).<br>
+                        • Не сообщайте домашний адрес до личной встречи в общественном месте.<br>
+                        • Используйте только никнейм, не указывайте полное имя в анкете.
+                    </p>
+                </div>
+            </div>
+
+            <div class="privacy-page__section">
+                <h2 class="privacy-page__section-title">💬 Общение</h2>
+                <div class="privacy-page__section-content">
+                    <p class="privacy-page__text">
+                        • Если собеседник давит, оскорбляет или просит интимные фото — прекратите общение и нажмите «Пожаловаться».<br>
+                        • Не переходите в сторонние мессенджеры до того, как убедитесь в надёжности человека.<br>
+                        • Помните: мошенники часто используют истории о болезнях, срочных переводах и т.п.
+                    </p>
+                </div>
+            </div>
+
+            <div class="privacy-page__section">
+                <h2 class="privacy-page__section-title">🤝 Встречи в реальности</h2>
+                <div class="privacy-page__section-content">
+                    <p class="privacy-page__text">
+                        • Первые встречи планируйте только в людных местах (кафе, парк, торговый центр).<br>
+                        • Сообщите друзьям или родным, куда и с кем идёте.<br>
+                        • Следите за своими напитками, не оставляйте их без присмотра.
+                    </p>
+                </div>
+            </div>
+
+            <div class="privacy-page__section">
+                <h2 class="privacy-page__section-title">🚨 Если случилось что‑то серьёзное</h2>
+                <div class="privacy-page__section-content">
+                    <p class="privacy-page__text">
+                        Немедленно обратитесь в полицию, а также напишите нам на <strong>safety@nicemeeting.ru</strong> — мы поможем с блокировкой нарушителя и предоставим данные следствию.
+                    </p>
+                </div>
+            </div>
+
+            <div class="privacy-page__footer">
+                <p class="privacy-page__text privacy-page__text--small">Последнее обновление: март 2026</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
