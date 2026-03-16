@@ -11,13 +11,18 @@
         <h1 class="meetings__title">Ваши встречи</h1>
         <p class="meetings__subtitle">Здесь отображаются все запланированные встречи с другими пользователями</p>
 
-        {% if meetings %}
+        {% if page_obj %}
             <div class="meetings__grid">
-                {% for meeting in meetings %}
+                {% for meeting in page_obj %}
                 <div class="meetings__item">
                     <div class="meetings__content">
                         <div class="meetings__header">
-                            <h2 class="meetings__name">{{ meeting.user1.get_full_name }} ↔ {{ meeting.user2.get_full_name }}</h2>
+                            {# Получаем первого (и единственного) инициатора из user1 #}
+                            {% with initiator=meeting.user1.all.0 %}
+                            <h2 class="meetings__name">
+                                {{ initiator.get_full_name|default:initiator.username }} ↔ {{ meeting.user2.get_full_name|default:meeting.user2.username }}
+                            </h2>
+                            {% endwith %}
                         </div>
 
                         <div class="meetings__meta">
@@ -26,7 +31,7 @@
                                 <svg class="meetings__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
-                                <span class="meetings__meta-text">Мероприятие: <strong>{{ meeting.event.name }}</strong></span>
+                                <span class="meetings__meta-text">Мероприятие: <strong>{{ meeting.event.title }}</strong></span>
                             </div>
                             {% elif meeting.place %}
                             <div class="meetings__meta-item">

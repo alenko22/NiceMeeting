@@ -555,9 +555,11 @@ def search_users(request):
         'users': users_data
     })
 
-def meetings(request):
 
-    meetings = Meeting.objects.filter(user1=request.user).select_related("user2", "event").order_by("-datetime")
+def meetings(request):
+    meetings = Meeting.objects.filter(
+        Q(user1=request.user) | Q(user2=request.user)
+    ).select_related("user2", "event").order_by("-datetime")
     paginator = Paginator(meetings, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -566,7 +568,6 @@ def meetings(request):
         'page_obj': page_obj,
         'meetings': meetings,
     }
-
     return render(request, "main/meetings.html", context)
 
 
