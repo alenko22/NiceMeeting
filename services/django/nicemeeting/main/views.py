@@ -23,6 +23,8 @@ from ML.recommendation_engine import get_recommendations
 from django.core.paginator import Paginator
 from datetime import datetime, timedelta
 import calendar
+from django.db import transaction
+import traceback
 
 from .forms import *
 from .models import *
@@ -574,7 +576,6 @@ from django.utils import timezone
 from datetime import datetime
 from .models import Meeting, Event, User
 
-
 def create_meeting(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
@@ -588,54 +589,33 @@ def create_meeting(request):
         place = request.POST.get('place', '').strip()
 
         # Валидация обязательных полей
-        if not user2_id or not meeting_type or not datetime_str:
+        if not user2_id or not meeting_type:
             return JsonResponse({
                 'success': False,
                 'message': 'Недостаточно данных для создания встречи'
             }, status=400)
 
-        # Получаем второго пользователя (который будет в user2 ForeignKey)
+        # Для встречи "в месте" обязательно нужно время
+        if meeting_type == 'place' and not datetime_str:
+            return JsonResponse({
+                'success': False,
+                'errors': {'datetime': 'Укажите дату и время встречи'}
+            }, status=400)
+
+        # Получаем второго пользователя
         user2 = get_object_or_404(User, id=user2_id)
 
-        # Проверка: нельзя назначить встречу самому себе
+        # Нельзя назначить встречу самому себе
         if request.user.id == user2.id:
             return JsonResponse({
                 'success': False,
                 'message': 'Нельзя назначить встречу самому себе'
             }, status=400)
 
-        # Проверка: пользователи не должны быть уже в одной встрече на это время
-        try:
-            meeting_datetime = datetime.fromisoformat(datetime_str)
-            meeting_datetime = timezone.make_aware(meeting_datetime)
-        except ValueError:
-            return JsonResponse({
-                'success': False,
-                'errors': {'datetime': 'Неверный формат даты и времени'}
-            }, status=400)
-
-        # Проверка: встреча должна быть в будущем
-        if meeting_datetime < timezone.now():
-            return JsonResponse({
-                'success': False,
-                'errors': {'datetime': 'Дата встречи должна быть в будущем'}
-            }, status=400)
-
-        # Создаём встречу
-        meeting = Meeting.objects.create(
-            user2=user2,  # Устанавливаем user2 как ForeignKey
-            datetime=meeting_datetime,
-            place=place if meeting_type == 'place' else None,
-            event_id=event_id if meeting_type == 'event' else None
-        )
-
-        # Добавляем текущего пользователя в ManyToMany поле user1
-        meeting.user1.add(request.user)
-
-        # Обработка типа встречи
+        # Обработка в зависимости от типа встречи
         if meeting_type == 'event':
+            # Встреча на мероприятии
             if not event_id:
-                meeting.delete()
                 return JsonResponse({
                     'success': False,
                     'errors': {'event': 'Пожалуйста, выберите мероприятие'}
@@ -645,34 +625,67 @@ def create_meeting(request):
 
             # Проверка актуальности мероприятия
             if event.date_end < timezone.now():
-                meeting.delete()
                 return JsonResponse({
                     'success': False,
                     'errors': {'event': 'Выбранное мероприятие уже прошло'}
                 }, status=400)
 
-            meeting.event = event
-            meeting.place = None
+            # Устанавливаем время встречи = время начала мероприятия
+            meeting_datetime = event.date_start  # предполагаем, что такое поле есть
+
+            # Всё создаём в одной транзакции
+            with transaction.atomic():
+                # Создаём встречу (place = None)
+                meeting = Meeting.objects.create(
+                    user2=user2,
+                    datetime=meeting_datetime,
+                    event=event,
+                    place=None
+                )
+                meeting.user1.add(request.user)
+
+                # Записываем обоих участников на мероприятие, если ещё не записаны
+                EventUser.objects.get_or_create(user_id=request.user.id, event_id=event.id)
+                EventUser.objects.get_or_create(user_id=user2.id, event_id=event.id)
 
         elif meeting_type == 'place':
+            # Встреча в определённом месте
             if not place:
-                meeting.delete()
                 return JsonResponse({
                     'success': False,
                     'errors': {'place': 'Пожалуйста, укажите место встречи'}
                 }, status=400)
 
-            meeting.place = place
-            meeting.event = None
+            try:
+                meeting_datetime = datetime.fromisoformat(datetime_str)
+                meeting_datetime = timezone.make_aware(meeting_datetime)
+            except ValueError:
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'datetime': 'Неверный формат даты и времени'}
+                }, status=400)
+
+            # Проверка, что время в будущем
+            if meeting_datetime < timezone.now():
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'datetime': 'Дата встречи должна быть в будущем'}
+                }, status=400)
+
+            # Создаём встречу
+            meeting = Meeting.objects.create(
+                user2=user2,
+                datetime=meeting_datetime,
+                place=place,
+                event=None
+            )
+            meeting.user1.add(request.user)
 
         else:
-            meeting.delete()
             return JsonResponse({
                 'success': False,
                 'message': 'Неверный тип встречи'
             }, status=400)
-
-        meeting.save()
 
         # Формируем ответ
         response_data = {
@@ -697,7 +710,6 @@ def create_meeting(request):
 
     except Exception as e:
         print(f"Error creating meeting: {e}")
-        import traceback
         traceback.print_exc()
         return JsonResponse({
             'success': False,
