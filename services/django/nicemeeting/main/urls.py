@@ -43,4 +43,5 @@ urlpatterns = [
     path('FAQ', views.FAQ, name='FAQ'),
     path('safety_rules', views.safety_rules, name='safety_rules'),
     path('how_it_works', views.how_it_works, name='how_it_works'),
+    path('upload-avatar', views.upload_avatar, name='upload_avatar'),
 ]

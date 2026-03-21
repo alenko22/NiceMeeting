@@ -442,4 +442,86 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ========== ЗАГРУЗКА АВАТАРА ==========
+    const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+    const uploadAvatarModal = document.getElementById('uploadAvatarModal');
+    const closeUploadAvatarBtns = document.querySelectorAll('#closeUploadAvatarModal, #closeUploadAvatarModalBtn');
+    const uploadAvatarForm = document.getElementById('uploadAvatarForm');
+    const avatarError = document.getElementById('avatarError');
+    const profileAvatar = document.getElementById('profileAvatar');
+
+    if (changeAvatarBtn) {
+        changeAvatarBtn.addEventListener('click', function() {
+            // Сброс ошибок и формы
+            if (uploadAvatarForm) uploadAvatarForm.reset();
+            if (avatarError) avatarError.textContent = '';
+            openModal(uploadAvatarModal);
+        });
+    }
+
+    // Закрытие модального окна
+    closeUploadAvatarBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            closeModal(uploadAvatarModal);
+        });
+    });
+
+    // Закрытие по бэкдропу
+    if (uploadAvatarModal) {
+        const backdrop = uploadAvatarModal.querySelector('.modal__backdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', function() {
+                closeModal(uploadAvatarModal);
+            });
+        }
+    }
+
+    // Отправка формы загрузки аватара
+    if (uploadAvatarForm) {
+        uploadAvatarForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Очистка ошибок
+            if (avatarError) avatarError.textContent = '';
+
+            const formData = new FormData(this);
+            const actionUrl = this.getAttribute('data-action-url');
+
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Обновляем аватар на странице
+                    if (profileAvatar) {
+                        profileAvatar.src = data.avatar_url + '?t=' + Date.now(); // добавляем timestamp для обхода кэша
+                    }
+                    showNotification('Аватар успешно загружен!', 'success');
+                    closeModal(uploadAvatarModal);
+
+                    // Обновляем аватар в шапке, если он там есть (например, через событие или перезагрузку)
+                    // Можно просто перезагрузить страницу, чтобы обновился аватар в шапке:
+                    // window.location.reload();
+                    // Но лучше обновить только аватар в шапке через JS, если это возможно.
+                    // Для простоты пока перезагружаем страницу:
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    if (avatarError) avatarError.textContent = data.error || 'Ошибка загрузки';
+                    showNotification(data.error || 'Ошибка загрузки', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (avatarError) avatarError.textContent = 'Сетевая ошибка. Попробуйте позже.';
+                showNotification('Произошла ошибка. Попробуйте снова.', 'error');
+            });
+        });
+    }
 });

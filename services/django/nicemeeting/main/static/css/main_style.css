@@ -4600,3 +4600,26 @@
 .comment-toggle-wrapper {
     margin-top: 4px;
 }
+
+.public-profile__avatar-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.public-profile__change-avatar-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.public-profile__change-avatar-btn:hover {
+    background: rgba(0,0,0,0.8);
+}

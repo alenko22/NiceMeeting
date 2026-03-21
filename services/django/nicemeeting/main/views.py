@@ -632,7 +632,7 @@ def create_meeting(request):
                 }, status=400)
 
             # Устанавливаем время встречи = время начала мероприятия
-            meeting_datetime = event.date_start  # предполагаем, что такое поле есть
+            meeting_datetime = event.date_begin  # предполагаем, что такое поле есть
 
             # Всё создаём в одной транзакции
             with transaction.atomic():
@@ -889,3 +889,37 @@ def safety_rules(request):
 
 def how_it_works(request):
     return render(request, "main/how_it_works.html")
+
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from .models import User
+import json
+
+@login_required
+def upload_avatar(request):
+    """Загрузка аватара через AJAX."""
+    try:
+        avatar_file = request.FILES.get('avatar')
+        if not avatar_file:
+            return JsonResponse({'success': False, 'error': 'Файл не выбран'}, status=400)
+
+        # Ограничения: тип и размер (опционально)
+        allowed_types = ['image/jpeg', 'image/png', 'image/gif']
+        if avatar_file.content_type not in allowed_types:
+            return JsonResponse({'success': False, 'error': 'Поддерживаются только JPEG, PNG и GIF'}, status=400)
+
+        if avatar_file.size > 5 * 1024 * 1024:  # 5 МБ
+            return JsonResponse({'success': False, 'error': 'Максимальный размер файла 5 МБ'}, status=400)
+
+        user = request.user
+        user.avatar = avatar_file
+        user.save()
+
+        # Возвращаем URL нового аватара
+        avatar_url = user.avatar.url if user.avatar else None
+
+        return JsonResponse({'success': True, 'avatar_url': avatar_url})
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)

@@ -329,3 +329,8 @@ class MainUserSettingsForm(forms.ModelForm):
             'email_notifications': forms.CheckboxInput(attrs={'class': 'switch__input'}),
             'push_notifications': forms.CheckboxInput(attrs={'class': 'switch__input'}),
         }
+
+class MainUserAvatarForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('avatar',)

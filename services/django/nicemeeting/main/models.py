@@ -41,6 +41,12 @@ class User(AbstractUser):
     children_quantity = models.SmallIntegerField(null=True)
     bad_habits = models.CharField(null=True)
     interests = models.CharField(null=True)
+    avatar = models.ImageField(
+        upload_to='avatars/',
+        null=True,
+        blank=True,
+        verbose_name='avatar',
+    )
 
 
 class MeetingClient(models.Model):
