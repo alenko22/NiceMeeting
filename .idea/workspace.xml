@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started doing PWA for site">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Update icons location" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -261,7 +259,7 @@
       <workItem from="1772702360770" duration="1328000" />
       <workItem from="1773291314021" duration="569000" />
       <workItem from="1774078855999" duration="3479000" />
-      <workItem from="1774242652047" duration="2795000" />
+      <workItem from="1774242652047" duration="3114000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -551,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774244579184</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Update icons location">
+      <option name="closed" value="true" />
+      <created>1774245560666</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1774245560666</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -624,6 +630,7 @@
     <MESSAGE value="Redone base mobile navigation" />
     <MESSAGE value="Made avatars, done some UI fixes" />
     <MESSAGE value="Started doing PWA for site" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started doing PWA for site" />
+    <MESSAGE value="Update icons location" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update icons location" />
   </component>
 </project>
