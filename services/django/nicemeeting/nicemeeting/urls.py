@@ -17,6 +17,8 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+
 from api.views import hello, update_events
 from survey.urls import app_name
 from django.conf import settings
@@ -28,6 +30,7 @@ urlpatterns = [
     path("", include("main.urls"), name="main"),
     path("survey/", include("survey.urls"), name="survey"),
     path("ML/", include("ML.urls"), name="ML"),
+    path('sw.js', TemplateView.as_view(template_name="sw.js", content_type='application/javascript'), name="sw.js"),
 ]
 
 if settings.DEBUG:
