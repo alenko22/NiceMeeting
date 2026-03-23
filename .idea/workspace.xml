@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Made avatars, done some UI fixes">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/pwa/icons/icon-192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/pwa/icons/icon-512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/pwa/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/sw.js" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started doing PWA for site">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,11 +92,11 @@
       <recent name="D:\NiceMeeting\services\django\nicemeeting\survey" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting\main\templates" />
       <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting\main\static" />
       <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting" />
       <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting\ML" />
       <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting\api\management" />
-      <recent name="D:\NiceMeeting\services\django\nicemeeting\main\templates" />
     </key>
   </component>
   <component name="RunManager" selected="Django Server.NiceMeeting">
@@ -266,7 +261,7 @@
       <workItem from="1772702360770" duration="1328000" />
       <workItem from="1773291314021" duration="569000" />
       <workItem from="1774078855999" duration="3479000" />
-      <workItem from="1774242652047" duration="1729000" />
+      <workItem from="1774242652047" duration="2795000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -548,7 +543,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774082293467</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Started doing PWA for site">
+      <option name="closed" value="true" />
+      <created>1774244579184</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1774244579184</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -620,6 +623,7 @@
     <MESSAGE value="Redone build.sh" />
     <MESSAGE value="Redone base mobile navigation" />
     <MESSAGE value="Made avatars, done some UI fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made avatars, done some UI fixes" />
+    <MESSAGE value="Started doing PWA for site" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started doing PWA for site" />
   </component>
 </project>
