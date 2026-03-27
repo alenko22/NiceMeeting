@@ -18,8 +18,8 @@ function updateAllCountdowns() {
         if (!valueElement) return;
 
         if (diffMs <= 0) {
-            valueElement.textContent = 'Началось';
-            valueElement.style.color = '#4CAF50';
+            valueElement.textContent = 'Прошла';
+            valueElement.style.color = '#9E9E9E';
             return;
         }
 

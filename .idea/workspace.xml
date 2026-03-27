@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="improving UI with avatars">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="improving UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/events.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/events.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,7 +268,7 @@
       <workItem from="1774078855999" duration="3479000" />
       <workItem from="1774242652047" duration="5548000" />
       <workItem from="1774506662157" duration="8000" />
-      <workItem from="1774580684593" duration="3668000" />
+      <workItem from="1774580684593" duration="5818000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -634,7 +638,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774584066559</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="improving UI">
+      <option name="closed" value="true" />
+      <created>1774591849633</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1774591849633</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -684,7 +696,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Linked database" />
     <MESSAGE value="Finished linking database" />
     <MESSAGE value="Commited migrations" />
     <MESSAGE value="Made three(3) pages - login, registration&#10;password reset.&#10;Started development of forms for this pages" />
@@ -709,6 +720,7 @@
     <MESSAGE value="Update icons location" />
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="improving UI with avatars" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving UI with avatars" />
+    <MESSAGE value="improving UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="improving UI" />
   </component>
 </project>
