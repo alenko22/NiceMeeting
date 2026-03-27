@@ -39,7 +39,7 @@
                         {% if user.avatar %}
                             <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
                         {% else %}
-                            <img src="{% static 'images/default-avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
                         {% endif %}
                         <span class="visually-hidden">Меню пользователя</span>
                     </button>

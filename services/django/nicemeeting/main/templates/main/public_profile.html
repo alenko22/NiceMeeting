@@ -16,7 +16,7 @@
                     {% if user.avatar %}
                         <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
                     {% else %}
-                        <img src="{% static 'images/default-avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
+                        <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
                     {% endif %}
                     {% if request.user == user %}
                         <button class="btn btn-outline public-profile__change-avatar-btn" id="changeAvatarBtn">

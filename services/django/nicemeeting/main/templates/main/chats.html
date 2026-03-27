@@ -27,9 +27,13 @@
                     {% for chat_data in chats %}
                     <div class="chat-item {% if chat_data.chat.id == current_chat_id %}chat-item--active{% endif %}" data-chat-id="{{ chat_data.chat.id }}">
                         <div class="chat-item__avatar">
-                            <div class="chat-item__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="chat-item__avatar-letter">{{ chat_data.other_user.username|slice:":1"|upper }}</span>
-                            </div>
+                            {% if chat_data.other_user.avatar %}
+                                <img src="{{ chat_data.other_user.avatar.url }}" alt="{{ chat_data.other_user.username }}" class="chat-item__avatar-img">
+                            {% else %}
+                                <div class="chat-item__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
+                                    <span class="chat-item__avatar-letter">{{ chat_data.other_user.username|slice:":1"|upper }}</span>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="chat-item__content">
                             <div class="chat-item__header">
@@ -62,17 +66,24 @@
             {% if chat %}
             <div class="chats__messages">
                 <div class="chats__messages-header">
-                    <div class="chats__messages-info">
-                        <div class="chats__messages-avatar">
-                            <div class="chats__messages-avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="chats__messages-avatar-letter">{{ other_user.username|slice:":1"|upper }}</span>
+                    <!-- Ссылка на профиль собеседника -->
+                    <a href="{% url 'public_profile' other_user.id %}" class="chats__messages-info-link">
+                        <div class="chats__messages-info">
+                            <div class="chats__messages-avatar">
+                                {% if other_user.avatar %}
+                                    <img src="{{ other_user.avatar.url }}" alt="{{ other_user.username }}" class="chats__messages-avatar-img">
+                                {% else %}
+                                    <div class="chats__messages-avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
+                                        <span class="chats__messages-avatar-letter">{{ other_user.username|slice:":1"|upper }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="chats__messages-details">
+                                <h2 class="chats__messages-name">{{ other_user.username }}</h2>
+                                <p class="chats__messages-status">Онлайн</p>
                             </div>
                         </div>
-                        <div class="chats__messages-details">
-                            <h2 class="chats__messages-name">{{ other_user.username }}</h2>
-                            <p class="chats__messages-status">Онлайн</p>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="chats__messages-content" id="messages-content">
@@ -80,9 +91,13 @@
                     <div class="message {% if message.sender == current_user %}message--sent{% else %}message--received{% endif %}">
                         {% if message.sender != current_user %}
                         <div class="message__avatar">
-                            <div class="message__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
-                                <span class="message__avatar-letter">{{ message.sender.username|slice:":1"|upper }}</span>
-                            </div>
+                            {% if message.sender.avatar %}
+                                <img src="{{ message.sender.avatar.url }}" alt="{{ message.sender.username }}" class="message__avatar-img">
+                            {% else %}
+                                <div class="message__avatar-img" style="background: linear-gradient(135deg, var(--accent), var(--accent-2));">
+                                    <span class="message__avatar-letter">{{ message.sender.username|slice:":1"|upper }}</span>
+                                </div>
+                            {% endif %}
                         </div>
                         {% endif %}
                         <div class="message__content">
@@ -139,6 +154,7 @@
             </div>
             {% endif %}
         </div>
+
         <!-- Модальное окно создания чата -->
         <div class="modal" id="create-chat-modal" tabindex="-1" aria-hidden="true">
             <div class="modal__backdrop" data-modal-close></div>
