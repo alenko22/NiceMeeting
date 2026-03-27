@@ -8,13 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/themes.css' %}">
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
     <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register({% static 'pwa/sw.js' %})
-          .then(reg => console.log('SW registered', reg))
-          .catch(err => console.error('SW registration failed', err));
-      }
-    </script>
 </head>
 <body class="theme-{{ request.theme|default:'light' }}">
 {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'password_reset' %}
