@@ -334,3 +334,36 @@ class MainUserAvatarForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('avatar',)
+
+class MainChangeCurrentPasswordPostForm(PasswordChangeForm):
+    """
+    Форма для смены пароля текущим пользователем.
+    Поля: old_password, new_password1, new_password2.
+    """
+    old_password = forms.CharField(
+        label="Текущий пароль",
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Введите текущий пароль',
+            'class': 'form-field__input',
+        })
+    )
+    new_password1 = forms.CharField(
+        label="Новый пароль",
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Введите новый пароль',
+            'class': 'form-field__input',
+        })
+    )
+    new_password2 = forms.CharField(
+        label="Подтверждение пароля",
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Повторите новый пароль',
+            'class': 'form-field__input',
+        })
+    )
+
+    class Meta:
+        # PasswordChangeForm не использует Meta, но если нужно связать с моделью,
+        # можно определить так (необязательно):
+        model = User
+        fields = ['new_password1', 'new_password2']
