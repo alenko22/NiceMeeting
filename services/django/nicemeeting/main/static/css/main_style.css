@@ -4623,3 +4623,107 @@
 .public-profile__change-avatar-btn:hover {
     background: rgba(0,0,0,0.8);
 }
+
+/* Общие стили для контейнеров аватарок */
+.chat-item__avatar,
+.chats__messages-avatar,
+.message__avatar {
+    flex-shrink: 0; /* чтобы аватарка не сжималась */
+}
+
+/* Стили для самих аватарок (как для img, так и для div с инициалами) */
+.chat-item__avatar-img,
+.chats__messages-avatar-img,
+.message__avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;         /* для img: сохраняет пропорции и заполняет круг */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Размеры контейнеров аватарок в разных местах */
+.chat-item__avatar {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+}
+
+.chats__messages-avatar {
+    width: 52px;
+    height: 52px;
+    margin-right: 16px;
+}
+
+.message__avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+    margin-top: 4px; /* небольшой отступ, чтобы выровнять с текстом */
+}
+
+/* Стили для ссылки на профиль в заголовке чата */
+.chats__messages-info-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.chats__messages-info-link:hover {
+    opacity: 0.85;
+}
+
+/* Дополнительные стили для инициалов внутри аватарок-заглушек */
+.chat-item__avatar-letter,
+.chats__messages-avatar-letter,
+.message__avatar-letter {
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+/* Для сообщений – чтобы аватарка не влияла на расположение текста */
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.message__content {
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+/* Если у вас сообщения выровнены по правому краю (свои) */
+.message--sent {
+    justify-content: flex-end;
+}
+
+.message--sent .message__avatar {
+    order: 2;
+    margin-right: 0;
+    margin-left: 12px;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .chat-item__avatar {
+        width: 40px;
+        height: 40px;
+    }
+    .chats__messages-avatar {
+        width: 44px;
+        height: 44px;
+    }
+    .message__avatar {
+        width: 32px;
+        height: 32px;
+    }
+}
