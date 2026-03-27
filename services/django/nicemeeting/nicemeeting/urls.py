@@ -30,7 +30,7 @@ urlpatterns = [
     path("", include("main.urls"), name="main"),
     path("survey/", include("survey.urls"), name="survey"),
     path("ML/", include("ML.urls"), name="ML"),
-    path('sw.js', TemplateView.as_view(template_name="sw.js", content_type='application/javascript'), name="sw.js"),
+    path('sw.js', TemplateView.as_view(template_name="../main/static/pwa/sw.js", content_type='application/javascript'), name="sw.js"),
 ]
 
 if settings.DEBUG:
