@@ -1,0 +1,16 @@
+name: Send meeting notifications
+
+on:
+  schedule:
+    # Запуск каждые 15 минут
+    - cron: '*/15 * * * *'
+  workflow_dispatch:  # для ручного запуска
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call notification endpoint
+        run: |
+          curl -X POST https://yourdomain.com/api/trigger-notifications/ \
+               -H "Authorization: Bearer ${{ secrets.NOTIFICATION_TOKEN }}"
