@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
             datetimeError.textContent = '';
             eventSection.style.display = 'block';
             placeSection.style.display = 'none';
-            document.querySelector('.schedule-meeting-form__type-btn--active').classList.remove('schedule-meeting-form__type-btn--active');
+
+            // Исправление: безопасно удаляем активный класс, если он есть
+            const activeBtn = document.querySelector('.schedule-meeting-form__type-btn--active');
+            if (activeBtn) activeBtn.classList.remove('schedule-meeting-form__type-btn--active');
             typeBtns[0].classList.add('schedule-meeting-form__type-btn--active');
 
             if (eventSelect.value) {
@@ -167,9 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Открытие модального окна
     if (editInterestsBtn) {
         editInterestsBtn.addEventListener('click', function() {
-            // Очистить ошибки
             interestsError.textContent = '';
-
             openModal(editInterestsModal);
         });
     }
@@ -181,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Закрытие по клику на бэкдроп
     if (editInterestsModal) {
         editInterestsModal.querySelector('.modal__backdrop').addEventListener('click', function() {
             closeModal(editInterestsModal);
@@ -193,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
         editInterestsForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Валидация
             let isValid = true;
             interestsError.textContent = '';
 
@@ -206,26 +205,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!isValid) return;
 
-            // Отправка данных
             const formData = new FormData(this);
-
-            // Получаем URL из атрибута формы
             const actionUrl = this.getAttribute('data-action-url');
 
-            // Отправляем запрос
             fetch(actionUrl, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Обновляем отображение интересов
                     updateInterestsDisplay(data.interests);
-
                     showNotification('Интересы успешно обновлены!', 'success');
                     closeModal(editInterestsModal);
                     editInterestsForm.reset();
@@ -243,11 +234,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Функция обновления отображения интересов
     function updateInterestsDisplay(interestsString) {
         if (!interestsList) return;
 
-        // Очищаем текущий список
         interestsList.innerHTML = '';
 
         if (!interestsString || interestsString.trim() === '') {
@@ -255,22 +244,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Разбиваем строку на отдельные интересы
         const interestsArray = interestsString.trim().split(/\s+/);
-
-        // Создаем мини-блоки для каждого интереса
         interestsArray.forEach(interest => {
             if (interest.trim() !== '') {
                 const interestElement = document.createElement('span');
                 interestElement.className = 'public-profile__interest';
-                // Делаем первую букву заглавной
                 interestElement.textContent = capitalizeFirstLetter(interest.trim());
                 interestsList.appendChild(interestElement);
             }
         });
     }
 
-    // Функция для заглавной буквы
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
@@ -279,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageBtn = document.querySelector('.public-profile__message-btn');
     if (messageBtn) {
         messageBtn.addEventListener('click', function(e) {
-            e.preventDefault(); // Отменяем переход по ссылке
+            e.preventDefault();
 
             const recipientId = this.dataset.recipientId;
             const url = this.dataset.url;
@@ -290,24 +274,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Получаем CSRF-токен с помощью существующей функции
-            const csrftoken = getCSRFToken();
+            // Исправление: добавляем функцию getCSRFToken (она определена в этом же файле)
+            function getCSRFToken() {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let cookie of cookies) {
+                        cookie = cookie.trim();
+                        if (cookie.substring(0, 10) === 'csrftoken=') {
+                            cookieValue = decodeURIComponent(cookie.substring(10));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
 
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': csrftoken,
+                    'X-CSRFToken': getCSRFToken(),
                     'X-Requested-With': 'XMLHttpRequest'
                 },
-                body: new URLSearchParams({
-                    'recipient_id': recipientId
-                })
+                body: new URLSearchParams({ 'recipient_id': recipientId })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Перенаправляем на страницу чата
                     window.location.href = data.redirect_url;
                 } else {
                     showNotification('Ошибка: ' + (data.error || 'Неизвестная ошибка'), 'error');
@@ -330,21 +324,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (changeAvatarBtn) {
         changeAvatarBtn.addEventListener('click', function() {
-            // Сброс ошибок и формы
             if (uploadAvatarForm) uploadAvatarForm.reset();
             if (avatarError) avatarError.textContent = '';
             openModal(uploadAvatarModal);
         });
     }
 
-    // Закрытие модального окна
     closeUploadAvatarBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             closeModal(uploadAvatarModal);
         });
     });
 
-    // Закрытие по бэкдропу
     if (uploadAvatarModal) {
         const backdrop = uploadAvatarModal.querySelector('.modal__backdrop');
         if (backdrop) {
@@ -354,12 +345,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Отправка формы загрузки аватара
     if (uploadAvatarForm) {
         uploadAvatarForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Очистка ошибок
             if (avatarError) avatarError.textContent = '';
 
             const formData = new FormData(this);
@@ -368,28 +357,17 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(actionUrl, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Обновляем аватар на странице
                     if (profileAvatar) {
-                        profileAvatar.src = data.avatar_url + '?t=' + Date.now(); // добавляем timestamp для обхода кэша
+                        profileAvatar.src = data.avatar_url + '?t=' + Date.now();
                     }
                     showNotification('Аватар успешно загружен!', 'success');
                     closeModal(uploadAvatarModal);
-
-                    // Обновляем аватар в шапке, если он там есть (например, через событие или перезагрузку)
-                    // Можно просто перезагрузить страницу, чтобы обновился аватар в шапке:
-                    // window.location.reload();
-                    // Но лучше обновить только аватар в шапке через JS, если это возможно.
-                    // Для простоты пока перезагружаем страницу:
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
                     if (avatarError) avatarError.textContent = data.error || 'Ошибка загрузки';
                     showNotification(data.error || 'Ошибка загрузки', 'error');
@@ -400,6 +378,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (avatarError) avatarError.textContent = 'Сетевая ошибка. Попробуйте позже.';
                 showNotification('Произошла ошибка. Попробуйте снова.', 'error');
             });
+        });
+    }
+
+    // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+    function openModal(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function showNotification(message, type = 'success') {
+        const existing = document.querySelector('.notification');
+        if (existing) {
+            existing.classList.add('notification--hidden');
+            setTimeout(() => existing.remove(), 300);
+        }
+        const notification = document.createElement('div');
+        notification.className = `notification notification--${type}`;
+        const icon = type === 'success'
+            ? '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+            : '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>';
+        notification.innerHTML = `${icon}<span class="notification__message">${message}</span><button class="notification__close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>`;
+        document.body.appendChild(notification);
+        const timeoutId = setTimeout(() => {
+            notification.classList.add('notification--hidden');
+            setTimeout(() => notification.remove(), 300);
+        }, type === 'success' ? 3000 : 5000);
+        notification.querySelector('.notification__close').addEventListener('click', () => {
+            clearTimeout(timeoutId);
+            notification.classList.add('notification--hidden');
+            setTimeout(() => notification.remove(), 300);
         });
     }
 });

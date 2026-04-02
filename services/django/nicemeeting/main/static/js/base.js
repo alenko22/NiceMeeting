@@ -70,12 +70,11 @@
             .then(reg => console.log('Service Worker registered', reg))
             .catch(err => console.error('Service Worker registration failed', err));
     }
+
     // ========== PUSH-УВЕДОМЛЕНИЯ ==========
     (function () {
-        // Получаем VAPID-ключ из глобальной переменной
         const vapidPublicKey = window.vapidPublicKey;
 
-        // Функция преобразования base64 в Uint8Array (для VAPID)
         function urlBase64ToUint8Array(base64String) {
             const padding = '='.repeat((4 - base64String.length % 4) % 4);
             const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
@@ -87,7 +86,6 @@
             return outputArray;
         }
 
-        // Получение CSRF-токена из куки
         function getCSRFToken() {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -103,24 +101,19 @@
             return cookieValue;
         }
 
-        // Функция подписки на push
         async function subscribeToPush() {
             if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
                 console.log('Push не поддерживается');
                 return false;
             }
-
             try {
                 const registration = await navigator.serviceWorker.ready;
                 let subscription = await registration.pushManager.getSubscription();
-
                 if (!subscription && vapidPublicKey) {
                     subscription = await registration.pushManager.subscribe({
                         userVisibleOnly: true,
                         applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
                     });
-
-                    // Отправляем подписку на сервер
                     const response = await fetch('/api/push/subscribe/', {
                         method: 'POST',
                         headers: {
@@ -129,7 +122,6 @@
                         },
                         body: JSON.stringify(subscription)
                     });
-
                     if (!response.ok) {
                         throw new Error('Не удалось сохранить подписку');
                     }
@@ -144,8 +136,8 @@
             }
         }
 
-        // Инициализация: запрос разрешения, если включены push-уведомления
-        if (window.userSettings && window.userSettings.push_notifications) {
+        // Проверяем, поддерживается ли Notification API
+        if (window.Notification && window.userSettings && window.userSettings.push_notifications) {
             if (Notification.permission === 'default') {
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {

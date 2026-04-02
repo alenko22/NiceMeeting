@@ -4,28 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started change password">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/push_notifications.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/send_notifications.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/keys_generation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/notifications.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/push.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meeting_new_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meeting_reminder_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templatetags/settings_tags.py" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started notifications">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/sw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +37,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -287,15 +268,7 @@
       <workItem from="1774506662157" duration="8000" />
       <workItem from="1774580684593" duration="7449000" />
       <workItem from="1775013475704" duration="7518000" />
-      <workItem from="1775097929160" duration="1554000" />
-    </task>
-    <task id="LOCAL-00001" summary="started development">
-      <option name="closed" value="true" />
-      <created>1761215036328</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1761215036329</updated>
+      <workItem from="1775097929160" duration="4079000" />
     </task>
     <task id="LOCAL-00002" summary="Linked database">
       <option name="closed" value="true" />
@@ -681,7 +654,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774595794481</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Started notifications">
+      <option name="closed" value="true" />
+      <created>1775099660690</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1775099660690</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -731,7 +712,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commited migrations" />
     <MESSAGE value="Made three(3) pages - login, registration&#10;password reset.&#10;Started development of forms for this pages" />
     <MESSAGE value="q" />
     <MESSAGE value="Redone data base, done password reset procedure" />
@@ -756,6 +736,7 @@
     <MESSAGE value="improving UI with avatars" />
     <MESSAGE value="improving UI" />
     <MESSAGE value="Started change password" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started change password" />
+    <MESSAGE value="Started notifications" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started notifications" />
   </component>
 </project>
