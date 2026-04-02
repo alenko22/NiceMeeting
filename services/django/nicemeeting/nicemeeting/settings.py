@@ -147,3 +147,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'public'
 
 UPDATE_SECRET_TOKEN = os.getenv('UPDATE_SECRET_TOKEN', '')
+
+VAPID_PUBLIC_KEY = "OFKncR2yh_J2oUQm_UG16QegiEClisgv0wvMGafH8YxGuQT2fKSEMMzokZ7XLTOwm5UQZaBDah8QxE2HtSzwAw"
+VAPID_PRIVATE_KEY = "SsrmCKqSDO27i0h9uno-FgQa-aAJXvscFkyrnzt99lc"
+VAPID_CLAIMS = {
+    "sub": "mailto:pulyatv1@gmail.com"
+}

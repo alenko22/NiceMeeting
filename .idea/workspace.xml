@@ -4,10 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="improving UI">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/password_change_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/password_change_form.html" afterDir="false" />
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started change password">
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/push_notifications.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/send_notifications.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/keys_generation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/notifications.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/push.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meeting_new_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meeting_reminder_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templatetags/settings_tags.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/sw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +41,10 @@
         <option value="TypeScript JSX File" />
         <option value="Dockerfile" />
         <option value="CSS File" />
-        <option value="HTML File" />
-        <option value="Python Script" />
         <option value="package.json" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -62,32 +80,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.127.0.0.1:8000.executor": "Run",
-    "JavaScript Debug.localhost:5173.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "SHELLCHECK.PATH": "I do mind",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/maddue/PycharmProjects/NiceMeeting/services/django/nicemeeting/main/static/images",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "ts.external.directory.path": "D:\\NiceMeeting\\services\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.127.0.0.1:8000.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.localhost:5173.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;I do mind&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/maddue/PycharmProjects/NiceMeeting/services/django/nicemeeting/main/static/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\NiceMeeting\\services\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\maddue\PycharmProjects\NiceMeeting\services\django\nicemeeting\main\static\images" />
@@ -118,6 +136,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -266,7 +285,9 @@
       <workItem from="1774078855999" duration="3479000" />
       <workItem from="1774242652047" duration="5548000" />
       <workItem from="1774506662157" duration="8000" />
-      <workItem from="1774580684593" duration="7261000" />
+      <workItem from="1774580684593" duration="7449000" />
+      <workItem from="1775013475704" duration="7518000" />
+      <workItem from="1775097929160" duration="1554000" />
     </task>
     <task id="LOCAL-00001" summary="started development">
       <option name="closed" value="true" />
@@ -652,7 +673,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774593942613</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Started change password">
+      <option name="closed" value="true" />
+      <created>1774595794481</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1774595794481</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,7 +731,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Finished linking database" />
     <MESSAGE value="Commited migrations" />
     <MESSAGE value="Made three(3) pages - login, registration&#10;password reset.&#10;Started development of forms for this pages" />
     <MESSAGE value="q" />
@@ -727,6 +755,7 @@
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="improving UI with avatars" />
     <MESSAGE value="improving UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving UI" />
+    <MESSAGE value="Started change password" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started change password" />
   </component>
 </project>

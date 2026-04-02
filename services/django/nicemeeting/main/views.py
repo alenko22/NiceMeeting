@@ -13,6 +13,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, request, JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from api.loader import EventLoader
@@ -25,6 +26,7 @@ from datetime import datetime, timedelta
 import calendar
 from django.db import transaction
 import traceback
+from django.core.management import call_command
 
 from .forms import *
 from .models import *

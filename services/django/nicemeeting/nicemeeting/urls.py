@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-from api.views import hello, update_events
+from api.views import hello, update_events, trigger_notifications, push_subscribe
 from survey.urls import app_name
 from django.conf import settings
 
@@ -27,6 +27,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/hello/", hello),
     path("api/update_events/", update_events, name="update_events"),
+    path('api/trigger-notifications/', trigger_notifications, name='trigger_notifications'),
+    path('api/push/subscribe/', push_subscribe, name='push_subscribe'),
+
     path("", include("main.urls"), name="main"),
     path("survey/", include("survey.urls"), name="survey"),
     path("ML/", include("ML.urls"), name="ML"),

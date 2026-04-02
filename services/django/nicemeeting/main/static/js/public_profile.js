@@ -17,17 +17,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const placeError = document.querySelector('.schedule-meeting-form__place-error');
     const datetimeError = document.querySelector('.schedule-meeting-form__datetime-error');
 
+    // Функция обновления поля datetime при выборе мероприятия
+    function updateDatetimeForEvent() {
+        const activeType = document.querySelector('.schedule-meeting-form__type-btn--active');
+        if (activeType && activeType.dataset.type === 'event') {
+            const selectedOption = eventSelect.options[eventSelect.selectedIndex];
+            const beginTime = selectedOption?.dataset?.begin;
+            if (beginTime) {
+                datetimeInput.value = beginTime;
+                datetimeInput.disabled = true;
+                if (datetimeError) datetimeError.textContent = '';
+            } else {
+                datetimeInput.value = '';
+                datetimeInput.disabled = false;
+            }
+        } else {
+            datetimeInput.disabled = false;
+        }
+    }
+
     // Открытие модального окна
     if (scheduleMeetingBtn) {
         scheduleMeetingBtn.addEventListener('click', function() {
-            // Установить минимальную дату (сегодня + 1 час)
             const now = new Date();
             now.setHours(now.getHours() + 1);
             const minDatetime = now.toISOString().slice(0, 16);
             datetimeInput.min = minDatetime;
             datetimeInput.value = minDatetime;
 
-            // Сбросить форму
             scheduleMeetingForm.reset();
             eventError.textContent = '';
             placeError.textContent = '';
@@ -37,22 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.schedule-meeting-form__type-btn--active').classList.remove('schedule-meeting-form__type-btn--active');
             typeBtns[0].classList.add('schedule-meeting-form__type-btn--active');
 
+            if (eventSelect.value) {
+                updateDatetimeForEvent();
+            }
+
             openModal(scheduleMeetingModal);
         });
     }
 
-    // Закрытие модального окна
+    // Закрытие
     closeScheduleMeetingModalBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            closeModal(scheduleMeetingModal);
-        });
+        btn.addEventListener('click', () => closeModal(scheduleMeetingModal));
     });
-
-    // Закрытие по клику на бэкдроп
     if (scheduleMeetingModal) {
-        scheduleMeetingModal.querySelector('.modal__backdrop').addEventListener('click', function() {
-            closeModal(scheduleMeetingModal);
-        });
+        scheduleMeetingModal.querySelector('.modal__backdrop').addEventListener('click', () => closeModal(scheduleMeetingModal));
     }
 
     // Переключение типа встречи
@@ -66,21 +81,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 placeSection.style.display = 'none';
                 eventSelect.required = true;
                 placeInput.required = false;
+                updateDatetimeForEvent();
             } else {
                 eventSection.style.display = 'none';
                 placeSection.style.display = 'block';
                 eventSelect.required = false;
                 placeInput.required = true;
+                datetimeInput.disabled = false;
+                datetimeInput.value = '';
             }
         });
     });
+
+    // Обновление при выборе мероприятия
+    if (eventSelect) {
+        eventSelect.addEventListener('change', updateDatetimeForEvent);
+    }
 
     // Отправка формы
     if (scheduleMeetingForm) {
         scheduleMeetingForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Валидация
             let isValid = true;
             eventError.textContent = '';
             placeError.textContent = '';
@@ -92,37 +114,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 eventError.textContent = 'Пожалуйста, выберите мероприятие';
                 isValid = false;
             }
-
             if (type === 'place' && !placeInput.value.trim()) {
                 placeError.textContent = 'Пожалуйста, укажите место встречи';
                 isValid = false;
             }
-
-            if (!datetimeInput.value) {
+            if (!datetimeInput.value && type !== 'event') {
                 datetimeError.textContent = 'Пожалуйста, укажите дату и время';
                 isValid = false;
             }
 
             if (!isValid) return;
 
-            // Отправка данных
             const formData = new FormData(this);
             const userId = scheduleMeetingBtn.dataset.userId;
-
-            // Добавляем тип встречи в данные
             formData.append('type', type);
             formData.append('user2_id', userId);
+            if (type === 'event') formData.delete('datetime');
 
-            // Получаем URL из атрибута формы
-            const actionUrl = this.getAttribute('data-action-url');
-
-            // Отправляем запрос
-            fetch(actionUrl, {
+            fetch(this.getAttribute('data-action-url'), {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
             .then(response => response.json())
             .then(data => {
@@ -139,142 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     showNotification(data.message || 'Ошибка при создании встречи', 'error');
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                showNotification('Произошла ошибка. Попробуйте снова.', 'error');
-            });
+            .catch(() => showNotification('Произошла ошибка. Попробуйте снова.', 'error'));
         });
-    }
-
-    // ========== ФУНКЦИИ ВСПОМОГАТЕЛЬНЫЕ ==========
-    function openModal(modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    function showNotification(message, type = 'success') {
-        // Удаляем старое уведомление
-        const existing = document.querySelector('.notification');
-        if (existing) {
-            existing.classList.add('notification--hidden');
-            setTimeout(() => existing.remove(), 300);
-        }
-
-        // Создаём новое
-        const notification = document.createElement('div');
-        notification.className = `notification notification--${type}`;
-
-        const icon = type === 'success' ?
-            '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>' :
-            '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>';
-
-        notification.innerHTML = `
-            ${icon}
-            <span class="notification__message">${message}</span>
-            <button class="notification__close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        `;
-
-        document.body.appendChild(notification);
-
-        // Автоскрытие
-        const timeoutId = setTimeout(() => {
-            notification.classList.add('notification--hidden');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, type === 'success' ? 3000 : 5000);
-
-        // Закрытие по клику
-        notification.querySelector('.notification__close').addEventListener('click', () => {
-            clearTimeout(timeoutId);
-            notification.classList.add('notification--hidden');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        });
-    }
-
-    // ========== УДАЛЕНИЕ ПОСТОВ ==========
-    const deleteButtons = document.querySelectorAll('.public-profile__post-delete-btn');
-
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const postElement = this.closest('[data-post-id]');
-            const deleteUrl = this.dataset.deleteUrl;
-
-            if (!deleteUrl) {
-                console.error('Delete URL not found');
-                alert('Ошибка: не удалось найти ссылку для удаления');
-                return;
-            }
-
-            if (confirm('Вы уверены, что хотите удалить этот пост?')) {
-                deletePost(deleteUrl, postElement);
-            }
-        });
-    });
-
-    function deletePost(deleteUrl, postElement) {
-        fetch(deleteUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken()
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                postElement.style.opacity = '0';
-                postElement.style.transform = 'translateY(-20px)';
-                setTimeout(() => {
-                    postElement.remove();
-                    showNotification('Пост успешно удалён!', 'success');
-                }, 300);
-            } else {
-                showNotification(data.error || 'Ошибка при удалении поста', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Произошла ошибка при удалении', 'error');
-        });
-    }
-
-    function getCSRFToken() {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, 10) === 'csrftoken=') {
-                    cookieValue = decodeURIComponent(cookie.substring(10));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
     }
 
     // ========== МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ ИНТЕРЕСОВ ==========

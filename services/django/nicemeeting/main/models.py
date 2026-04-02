@@ -48,27 +48,6 @@ class User(AbstractUser):
         verbose_name='avatar',
     )
 
-
-class MeetingClient(models.Model):
-    id = models.AutoField(primary_key=True)
-    id_meeting_type = models.ForeignKey('MeetingType', models.DO_NOTHING, db_column='id_meeting_type')
-    id_client = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='id_client')
-    address = models.CharField()
-    datetime = models.DateTimeField()
-
-    class Meta:
-        managed = True
-        db_table = 'meeting_client'
-
-
-class MeetingType(models.Model):
-    type_id = models.AutoField(primary_key=True)
-    type_name = models.CharField()
-
-    class Meta:
-        managed = True
-        db_table = 'meeting_type'
-
 class Chat(models.Model):
     id = models.AutoField(primary_key=True)
     user1 = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='user1', related_name='chat_user1')
@@ -174,6 +153,9 @@ class Meeting (models.Model):
     event = models.ForeignKey('Event', models.DO_NOTHING, db_column='event', related_name='event', null=True)
     datetime = models.DateTimeField(default=timezone.now)
     place = models.CharField(null=True)
+    notification_1h_sent = models.BooleanField(default=False)
+    notification_30m_sent = models.BooleanField(default=False)
+    notification_15m_sent = models.BooleanField(default=False)
 
     class Meta:
         managed = True
@@ -191,3 +173,13 @@ class UserSettings(models.Model):
     email_notifications = models.BooleanField(default=True)
     push_notifications = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class PushSubscription(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='push_subscriptions')
+    endpoint = models.URLField()
+    p256dh = models.CharField(max_length=255)
+    auth = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'endpoint')

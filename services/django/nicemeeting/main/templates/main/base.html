@@ -1,4 +1,5 @@
 {% load static %}
+{% load settings_tags %}
 <!DOCTYPE html>
 <html lang="en" data-theme="{{ request.theme|default:'light' }}">
 <head>
@@ -37,9 +38,9 @@
                 <div class="is-auth" id="isAuth">
                     <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">
                         {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
+                            <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 100px; max-width: 100px">
                         {% else %}
-                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar">
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 100px; max-width: 100px">
                         {% endif %}
                         <span class="visually-hidden">Меню пользователя</span>
                     </button>
@@ -106,6 +107,12 @@
     </div>
 </footer>
 <script src="{% static 'js/base.js' %}"></script>
+<script>
+    window.vapidPublicKey = "{% get_setting 'VAPID_PUBLIC_KEY' %}";
+    window.userSettings = {
+        push_notifications: {{ request.user.settings.push_notifications|yesno:"true,false" }}
+    };
+</script>
 {% block extra_js %} {% endblock %}
 </body>
 </html>

@@ -311,7 +311,7 @@
                                 <option value="">Выберите мероприятие...</option>
                                 {% for event in events %}
                                     {% if event.date_end > now %}
-                                    <option value="{{ event.id }}" data-place="{{ event.place }}">
+                                    <option value="{{ event.id }}" data-begin="{{ event.date_begin|date:'Y-m-d\TH:i' }}">
                                         {{ event.title }} — {{ event.date_begin|date:"d E Y, H:i" }}
                                         {% if event.place %}({{ event.place }}){% endif %}
                                     </option>

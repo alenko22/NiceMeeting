@@ -7,3 +7,4 @@ Pillow
 requests
 whitenoise
 dj-database-url
+pywebpush

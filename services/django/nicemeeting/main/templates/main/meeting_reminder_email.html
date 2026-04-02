@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Здравствуйте, {{ user.get_full_name|default:user.username }}!</h2>
+    <p>Напоминаем, что встреча состоится через
+    {% if notification_type == '1h' %}1 час
+    {% elif notification_type == '30m' %}30 минут
+    {% else %}15 минут{% endif %}.</p>
+    {% if meeting.event %}
+        <p><strong>Мероприятие:</strong> {{ meeting.event.title }}</p>
+        <p><strong>Место:</strong> {{ meeting.event.place }}</p>
+        <p><strong>Время начала:</strong> {{ meeting.event.date_begin|date:"d E Y H:i" }}</p>
+    {% else %}
+        <p><strong>Место:</strong> {{ meeting.place }}</p>
+        <p><strong>Время начала:</strong> {{ meeting.datetime|date:"d E Y H:i" }}</p>
+    {% endif %}
+    <p><a href="{{ site_url }}{% url 'meeting_details' meeting.id %}">Подробнее о встрече</a></p>
+</body>
+</html>
