@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Call notification endpoint
         run: |
-          curl -X POST https://yourdomain.com/api/trigger-notifications/ \
+          curl -X POST https://nicemeeting.onrender.com/api/trigger-notifications/ \
                -H "Authorization: Bearer ${{ secrets.NOTIFICATION_TOKEN }}"
