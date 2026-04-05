@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Started notifications">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="fixing bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/base.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/push_notifications.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/api/management/commands/push_notifications.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,23 +267,8 @@
       <workItem from="1774506662157" duration="8000" />
       <workItem from="1774580684593" duration="7449000" />
       <workItem from="1775013475704" duration="7518000" />
-      <workItem from="1775097929160" duration="4079000" />
-    </task>
-    <task id="LOCAL-00002" summary="Linked database">
-      <option name="closed" value="true" />
-      <created>1761737480569</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1761737480569</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Finished linking database">
-      <option name="closed" value="true" />
-      <created>1762437651117</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1762437651118</updated>
+      <workItem from="1775097929160" duration="5400000" />
+      <workItem from="1775365509816" duration="297000" />
     </task>
     <task id="LOCAL-00004" summary="Commited migrations">
       <option name="closed" value="true" />
@@ -662,7 +646,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775099660690</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="fixing bugs">
+      <option name="closed" value="true" />
+      <created>1775102144920</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1775102144920</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fixing bugs">
+      <option name="closed" value="true" />
+      <created>1775102398413</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1775102398413</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -732,11 +732,11 @@
     <MESSAGE value="Made avatars, done some UI fixes" />
     <MESSAGE value="Started doing PWA for site" />
     <MESSAGE value="Update icons location" />
-    <MESSAGE value="fixing bugs" />
     <MESSAGE value="improving UI with avatars" />
     <MESSAGE value="improving UI" />
     <MESSAGE value="Started change password" />
     <MESSAGE value="Started notifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started notifications" />
+    <MESSAGE value="fixing bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs" />
   </component>
 </project>

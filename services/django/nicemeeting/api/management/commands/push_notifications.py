@@ -1,7 +1,7 @@
 import json
 from pywebpush import webpush, WebPushException
 from django.conf import settings
-from .models import PushSubscription
+from main.models import PushSubscription
 
 def send_push_notification(user, title, body, url=None):
     subscriptions = PushSubscription.objects.filter(user=user)
