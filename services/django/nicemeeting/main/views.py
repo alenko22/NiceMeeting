@@ -648,8 +648,8 @@ def create_meeting(request):
                 meeting.user1.add(request.user)
 
                 # Записываем обоих участников на мероприятие, если ещё не записаны
-                EventUser.objects.get_or_create(user_id=request.user, event_id=event.id)
-                EventUser.objects.get_or_create(user_id=user2, event_id=event.id)
+                EventUser.objects.get_or_create(user_id=request.user, event_id=event)
+                EventUser.objects.get_or_create(user_id=user2, event_id=event)
 
         elif meeting_type == 'place':
             # Встреча в определённом месте
