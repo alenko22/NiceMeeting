@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="fixing bugs">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/blocked_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Added black list functionality" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -140,9 +130,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Django Server.NiceMeeting" />
       <item itemvalue="JavaScript Debug.127.0.0.1:8000" />
       <item itemvalue="JavaScript Debug.localhost:5173" />
+      <item itemvalue="Django Server.NiceMeeting" />
     </list>
     <recent_temporary>
       <list>
@@ -282,15 +272,7 @@
       <workItem from="1776231742555" duration="14000" />
       <workItem from="1776231835638" duration="714000" />
       <workItem from="1776337536398" duration="2903000" />
-      <workItem from="1776391923089" duration="2002000" />
-    </task>
-    <task id="LOCAL-00007" summary="Redone data base, done password reset procedure">
-      <option name="closed" value="true" />
-      <created>1769437112408</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1769437112408</updated>
+      <workItem from="1776391923089" duration="2302000" />
     </task>
     <task id="LOCAL-00008" summary="Made a lot of pages, started working for survey">
       <option name="closed" value="true" />
@@ -676,7 +658,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775366661413</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Added black list functionality">
+      <option name="closed" value="true" />
+      <created>1776394140386</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1776394140386</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -726,7 +716,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Made three(3) pages - login, registration&#10;password reset.&#10;Started development of forms for this pages" />
     <MESSAGE value="q" />
     <MESSAGE value="Redone data base, done password reset procedure" />
     <MESSAGE value="Made a lot of pages, started working for survey" />
@@ -751,6 +740,7 @@
     <MESSAGE value="Started change password" />
     <MESSAGE value="Started notifications" />
     <MESSAGE value="fixing bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs" />
+    <MESSAGE value="Added black list functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added black list functionality" />
   </component>
 </project>
