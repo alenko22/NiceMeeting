@@ -110,7 +110,7 @@
 <script>
     window.vapidPublicKey = "{% get_setting 'VAPID_PUBLIC_KEY' %}";
     window.userSettings = {
-        push_notifications: {{ request.user.settings.push_notifications|yesno:"true,false" }}
+        push_notifications: {% if request.user.is_authenticated %}{{ request.user.settings.push_notifications|yesno:"true,false" }}{% else %}false{% endif %}
     };
 </script>
 {% block extra_js %} {% endblock %}
