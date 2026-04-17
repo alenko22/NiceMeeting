@@ -415,4 +415,62 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => notification.remove(), 300);
         });
     }
+
+    // Обработка блокировки
+    const blockBtn = document.querySelector('.chats__block-btn');
+    const blockActionModal = document.getElementById('blockActionModal');
+    const complaintModal = document.getElementById('complaintModal');
+    let currentBlockUserId = null;
+
+    if (blockBtn) {
+        blockBtn.addEventListener('click', () => {
+            currentBlockUserId = blockBtn.dataset.otherUserId;
+            document.getElementById('block-username').textContent = blockBtn.dataset.otherUsername;
+            openModal(blockActionModal);
+        });
+    }
+
+    document.getElementById('blockOnlyBtn')?.addEventListener('click', () => {
+        closeModal(blockActionModal);
+        sendBlockRequest(currentBlockUserId, 'block');
+    });
+
+    document.getElementById('blockAndComplainBtn')?.addEventListener('click', () => {
+        closeModal(blockActionModal);
+        openModal(complaintModal);
+    });
+
+    document.getElementById('submitComplaintBtn')?.addEventListener('click', () => {
+        const reason = document.getElementById('complaintReason').value.trim();
+        if (!reason) {
+            showNotification('Укажите причину жалобы', 'error');
+            return;
+        }
+        closeModal(complaintModal);
+        sendBlockRequest(currentBlockUserId, 'block_and_complain', reason);
+    });
+
+    function sendBlockRequest(userId, action, complaintReason = '') {
+        const formData = new FormData();
+        formData.append('user_id', userId);
+        formData.append('action', action);
+        if (complaintReason) formData.append('complaint_reason', complaintReason);
+        formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+
+        fetch('/block-user/', {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification(data.message, 'success');
+                window.location.href = '/chats/'; // редирект на список чатов
+            } else {
+                showNotification(data.error, 'error');
+            }
+        })
+        .catch(() => showNotification('Ошибка при блокировке', 'error'));
+    }
 });

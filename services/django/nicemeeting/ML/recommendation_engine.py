@@ -46,6 +46,8 @@ def get_recommendations(user):
             if user.astral_sign == recommended_user.astral_sign:
                 score += 20
 
+        score -= recommended_user.complaints_count * 1.5
+
         avg_rating = Rating.objects.filter(
             rated_user=recommended_user
         ).aggregate(Avg('rating'))['rating__avg'] or 0

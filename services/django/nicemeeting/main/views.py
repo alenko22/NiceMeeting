@@ -185,7 +185,7 @@ def search(request):
     if form.is_valid():
         users = User.objects.all().annotate(
             age = ExtractYear(date.today()) - ExtractYear(F("date_birth")),
-        )
+        ).exclude(id=request.user.id).exclude(id__in=request.user.blocked.all())
 
         q = form.cleaned_data.get('q')
         if q:
@@ -233,6 +233,14 @@ def search(request):
 
 def public_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
+    current_user = request.user if request.user.is_authenticated else None
+
+    if current_user:
+        if user in current_user.blocked.all():
+            return render(request, "main/blocked_profile.html", {"user": user, "blocked_by_me": True})
+        if current_user in user.blocked.all():
+            return render(request, "main/blocked_profile.html", {"user": user, "blocked_by_me": False})
+
     posts = Post.objects.filter(author=user).annotate(
         comments_count=Count("comments"),
     )
@@ -434,6 +442,10 @@ def send_message(request, chat_id):
     if user not in [chat.user1, chat.user2]:
         return JsonResponse({'error': 'Access denied'}, status=403)
 
+    other_user = chat.get_other_user(user)
+    if other_user in user.blocked.all() or user in other_user.blocked.all():
+        return JsonResponse({'error': 'You are blocked'}, status=403)
+
     # Получаем текст из textarea
     text = request.POST.get('text', '').strip()
 
@@ -479,6 +491,9 @@ def create_chat(request, recipient_id=None):
 
     if user == recipient:
         return JsonResponse({'error': 'Cannot chat with yourself'}, status=400)
+
+    if recipient in user.blocked.all() or user in recipient.blocked.all():
+        return JsonResponse({'error': 'Cannot create chat with this user'}, status=400)
 
     chat, created = Chat.objects.get_or_create(
         user1=user,
@@ -925,3 +940,43 @@ def upload_avatar(request):
 
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+@login_required
+@require_http_methods(["POST"])
+def block_user(request):
+    user_id = request.POST.get('user_id')
+    complaint_reason = request.POST.get('complaint_reason', '').strip()
+    action = request.POST.get('action')  # 'block' or 'block_and_complain'
+
+    if not user_id:
+        return JsonResponse({'success': False, 'error': 'Не указан пользователь'}, status=400)
+
+    try:
+        target_user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Пользователь не найден'}, status=404)
+
+    if request.user == target_user:
+        return JsonResponse({'success': False, 'error': 'Нельзя заблокировать самого себя'}, status=400)
+
+    # Добавляем в чёрный список
+    request.user.blocked.add(target_user)
+
+    # Удаляем чат между пользователями, если есть
+    Chat.delete_between(request.user, target_user)
+
+    # Если требуется жалоба
+    if action == 'block_and_complain':
+        if not complaint_reason:
+            return JsonResponse({'success': False, 'error': 'Укажите причину жалобы'}, status=400)
+        Complaint.objects.create(
+            complainant=request.user,
+            complained_user=target_user,
+            reason=complaint_reason
+        )
+        target_user.complaints_count += 1
+        target_user.save(update_fields=['complaints_count'])
+        # Заглушка уведомления модераторам
+        # TODO: реальная отправка модераторам (email, админка и т.п.)
+
+    return JsonResponse({'success': True, 'message': 'Пользователь заблокирован'})

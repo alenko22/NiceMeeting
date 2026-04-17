@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="blocked-message">
+        <h2>{% if blocked_by_me %}Вы заблокировали этого пользователя{% else %}Пользователь заблокировал вас{% endif %}</h2>
+        <p>Вы не можете просматривать профиль.</p>
+    </div>
+</div>
+{% endblock %}

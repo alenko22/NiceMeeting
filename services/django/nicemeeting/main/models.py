@@ -10,6 +10,7 @@ import os
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.db.models import Q
 from django.utils import timezone
 import uuid
 from datetime import datetime
@@ -47,6 +48,8 @@ class User(AbstractUser):
         blank=True,
         verbose_name='avatar',
     )
+    blocked = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='blocked_by')
+    complaints_count = models.IntegerField(default=0)
 
 class Chat(models.Model):
     id = models.AutoField(primary_key=True)
@@ -64,9 +67,19 @@ class Chat(models.Model):
     def get_last_message(self):
         return self.messages.order_by('-datetime').first()
 
+    @classmethod
+    def delete_between(cls, user_a, user_b):
+        chat = cls.objects.filter(
+            Q(user1=user_a, user2=user_b) | Q(user1=user_b, user2=user_a)
+        ).first()
+        if chat:
+            chat.delete()
+            return True
+        return False
+
 class Message(models.Model):
     id = models.BigAutoField(primary_key=True, db_column='id')
-    chat = models.ForeignKey(Chat, models.DO_NOTHING, db_column='chat', related_name='messages', default=" ")
+    chat = models.ForeignKey(Chat, models.CASCADE, db_column='chat', related_name='messages', default=" ")
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='sender', related_name='sent_messages')
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='recipient', related_name='received_messages')
     datetime = models.DateTimeField(default=timezone.now)
@@ -183,3 +196,13 @@ class PushSubscription(models.Model):
 
     class Meta:
         unique_together = ('user', 'endpoint')
+
+class Complaint(models.Model):
+    complainant = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='complaints_made')
+    complained_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='complaints_received')
+    reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'complaint'
+        managed = True

@@ -5,6 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="fixing bugs">
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/blocked_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/chats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,9 +30,9 @@
         <option value="Dockerfile" />
         <option value="CSS File" />
         <option value="package.json" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -267,23 +275,14 @@
       <workItem from="1774580684593" duration="7449000" />
       <workItem from="1775013475704" duration="7518000" />
       <workItem from="1775097929160" duration="5400000" />
-      <workItem from="1775365509816" duration="940000" />
-    </task>
-    <task id="LOCAL-00005" summary="Made three(3) pages - login, registration&#10;password reset.&#10;Started development of forms for this pages">
-      <option name="closed" value="true" />
-      <created>1768747962924</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1768747962924</updated>
-    </task>
-    <task id="LOCAL-00006" summary="q">
-      <option name="closed" value="true" />
-      <created>1769170692645</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1769170692645</updated>
+      <workItem from="1775365509816" duration="2386000" />
+      <workItem from="1775561709572" duration="59000" />
+      <workItem from="1776230742124" duration="18000" />
+      <workItem from="1776230937884" duration="700000" />
+      <workItem from="1776231742555" duration="14000" />
+      <workItem from="1776231835638" duration="714000" />
+      <workItem from="1776337536398" duration="2903000" />
+      <workItem from="1776391923089" duration="2002000" />
     </task>
     <task id="LOCAL-00007" summary="Redone data base, done password reset procedure">
       <option name="closed" value="true" />
@@ -661,7 +660,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775365836443</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="fixing bugs">
+      <option name="closed" value="true" />
+      <created>1775366460654</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1775366460654</updated>
+    </task>
+    <task id="LOCAL-00055" summary="fixing bugs">
+      <option name="closed" value="true" />
+      <created>1775366661413</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1775366661413</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
