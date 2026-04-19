@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Added migrations">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
+      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/images/favicon.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
     </list>
@@ -276,15 +277,10 @@
       <workItem from="1776231835638" duration="714000" />
       <workItem from="1776337536398" duration="2903000" />
       <workItem from="1776391923089" duration="2302000" />
-      <workItem from="1776413039541" duration="1476000" />
-    </task>
-    <task id="LOCAL-00009" summary="Started event developing and added some new features">
-      <option name="closed" value="true" />
-      <created>1769998547637</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1769998547637</updated>
+      <workItem from="1776413039541" duration="1508000" />
+      <workItem from="1776564428090" duration="80000" />
+      <workItem from="1776564515669" duration="1000" />
+      <workItem from="1776570588564" duration="950000" />
     </task>
     <task id="LOCAL-00010" summary="done events, details of certain event, done event signin up, started public profile">
       <option name="closed" value="true" />
@@ -670,7 +666,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776413133389</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1776417375988</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1776417375988</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -720,7 +724,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Redone data base, done password reset procedure" />
     <MESSAGE value="Made a lot of pages, started working for survey" />
     <MESSAGE value="Started event developing and added some new features" />
     <MESSAGE value="done events, details of certain event, done event signin up, started public profile" />
@@ -745,6 +748,7 @@
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="Added black list functionality" />
     <MESSAGE value="Added migrations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added migrations" />
+    <MESSAGE value="Fixing bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing bugs" />
   </component>
 </project>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/themes.css' %}">
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
     <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body class="theme-{{ request.theme|default:'light' }}">
 {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'password_reset' %}
@@ -34,6 +35,8 @@
         </nav>
 
         <div class="auth-area" id="authArea">
+        <!-- DEBUG: is_authenticated = {{ request.user.is_authenticated }} -->
+        <!-- DEBUG: user = {{ request.user }} -->
             {% if request.user.is_authenticated %}
                 <div class="is-auth" id="isAuth">
                     <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">
