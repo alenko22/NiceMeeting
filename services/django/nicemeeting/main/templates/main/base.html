@@ -12,11 +12,6 @@
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body class="theme-{{ request.theme|default:'light' }}">
-{% if request.user.is_authenticated %}
-    <div style="background:red; color:white; padding:5px;">DEBUG: user is authenticated: {{ request.user.username }}</div>
-{% else %}
-    <div style="background:green; color:white; padding:5px;">DEBUG: user is anonymous</div>
-{% endif %}
 {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'password_reset' %}
     <header class="site-header">
     <!-- Логотип слева, кликабельный -->
