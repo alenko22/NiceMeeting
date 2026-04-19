@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
-      <change afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/images/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
-    </list>
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -280,15 +276,7 @@
       <workItem from="1776413039541" duration="1508000" />
       <workItem from="1776564428090" duration="80000" />
       <workItem from="1776564515669" duration="1000" />
-      <workItem from="1776570588564" duration="950000" />
-    </task>
-    <task id="LOCAL-00010" summary="done events, details of certain event, done event signin up, started public profile">
-      <option name="closed" value="true" />
-      <created>1770261582917</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1770261582917</updated>
+      <workItem from="1776570588564" duration="1447000" />
     </task>
     <task id="LOCAL-00011" summary="Regular backup commit">
       <option name="closed" value="true" />
@@ -674,7 +662,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776417375988</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1776572030531</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1776572030531</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -35,8 +35,8 @@
         </nav>
 
         <div class="auth-area" id="authArea">
-        <!-- DEBUG: is_authenticated = {{ request.user.is_authenticated }} -->
-        <!-- DEBUG: user = {{ request.user }} -->
+        DEBUG: is_authenticated = {{ request.user.is_authenticated }}
+         DEBUG: user = {{ request.user }}
             {% if request.user.is_authenticated %}
                 <div class="is-auth" id="isAuth">
                     <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">
