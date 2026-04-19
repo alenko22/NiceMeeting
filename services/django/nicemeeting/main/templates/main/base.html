@@ -12,6 +12,11 @@
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
 </head>
 <body class="theme-{{ request.theme|default:'light' }}">
+{% if request.user.is_authenticated %}
+    <div style="background:red; color:white; padding:5px;">DEBUG: user is authenticated: {{ request.user.username }}</div>
+{% else %}
+    <div style="background:green; color:white; padding:5px;">DEBUG: user is anonymous</div>
+{% endif %}
 {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'password_reset' %}
     <header class="site-header">
     <!-- Логотип слева, кликабельный -->
@@ -35,8 +40,6 @@
         </nav>
 
         <div class="auth-area" id="authArea">
-        DEBUG: is_authenticated = {{ request.user.is_authenticated }}
-         DEBUG: user = {{ request.user }}
             {% if request.user.is_authenticated %}
                 <div class="is-auth" id="isAuth">
                     <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">
