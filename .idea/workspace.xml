@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/commentaries.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/commentaries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/commentaries.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/commentaries.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,15 +286,7 @@
       <workItem from="1776413039541" duration="1508000" />
       <workItem from="1776564428090" duration="80000" />
       <workItem from="1776564515669" duration="1000" />
-      <workItem from="1776570588564" duration="3366000" />
-    </task>
-    <task id="LOCAL-00014" summary="Done meetings, started settings">
-      <option name="closed" value="true" />
-      <created>1770707744857</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1770707744857</updated>
+      <workItem from="1776570588564" duration="5676000" />
     </task>
     <task id="LOCAL-00015" summary="Regular backup commit">
       <option name="closed" value="true" />
@@ -673,7 +672,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776573139765</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1776574246046</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1776574246046</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -10,6 +10,17 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+def is_email_blocked(email):
+    """Проверяет, находится ли email в файле заблокированных"""
+    blocked_file = getattr(settings, 'BLOCKED_EMAILS_FILE', 'blocked_emails.txt')
+    if not os.path.exists(blocked_file):
+        return False
+    with open(blocked_file, 'r', encoding='utf-8') as f:
+        blocked_emails = {line.strip().lower() for line in f}
+    return email.lower() in blocked_emails
+
+
+
 class MainRegisterPostForm(UserCreationForm):
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={
         "placeholder": "Введите здесь ваш пароль",
@@ -22,8 +33,6 @@ class MainRegisterPostForm(UserCreationForm):
         "class": "form-field__input",
     }))
 
-
-
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
@@ -34,18 +43,24 @@ class MainRegisterPostForm(UserCreationForm):
         }
         widgets = {
             "username": forms.TextInput(attrs={
-                "label" : "Имя пользователя",
+                "label": "Имя пользователя",
                 "placeholder": "Введите ваше имя, которое будет отображаться",
                 "maxlength": "30",
                 "class": "form-field__input",
             }),
             "email": forms.EmailInput(attrs={
                 "label": "E-mail",
-                "placeholder" : "Введите вашу электронную почту",
+                "placeholder": "Введите вашу электронную почту",
                 "maxlength": "50",
                 "class": "form-field__input",
             }),
         }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and is_email_blocked(email):
+            raise forms.ValidationError("Этот email заблокирован. Регистрация невозможна.")
+        return email
 
 class MainLoginPostForm(AuthenticationForm):
     username = forms.CharField(label="Имя пользователя", widget=forms.TextInput(attrs={

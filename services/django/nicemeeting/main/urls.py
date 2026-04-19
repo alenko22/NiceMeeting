@@ -45,4 +45,6 @@ urlpatterns = [
     path('how_it_works', views.how_it_works, name='how_it_works'),
     path('upload-avatar', views.upload_avatar, name='upload_avatar'),
     path('block_user', views.block_user, name='block_user'),
+    path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+    path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
 ]

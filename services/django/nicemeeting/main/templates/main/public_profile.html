@@ -57,7 +57,7 @@
                                 </svg>
                                 Подписаться
                             </button>
-                            <a class="btn btn-outline public-profile__message-btn"
+                            <a class="btn btn-outline public-profile__message-btn href"
                                href="{% url 'create_chat' %}"
                                data-recipient-id="{{ user.id }}"
                                data-url="{% url 'create_chat' %}">
@@ -81,8 +81,19 @@
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                 </svg>
                             </button>
+                            {% elif request.user.is_staff %}
+                            <button class="btn btn-primary public-profile__delete-user-btn"
+                                    data-user-id="{{ user.id }}"
+                                    data-username="{{ user.get_full_name|default:user.username }}"
+                                    data-delete-url="{% url 'delete_user' user.id %}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                                Удалить пользователя
+                            </button>
                         {% elif request.user.is_authenticated and request.user == user %}
-                            <a href="{% url 'create_post' %}" class="btn btn-primary public-profile__add-post-btn">
+                            <a href="{% url 'create_post' %}" class="btn btn-primary public-profile__add-post-btn href">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -181,7 +192,7 @@
                     <div class="public-profile__post-header">
                         <div class="public-profile__post-meta">
                             <span class="public-profile__post-date">{{ post.date_posted|timesince }} назад</span>
-                            {% if request.user.is_authenticated and request.user == user %}
+                            {% if request.user.is_authenticated and request.user == user or request.user.is_staff%}
                                     <button
                                         class="btn btn-outline public-profile__post-delete-btn"
                                         title="Удалить пост"

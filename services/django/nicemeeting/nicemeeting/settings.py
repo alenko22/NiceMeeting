@@ -153,3 +153,5 @@ VAPID_PRIVATE_KEY = "SsrmCKqSDO27i0h9uno-FgQa-aAJXvscFkyrnzt99lc"
 VAPID_CLAIMS = {
     "sub": "mailto:pulyatv1@gmail.com"
 }
+
+BLOCKED_EMAILS_FILE = os.path.join(BASE_DIR, 'blocked_emails.txt')

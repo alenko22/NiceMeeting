@@ -473,4 +473,54 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(() => showNotification('Ошибка при блокировке', 'error'));
     }
+
+    const deleteUserBtn = document.querySelector('.public-profile__delete-user-btn');
+    if (deleteUserBtn) {
+        deleteUserBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const userId = this.dataset.userId;
+            const username = this.dataset.username;
+            const deleteUrl = this.dataset.deleteUrl;
+
+            if (!confirm(`ВНИМАНИЕ! Вы собираетесь полностью удалить пользователя ${username}. Его email будет заблокирован для повторной регистрации. Действие необратимо. Продолжить?`)) {
+                return;
+            }
+
+            function getCSRFToken() {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let cookie of cookies) {
+                        cookie = cookie.trim();
+                        if (cookie.substring(0, 10) === 'csrftoken=') {
+                            cookieValue = decodeURIComponent(cookie.substring(10));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            fetch(deleteUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification(data.message, 'success');
+                    // Через секунду перенаправляем на главную или список пользователей
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1500);
+                } else {
+                    showNotification(data.message || 'Ошибка при удалении', 'error');
+                }
+            })
+            .catch(() => showNotification('Сетевая ошибка', 'error'));
+        });
+    }
 });

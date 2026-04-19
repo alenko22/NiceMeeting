@@ -115,6 +115,82 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function getCSRFToken() {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let cookie of cookies) {
+                        cookie = cookie.trim();
+                        if (cookie.substring(0, 10) === 'csrftoken=') {
+                            cookieValue = decodeURIComponent(cookie.substring(10));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+    function showNotification(message, type = 'success') {
+        const existing = document.querySelector('.notification');
+        if (existing) {
+            existing.classList.add('notification--hidden');
+            setTimeout(() => existing.remove(), 300);
+        }
+        const notification = document.createElement('div');
+        notification.className = `notification notification--${type}`;
+        const icon = type === 'success'
+            ? '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+            : '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>';
+        notification.innerHTML = `${icon}<span class="notification__message">${message}</span><button class="notification__close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>`;
+        document.body.appendChild(notification);
+        const timeoutId = setTimeout(() => {
+            notification.classList.add('notification--hidden');
+            setTimeout(() => notification.remove(), 300);
+        }, type === 'success' ? 3000 : 5000);
+        notification.querySelector('.notification__close').addEventListener('click', () => {
+            clearTimeout(timeoutId);
+            notification.classList.add('notification--hidden');
+            setTimeout(() => notification.remove(), 300);
+        });
+    }
+
+    document.querySelectorAll('.post-comments__comment-delete').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const commentId = this.dataset.commentId;
+            const deleteUrl = this.dataset.deleteUrl;
+
+            if (!confirm('Вы уверены, что хотите удалить этот комментарий?')) return;
+
+            fetch(deleteUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Удаляем DOM-элемент комментария
+                    const commentElement = this.closest('.post-comments__comment');
+                    if (commentElement) commentElement.remove();
+                    showNotification('Комментарий удалён', 'success');
+                    // Обновить счётчик комментариев (опционально)
+                    const commentsCountSpan = document.querySelector('.post-comments__comments-title');
+                    if (commentsCountSpan) {
+                        let count = parseInt(commentsCountSpan.textContent.match(/\d+/)?.[0] || 0);
+                        count--;
+                        commentsCountSpan.textContent = `Комментарии (${count})`;
+                    }
+                } else {
+                    showNotification('Ошибка при удалении', 'error');
+                }
+            })
+            .catch(() => showNotification('Сетевая ошибка', 'error'));
+        });
+    });
+
     // Запускаем укорачивание при загрузке страницы
     initTextTruncation();
 });

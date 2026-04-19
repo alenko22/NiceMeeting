@@ -133,8 +133,6 @@ def index(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse("home"))
-    response.delete_cookie('sessionid')
     return redirect("home")
 
 def password_reset_complete(request):
@@ -982,3 +980,40 @@ def block_user(request):
         # TODO: реальная отправка модераторам (email, админка и т.п.)
 
     return JsonResponse({'success': True, 'message': 'Пользователь заблокирован'})
+
+@login_required
+@require_http_methods(["POST"])
+def delete_comment(request, comment_id):
+    if not request.user.is_staff:
+        raise PermissionDenied("Доступ запрещён")
+
+    comment = get_object_or_404(Commentaries, id=comment_id)
+    post_id = comment.post.id
+    comment.delete()
+
+    return JsonResponse({'success': True, 'post_id': post_id})
+
+
+BLOCKED_EMAILS_FILE = getattr(settings, 'BLOCKED_EMAILS_FILE', 'blocked_emails.txt')
+
+def add_email_to_blocklist(email):
+    with open(BLOCKED_EMAILS_FILE, 'a', encoding='utf-8') as f:
+        f.write(email.strip().lower() + '\n')
+
+@login_required
+@require_http_methods(["POST"])
+def delete_user(request, user_id):
+    if not request.user.is_staff:
+        raise PermissionDenied("Доступ запрещён")
+
+    user_to_delete = get_object_or_404(User, id=user_id)
+
+    # Запоминаем email до удаления
+    email = user_to_delete.email
+    if email:
+        add_email_to_blocklist(email)
+
+    # Удаляем пользователя (каскадно удалит все связанные объекты)
+    user_to_delete.delete()
+
+    return JsonResponse({'success': True, 'message': f'Пользователь {user_to_delete.username} удалён'})
