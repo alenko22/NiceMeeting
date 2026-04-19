@@ -133,6 +133,8 @@ def index(request):
 
 def logout_user(request):
     logout(request)
+    response = HttpResponseRedirect(reverse("home"))
+    response.delete_cookie('sessionid')
     return redirect("home")
 
 def password_reset_complete(request):
