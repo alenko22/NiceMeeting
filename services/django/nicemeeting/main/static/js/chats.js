@@ -371,6 +371,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function openModal(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
     // Очистка результатов поиска
     function clearSearchResults() {
         searchResultsEmpty.style.display = 'block';
@@ -406,6 +411,30 @@ document.addEventListener('DOMContentLoaded', function() {
         searchResultsNotFound.textContent = message;
         searchResultsNotFound.style.display = 'block';
         searchResultsList.innerHTML = '';
+    }
+
+    function showNotification(message, type = 'success') {
+        const existing = document.querySelector('.notification');
+        if (existing) {
+            existing.classList.add('notification--hidden');
+            setTimeout(() => existing.remove(), 300);
+        }
+        const notification = document.createElement('div');
+        notification.className = `notification notification--${type}`;
+        const icon = type === 'success'
+            ? '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+            : '<svg class="notification__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>';
+        notification.innerHTML = `${icon}<span class="notification__message">${message}</span><button class="notification__close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>`;
+        document.body.appendChild(notification);
+        const timeoutId = setTimeout(() => {
+            notification.classList.add('notification--hidden');
+            setTimeout(() => notification.remove(), 300);
+        }, type === 'success' ? 3000 : 5000);
+        notification.querySelector('.notification__close').addEventListener('click', () => {
+            clearTimeout(timeoutId);
+            notification.classList.add('notification--hidden');
+            setTimeout(() => notification.remove(), 300);
+        });
     }
 
     // Обработка блокировки

@@ -915,7 +915,6 @@ import json
 
 @login_required
 def upload_avatar(request):
-    """Загрузка аватара через AJAX."""
     try:
         avatar_file = request.FILES.get('avatar')
         if not avatar_file:

@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Added moderation functional">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/commentaries.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/commentaries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/commentaries.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/commentaries.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/nicemeeting/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,15 +282,8 @@
       <workItem from="1776413039541" duration="1508000" />
       <workItem from="1776564428090" duration="80000" />
       <workItem from="1776564515669" duration="1000" />
-      <workItem from="1776570588564" duration="5676000" />
-    </task>
-    <task id="LOCAL-00015" summary="Regular backup commit">
-      <option name="closed" value="true" />
-      <created>1771938106351</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1771938106351</updated>
+      <workItem from="1776570588564" duration="5746000" />
+      <workItem from="1776662398935" duration="721000" />
     </task>
     <task id="LOCAL-00016" summary="Regular backup commit">
       <option name="closed" value="true" />
@@ -680,7 +669,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776574246046</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Added moderation functional">
+      <option name="closed" value="true" />
+      <created>1776579442315</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1776579442315</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -730,7 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Made a lot of pages, started working for survey" />
     <MESSAGE value="Started event developing and added some new features" />
     <MESSAGE value="done events, details of certain event, done event signin up, started public profile" />
     <MESSAGE value="Done chats, started developing meetings" />
@@ -755,6 +751,7 @@
     <MESSAGE value="Added black list functionality" />
     <MESSAGE value="Added migrations" />
     <MESSAGE value="Fixing bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing bugs" />
+    <MESSAGE value="Added moderation functional" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added moderation functional" />
   </component>
 </project>
