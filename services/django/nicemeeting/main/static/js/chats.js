@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (complaintReason) formData.append('complaint_reason', complaintReason);
         formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
 
-        fetch('/block-user/', {
+        fetch('/block_user/', {
             method: 'POST',
             body: formData,
             headers: { 'X-Requested-With': 'XMLHttpRequest' }

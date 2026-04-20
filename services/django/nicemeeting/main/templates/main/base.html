@@ -39,9 +39,9 @@
                 <div class="is-auth" id="isAuth">
                     <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">
                         {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 100px; max-width: 100px">
+                            <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 65px; max-width: 65px">
                         {% else %}
-                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 100px; max-width: 100px">
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 65px; max-width: 65px">
                         {% endif %}
                         <span class="visually-hidden">Меню пользователя</span>
                     </button>

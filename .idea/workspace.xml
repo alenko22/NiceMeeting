@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,15 +280,7 @@
       <workItem from="1776564428090" duration="80000" />
       <workItem from="1776564515669" duration="1000" />
       <workItem from="1776570588564" duration="5746000" />
-      <workItem from="1776662398935" duration="1213000" />
-    </task>
-    <task id="LOCAL-00017" summary="Pre-production commit">
-      <option name="closed" value="true" />
-      <created>1772094192092</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1772094192092</updated>
+      <workItem from="1776662398935" duration="1518000" />
     </task>
     <task id="LOCAL-00018" summary="Regular backup commit">
       <option name="closed" value="true" />
@@ -676,7 +666,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776663142503</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1776663631161</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1776663631161</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
