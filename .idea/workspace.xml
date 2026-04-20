@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Added moderation functional">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/chats.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/public_profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,15 +282,7 @@
       <workItem from="1776564428090" duration="80000" />
       <workItem from="1776564515669" duration="1000" />
       <workItem from="1776570588564" duration="5746000" />
-      <workItem from="1776662398935" duration="721000" />
-    </task>
-    <task id="LOCAL-00016" summary="Regular backup commit">
-      <option name="closed" value="true" />
-      <created>1772028844849</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1772028844849</updated>
+      <workItem from="1776662398935" duration="1213000" />
     </task>
     <task id="LOCAL-00017" summary="Pre-production commit">
       <option name="closed" value="true" />
@@ -677,7 +668,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776579442315</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1776663142502</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1776663142503</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -750,8 +749,8 @@
     <MESSAGE value="fixing bugs" />
     <MESSAGE value="Added black list functionality" />
     <MESSAGE value="Added migrations" />
-    <MESSAGE value="Fixing bugs" />
     <MESSAGE value="Added moderation functional" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added moderation functional" />
+    <MESSAGE value="Fixing bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing bugs" />
   </component>
 </project>

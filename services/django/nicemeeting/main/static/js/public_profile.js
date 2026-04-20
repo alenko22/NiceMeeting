@@ -432,6 +432,28 @@ document.addEventListener('DOMContentLoaded', function() {
         return cookieValue;
     }
 
+    document.querySelectorAll('.modal').forEach(modal => {
+        const backdrop = modal.querySelector('.modal__backdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', () => closeModal(modal));
+        }
+    });
+
+    // Закрытие активной модалки по клавише Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => closeModal(modal));
+        }
+    });
+
+    // Закрытие по кнопкам с атрибутом data-modal-close (крестик, отмена и т.д.)
+    document.querySelectorAll('[data-modal-close]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            if (modal) closeModal(modal);
+        });
+    });
+
     // Обработка блокировки
     const blockBtn = document.querySelector('.chats__block-btn');
     const blockActionModal = document.getElementById('blockActionModal');
