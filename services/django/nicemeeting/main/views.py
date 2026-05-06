@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Count, F, Func, Q
@@ -53,6 +53,18 @@ class PasswordResetConfirm(PasswordResetConfirmView):
     form_class = MainChangePasswordConfirmPostForm
     template_name = "main/password_reset_confirm.html"
     success_url = reverse_lazy("login")
+
+class ChangeCurrentPassword(PasswordChangeView):
+    form_class = MainChangeCurrentPasswordPostForm
+    template_name = 'main/password_change_form.html'  # путь к вашему шаблону
+    success_url = reverse_lazy('main/password_change_done.html')  # или любая другая страница успеха
+
+    # URL для перенаправления при успехе (можно задать как атрибут)
+    # success_url = '/profile/'
+
+    def form_valid(self, form):
+        form.save(self.request.user)
+        return super().form_valid(form)
 
 class ChangeProfile(UpdateView):
     model = User

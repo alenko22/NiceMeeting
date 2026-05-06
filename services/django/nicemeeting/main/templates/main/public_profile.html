@@ -81,7 +81,7 @@
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                 </svg>
                             </button>
-                            {% elif request.user.is_staff %}
+                        {% elif request.user.is_staff %}
                             <button class="btn btn-primary public-profile__delete-user-btn"
                                     data-user-id="{{ user.id }}"
                                     data-username="{{ user.get_full_name|default:user.username }}"

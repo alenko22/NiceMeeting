@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,15 +284,11 @@
       <workItem from="1776564428090" duration="80000" />
       <workItem from="1776564515669" duration="1000" />
       <workItem from="1776570588564" duration="5746000" />
-      <workItem from="1776662398935" duration="2761000" />
-    </task>
-    <task id="LOCAL-00019" summary="Regular backup commit">
-      <option name="closed" value="true" />
-      <created>1772098066890</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1772098066890</updated>
+      <workItem from="1776662398935" duration="4081000" />
+      <workItem from="1776693152327" duration="695000" />
+      <workItem from="1776756266331" duration="759000" />
+      <workItem from="1778043657215" duration="113000" />
+      <workItem from="1778046934006" duration="696000" />
     </task>
     <task id="LOCAL-00020" summary="modified db connection">
       <option name="closed" value="true" />
@@ -673,7 +674,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776664032734</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1776665618256</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1776665618256</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
