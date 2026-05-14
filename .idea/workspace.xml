@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Done current user password changing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/settings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,9 +132,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Django Server.NiceMeeting" />
       <item itemvalue="JavaScript Debug.127.0.0.1:8000" />
       <item itemvalue="JavaScript Debug.localhost:5173" />
+      <item itemvalue="Django Server.NiceMeeting" />
     </list>
     <recent_temporary>
       <list>
@@ -288,15 +283,7 @@
       <workItem from="1776693152327" duration="695000" />
       <workItem from="1776756266331" duration="759000" />
       <workItem from="1778043657215" duration="113000" />
-      <workItem from="1778046934006" duration="696000" />
-    </task>
-    <task id="LOCAL-00020" summary="modified db connection">
-      <option name="closed" value="true" />
-      <created>1772099017439</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1772099017439</updated>
+      <workItem from="1778046934006" duration="2011000" />
     </task>
     <task id="LOCAL-00021" summary="Modified models">
       <option name="closed" value="true" />
@@ -682,7 +669,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776665618256</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Done current user password changing">
+      <option name="closed" value="true" />
+      <created>1778047657282</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1778047657282</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -732,7 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Started event developing and added some new features" />
     <MESSAGE value="done events, details of certain event, done event signin up, started public profile" />
     <MESSAGE value="Done chats, started developing meetings" />
     <MESSAGE value="Done meetings, started settings" />
@@ -757,6 +751,7 @@
     <MESSAGE value="Added migrations" />
     <MESSAGE value="Added moderation functional" />
     <MESSAGE value="Fixing bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing bugs" />
+    <MESSAGE value="Done current user password changing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done current user password changing" />
   </component>
 </project>
