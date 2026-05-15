@@ -11,6 +11,8 @@ def get_recommendations(user):
 
     # Базовый запрос - пользователи противоположного пола
     users = User.objects.filter(sex=target_sex).exclude(id=user.id)
+    users = users.exclude(id__in=user.blocked.all())
+    users = users.exclude(blocked__id = user.id)
 
     # Вычисляем возраст пользователя
     today = datetime.date.today()

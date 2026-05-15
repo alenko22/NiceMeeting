@@ -57,7 +57,7 @@ class PasswordResetConfirm(PasswordResetConfirmView):
 class ChangeCurrentPassword(PasswordChangeView):
     form_class = MainChangeCurrentPasswordPostForm
     template_name = 'main/password_change_form.html'  # путь к вашему шаблону
-    success_url = reverse_lazy('main/password_change_done.html')  # или любая другая страница успеха
+    success_url = reverse_lazy('password_change_done')  # или любая другая страница успеха
 
     # URL для перенаправления при успехе (можно задать как атрибут)
     # success_url = '/profile/'
@@ -137,8 +137,10 @@ def index(request):
         })
     return render(request, "main/index.html", {"slider_data": slider_data})
 
+def password_change_done(request):
+    return render(request, "main/password_change_done.html")
 
-#
+
 # def all_events(request):
 #     events = Event.objects.all().order_by('date_begin')
 #     return render(request, "main/all_events.html", {"events": events})
@@ -506,6 +508,8 @@ def create_chat(request, recipient_id=None):
 
     if recipient in user.blocked.all() or user in recipient.blocked.all():
         return JsonResponse({'error': 'Cannot create chat with this user'}, status=400)
+
+    user1, user2 = sorted([user, recipient], key=lambda u: u.id)
 
     chat, created = Chat.objects.get_or_create(
         user1=user,

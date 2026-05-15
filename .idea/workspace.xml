@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Done current user password changing">
+    <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="moderating ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/ML/recommendation_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/ML/recommendation_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,9 +135,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Django Server.NiceMeeting" />
       <item itemvalue="JavaScript Debug.127.0.0.1:8000" />
       <item itemvalue="JavaScript Debug.localhost:5173" />
-      <item itemvalue="Django Server.NiceMeeting" />
     </list>
     <recent_temporary>
       <list>
@@ -284,14 +287,8 @@
       <workItem from="1776756266331" duration="759000" />
       <workItem from="1778043657215" duration="113000" />
       <workItem from="1778046934006" duration="2011000" />
-    </task>
-    <task id="LOCAL-00021" summary="Modified models">
-      <option name="closed" value="true" />
-      <created>1772099663696</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1772099663696</updated>
+      <workItem from="1778761581622" duration="720000" />
+      <workItem from="1778829512689" duration="2599000" />
     </task>
     <task id="LOCAL-00022" summary="Modified first migration, now it creates schema">
       <option name="closed" value="true" />
@@ -677,7 +674,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778047657282</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="moderating ui">
+      <option name="closed" value="true" />
+      <created>1778761684733</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1778761684734</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -727,7 +732,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="done events, details of certain event, done event signin up, started public profile" />
     <MESSAGE value="Done chats, started developing meetings" />
     <MESSAGE value="Done meetings, started settings" />
     <MESSAGE value="Pre-production commit" />
@@ -752,6 +756,7 @@
     <MESSAGE value="Added moderation functional" />
     <MESSAGE value="Fixing bugs" />
     <MESSAGE value="Done current user password changing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done current user password changing" />
+    <MESSAGE value="moderating ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="moderating ui" />
   </component>
 </project>
