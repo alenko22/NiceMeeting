@@ -81,6 +81,16 @@ class CreatePost(CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+
+        image_file = self.request.FILES.get('image')
+        if image_file:
+            # Читаем байты
+            form.instance.image_data = image_file.read()
+            form.instance.image_format = image_file.content_type.split('/')[-1]
+        else:
+            form.instance.image_data = None
+            form.instance.image_format = None
+
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -945,11 +955,13 @@ def upload_avatar(request):
             return JsonResponse({'success': False, 'error': 'Максимальный размер файла 5 МБ'}, status=400)
 
         user = request.user
-        user.avatar = avatar_file
+        user.avatar_data = avatar_file.read()
+        user.avatar_format = avatar_file.content_type.split('/')[-1]
         user.save()
 
-        # Возвращаем URL нового аватара
-        avatar_url = user.avatar.url if user.avatar else None
+        import base64
+        b64 = base64.b64encode(user.avatar_data).decode('utf-8')
+        avatar_url = f"data:image/{user.avatar_format};base64,{b64}"
 
         return JsonResponse({'success': True, 'avatar_url': avatar_url})
 

@@ -8,3 +8,5 @@ requests
 whitenoise
 dj-database-url
 pywebpush
+django-storages
+boto3

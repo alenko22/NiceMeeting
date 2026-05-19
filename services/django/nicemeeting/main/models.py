@@ -42,12 +42,8 @@ class User(AbstractUser):
     children_quantity = models.SmallIntegerField(null=True)
     bad_habits = models.CharField(null=True)
     interests = models.CharField(null=True)
-    avatar = models.ImageField(
-        upload_to='avatars/',
-        null=True,
-        blank=True,
-        verbose_name='avatar',
-    )
+    avatar_data = models.BinaryField(blank=True, null=True, editable=True)
+    avatar_format = models.CharField(max_length=10, blank=True, null=True)
     blocked = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='blocked_by')
     complaints_count = models.IntegerField(default=0)
 
@@ -128,7 +124,8 @@ def post_image_path(instance, filename):
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to=post_image_path, blank=True, null=True)
+    image_data = models.BinaryField(blank=True, null=True, editable=True)
+    image_format = models.CharField(max_length=10, blank=True, null=True)
     text = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, db_column='author')
     date_posted = models.DateTimeField(default=timezone.now)
@@ -138,9 +135,6 @@ class Post(models.Model):
         db_table = 'post'
 
     def delete(self, *args, **kwargs):
-        if self.image:
-            if os.path.exists(self.image.path):
-                os.remove(self.image.path)
         super().delete(*args, **kwargs)
 
 class Commentaries(models.Model):

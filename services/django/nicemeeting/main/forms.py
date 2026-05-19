@@ -242,6 +242,7 @@ class MainChangeProfilePostForm(forms.ModelForm):
         return date_birth
 
 class MainCreatePostPostForm(forms.ModelForm):
+    image = forms.FileField(required=False, label="Изображение")
     class Meta:
         model = Post
         fields = ["text", "image"]
@@ -250,11 +251,6 @@ class MainCreatePostPostForm(forms.ModelForm):
                 "placeholder": "Здесь ваш текст поста",
                 "class": "form-field__input",
             }),
-            "image": forms.FileInput(attrs={
-                "placeholder": "Здесь изображение для вашего поста (необязательно)",
-                "class": "form-field__input",
-                "accept": "image/*",
-            })
         }
 
 class MainCreateCommentPostForm(forms.ModelForm):
@@ -345,10 +341,15 @@ class MainUserSettingsForm(forms.ModelForm):
             'push_notifications': forms.CheckboxInput(attrs={'class': 'switch__input'}),
         }
 
-class MainUserAvatarForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('avatar',)
+class MainUserAvatarForm(forms.Form):
+    avatar = forms.FileField(
+        label='Аватар',
+        required=False,
+        widget=forms.FileInput(attrs={
+            'accept': 'image/*',
+            'class': 'form-field__input',
+        })
+    )
 
 class MainChangeCurrentPasswordPostForm(PasswordChangeForm):
     old_password = None

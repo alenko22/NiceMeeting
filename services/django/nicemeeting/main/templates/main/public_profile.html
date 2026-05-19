@@ -206,10 +206,8 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% if post.image %}
-                        <div class="public-profile__post-image">
-                            <img src="{{ post.image.url }}" alt="{{ post.text }}" class="public-profile__post-img">
-                        </div>
+                    {% if post.image_data %}
+                        <img src="{{ post.image_data|b64image:post.image_format }}" alt="{{ post.text }}" class="public-profile__post-img">
                     {% endif %}
                     <div class="public-profile__post-content">
                         <p class="public-profile__post-text">

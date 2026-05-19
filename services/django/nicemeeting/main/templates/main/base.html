@@ -1,5 +1,6 @@
 {% load static %}
 {% load settings_tags %}
+{% load b64_images %}
 <!DOCTYPE html>
 <html lang="en" data-theme="{{ request.theme|default:'light' }}">
 <head>
@@ -38,10 +39,10 @@
             {% if request.user.is_authenticated %}
                 <div class="is-auth" id="isAuth">
                     <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false">
-                        {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 65px; max-width: 65px">
+                        {% if user.avatar_data %}
+                            <img src="{{ user.avatar_data|b64image:user.avatar_format }}" alt="Аватар" class="public-profile__avatar">
                         {% else %}
-                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар пользователя" class="public-profile__avatar" id="profileAvatar" style="max-height: 65px; max-width: 65px">
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар" class="public-profile__avatar">
                         {% endif %}
                         <span class="visually-hidden">Меню пользователя</span>
                     </button>

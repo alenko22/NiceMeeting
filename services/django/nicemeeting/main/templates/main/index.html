@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load b64_images %}
 
 
 {% block title %}
@@ -14,10 +15,9 @@
             {% for item in slider_data %}
             <div class="slider__slide">
                 <div class="slider__item {% if item.has_post %}post-card{% else %}profile-card{% endif %}">
-                    <!-- Блок изображения (декоративный) -->
                     <div class="slider__item-img">
                         {% if item.has_post %}
-                            <img src="{{ item.post.image }}" alt="">
+                            <img src="{{ item.post.image_data|b64image:item.post.image_format }}" alt="">
                         {% else %}
                             👤 Профиль
                         {% endif %}
