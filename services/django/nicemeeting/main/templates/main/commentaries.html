@@ -18,9 +18,9 @@
             <div class="post-comments__post-card public-profile__post">
                 <div class="post-comments__post-header public-profile__post-header">
                     <div class="post-comments__post-meta public-profile__post-meta">
-                        <div class="post-comments__post-author">
+                        <a class="post-comments__post-author" href="{% url 'public_profile' post.author_id %}">
                             <strong>{{ post.author }}</strong>
-                        </div>
+                        </a>
                         <div class="post-comments__post-date public-profile__post-date">
                             {{ post.date_posted|timesince }} назад
                         </div>

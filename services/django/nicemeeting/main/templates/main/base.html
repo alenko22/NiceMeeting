@@ -42,7 +42,7 @@
                         {% if user.avatar_data %}
                             <img src="{{ user.avatar_data|b64image:user.avatar_format }}" alt="Аватар" class="public-profile__avatar" style="width: 65px; height: 65px">
                         {% else %}
-                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар" class="public-profile__avatar">
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Аватар" class="public-profile__avatar" style="width: 65px; height: 65px">
                         {% endif %}
                         <span class="visually-hidden">Меню пользователя</span>
                     </button>
