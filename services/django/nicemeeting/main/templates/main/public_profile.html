@@ -38,32 +38,18 @@
                             <span class="public-profile__stat-value">{{ total_posts }}</span>
                             <span class="public-profile__stat-label">Постов</span>
                         </div>
-                        <div class="public-profile__stat-item">
-                            <span class="public-profile__stat-value">{{ user.followers.count|default:0 }}</span>
-                            <span class="public-profile__stat-label">Подписчиков</span>
-                        </div>
-                        <div class="public-profile__stat-item">
-                            <span class="public-profile__stat-value">{{ user.following.count|default:0 }}</span>
-                            <span class="public-profile__stat-label">Подписок</span>
-                        </div>
                     </div>
                     <div class="public-profile__actions">
                         {% if request.user.is_authenticated and request.user != user %}
-                            <button class="btn btn-primary public-profile__follow-btn">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                                Подписаться
-                            </button>
                             <a class="btn btn-outline public-profile__message-btn href"
                                href="{% url 'create_chat' %}"
                                data-recipient-id="{{ user.id }}"
                                data-url="{% url 'create_chat' %}">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                 </svg>
                                 Написать
                             </a>

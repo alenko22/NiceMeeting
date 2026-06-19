@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load b64_images %}
 
 {% block title %}
 Комментарии
@@ -26,9 +27,9 @@
                         </div>
                     </div>
                 </div>
-                {% if post.image %}
+                {% if post.image_data %}
                 <div class="post-comments__post-image public-profile__post-image">
-                    <img src="{{ post.image.url }}" alt="Пост" class="post-comments__post-img public-profile__post-img">
+                    <img src="{{ post.image_data|b64image:post.image_format }}" alt="Пост" class="post-comments__post-img public-profile__post-img">
                 </div>
                 {% endif %}
                 <div class="post-comments__post-content public-profile__post-content">
