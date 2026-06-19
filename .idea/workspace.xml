@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Improving UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,15 +292,7 @@
       <workItem from="1780991457762" duration="1286000" />
       <workItem from="1781502387157" duration="863000" />
       <workItem from="1781677965067" duration="2226000" />
-      <workItem from="1781836668314" duration="5333000" />
-    </task>
-    <task id="LOCAL-00029" summary="Redone build.sh">
-      <option name="closed" value="true" />
-      <created>1772286495932</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1772286495932</updated>
+      <workItem from="1781836668314" duration="5880000" />
     </task>
     <task id="LOCAL-00030" summary="Redone build.sh">
       <option name="closed" value="true" />
@@ -690,7 +678,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781844510621</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Improving UI">
+      <option name="closed" value="true" />
+      <created>1781856524251</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1781856524251</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
