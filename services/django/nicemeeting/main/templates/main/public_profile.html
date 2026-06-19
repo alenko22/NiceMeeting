@@ -41,7 +41,7 @@
                     </div>
                     <div class="public-profile__actions">
                         {% if request.user.is_authenticated and request.user != user %}
-                            <a class="btn btn-outline public-profile__message-btn href"
+                            <a class="btn btn-primary public-profile__message-btn href"
                                href="{% url 'create_chat' %}"
                                data-recipient-id="{{ user.id }}"
                                data-url="{% url 'create_chat' %}">
