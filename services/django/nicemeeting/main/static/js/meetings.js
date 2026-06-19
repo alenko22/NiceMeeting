@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Modal element:', modal);
     console.log('Pending items count:', pendingItems.length);
     console.log('Declined items count:', declinedItems.length);
+    if (modal) {
+    modal.style.display = 'block';
+}
+
 
     // Закрытие модалки по крестику
     const closeBtn = document.querySelector('.modal-close');
