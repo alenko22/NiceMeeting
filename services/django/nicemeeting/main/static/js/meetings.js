@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     updateAllCountdowns();
     setInterval(updateAllCountdowns, 60000); // Обновляем каждую минуту
     // Показываем модальное окно, если есть уведомления
@@ -9,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (pendingItems.length > 0 || declinedItems.length > 0) {
         modal.style.display = 'block';
     }
+    console.log('Modal element:', modal);
+    console.log('Pending items count:', pendingItems.length);
+    console.log('Declined items count:', declinedItems.length);
 
     // Закрытие модалки по крестику
     const closeBtn = document.querySelector('.modal-close');
