@@ -49,4 +49,7 @@ urlpatterns = [
     path('block_user', views.block_user, name='block_user'),
     path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+path('accept-meeting/<int:meeting_id>/', views.accept_meeting, name='accept_meeting'),
+    path('decline-meeting/<int:meeting_id>/', views.decline_meeting, name='decline_meeting'),
+    path('dismiss-declined/', views.dismiss_declined, name='dismiss_declined'),
 ]

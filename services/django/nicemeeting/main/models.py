@@ -163,6 +163,12 @@ class Meeting (models.Model):
     notification_1h_sent = models.BooleanField(default=False)
     notification_30m_sent = models.BooleanField(default=False)
     notification_15m_sent = models.BooleanField(default=False)
+    STATUS_CHOICES = (
+        ('pending', 'Ожидает подтверждения'),
+        ('accepted', 'Принята'),
+        ('declined', 'Отклонена'),
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
     class Meta:
         managed = True

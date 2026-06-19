@@ -47,4 +47,134 @@ function updateAllCountdowns() {
             valueElement.style.color = '#f44336';
         }
     });
+
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Показываем модальное окно, если есть уведомления
+    const modal = document.getElementById('notificationModal');
+    const pendingItems = document.querySelectorAll('.notification-item:not(.declined-item)');
+    const declinedItems = document.querySelectorAll('.declined-item');
+
+    if (pendingItems.length > 0 || declinedItems.length > 0) {
+        modal.style.display = 'block';
+    }
+
+    // Закрытие модалки по крестику
+    const closeBtn = document.querySelector('.modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            // После закрытия удаляем declined встречи (уведомления)
+            if (declinedItems.length > 0) {
+                fetch('/dismiss-declined/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Удаляем блоки declined из DOM
+                        declinedItems.forEach(el => el.remove());
+                    }
+                });
+            }
+        });
+    }
+
+    // Обработка принятия
+    document.querySelectorAll('.accept-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const meetingId = this.dataset.id;
+            const item = this.closest('.notification-item');
+            fetch(`/accept-meeting/${meetingId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    item.remove(); // убираем из модалки
+                    // Можно обновить страницу или добавить встречу в список вручную
+                    // Для простоты перезагрузим страницу
+                    location.reload();
+                } else {
+                    alert('Ошибка при принятии встречи');
+                }
+            });
+        });
+    });
+
+    // Обработка отклонения
+    document.querySelectorAll('.decline-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const meetingId = this.dataset.id;
+            const item = this.closest('.notification-item');
+            fetch(`/decline-meeting/${meetingId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    item.remove(); // убираем из модалки
+                    // Если не осталось уведомлений, закрываем модалку
+                    if (!document.querySelector('.notification-item')) {
+                        modal.style.display = 'none';
+                    }
+                } else {
+                    alert('Ошибка при отклонении встречи');
+                }
+            });
+        });
+    });
+
+    // Кнопка "Закрыть" для отклонённых (если есть отдельная)
+    const dismissBtn = document.querySelector('.dismiss-btn');
+    if (dismissBtn) {
+        dismissBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            // Удаляем declined встречи
+            if (declinedItems.length > 0) {
+                fetch('/dismiss-declined/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        declinedItems.forEach(el => el.remove());
+                    }
+                });
+            }
+        });
+    }
+
+    // Функция для получения CSRF-токена
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});

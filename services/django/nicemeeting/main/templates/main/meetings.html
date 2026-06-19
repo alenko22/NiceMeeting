@@ -109,6 +109,61 @@
     </div>
 </div>
 
+    <!-- Модальное окно уведомлений -->
+<div id="notificationModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Уведомления о встречах</h2>
+
+        {% if pending_meetings %}
+            <h3>Новые приглашения</h3>
+            {% for meeting in pending_meetings %}
+                <div class="notification-item" data-meeting-id="{{ meeting.id }}">
+                    <p>
+                        <strong>{{ meeting.user1.all.0.get_full_name|default:meeting.user1.all.0.username }}</strong>
+                        приглашает вас на встречу
+                        {% if meeting.event %}
+                            на мероприятии «{{ meeting.event.title }}»
+                        {% elif meeting.place %}
+                            в месте «{{ meeting.place }}»
+                        {% endif %}
+                        <br>
+                        {{ meeting.datetime|date:"d E Y, H:i" }}
+                    </p>
+                    <div class="notification-actions">
+                        <button class="btn btn-success accept-btn" data-id="{{ meeting.id }}">Принять</button>
+                        <button class="btn btn-danger decline-btn" data-id="{{ meeting.id }}">Отклонить</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if declined_meetings %}
+            <h3>Отклонённые приглашения</h3>
+            {% for meeting in declined_meetings %}
+                <div class="notification-item declined-item" data-meeting-id="{{ meeting.id }}">
+                    <p>
+                        Пользователь <strong>{{ meeting.user2.get_full_name|default:meeting.user2.username }}</strong>
+                        отклонил ваше приглашение
+                        {% if meeting.event %}
+                            на мероприятие «{{ meeting.event.title }}»
+                        {% elif meeting.place %}
+                            в место «{{ meeting.place }}»
+                        {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+            <button class="btn btn-primary dismiss-btn">Закрыть</button>
+        {% else %}
+            <!-- Если только приглашения, можно добавить кнопку закрытия -->
+        {% endif %}
+
+        {% if not pending_meetings and not declined_meetings %}
+            <p>Нет новых уведомлений.</p>
+        {% endif %}
+    </div>
+</div>
+
 {% block extra_js %}
     <script src="{% static 'js/meetings.js' %}"></script>
 {% endblock %}

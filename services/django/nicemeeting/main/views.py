@@ -600,18 +600,52 @@ def search_users(request):
 
 
 def meetings(request):
-    meetings = Meeting.objects.filter(
-        Q(user1=request.user) | Q(user2=request.user)
-    ).select_related("user2", "event").order_by("-datetime")
+    user = request.user
+
+    # Основной список: для user1 – все кроме declined, для user2 – только accepted
+    user1_meetings = Meeting.objects.filter(user1=user).exclude(status='declined')
+    user2_meetings = Meeting.objects.filter(user2=user, status='accepted')
+    meetings = (user1_meetings | user2_meetings).distinct().order_by('-datetime')
+
+    # Приглашения для текущего пользователя (он – приглашённый)
+    pending_meetings = Meeting.objects.filter(user2=user, status='pending')
+
+    # Отклонённые встречи, где пользователь – инициатор (уведомления)
+    declined_meetings = Meeting.objects.filter(user1=user, status='declined')
+
     paginator = Paginator(meetings, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
         'page_obj': page_obj,
-        'meetings': meetings,
+        'pending_meetings': pending_meetings,
+        'declined_meetings': declined_meetings,
     }
     return render(request, "main/meetings.html", context)
+
+def accept_meeting(request, meeting_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    meeting = get_object_or_404(Meeting, id=meeting_id, user2=request.user, status='pending')
+    meeting.status = 'accepted'
+    meeting.save()
+    return JsonResponse({'success': True, 'message': 'Встреча подтверждена'})
+
+def decline_meeting(request, meeting_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    meeting = get_object_or_404(Meeting, id=meeting_id, user2=request.user, status='pending')
+    meeting.status = 'declined'
+    meeting.save()
+    return JsonResponse({'success': True, 'message': 'Встреча отклонена'})
+
+def dismiss_declined(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    # Удаляем все отклонённые встречи для текущего пользователя как инициатора
+    Meeting.objects.filter(user1=request.user, status='declined').delete()
+    return JsonResponse({'success': True})
 
 
 from django.http import JsonResponse
