@@ -16,6 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (modal) {
     modal.style.display = 'block';
 }
+    console.log(getComputedStyle(modal).display);
+console.log(getComputedStyle(modal).visibility);
+console.log(getComputedStyle(modal).opacity);
+console.log(modal.getBoundingClientRect());
+
+modal.style.setProperty('display', 'block', 'important');
+modal.style.setProperty('visibility', 'visible', 'important');
+modal.style.setProperty('opacity', '1', 'important');
 
 
     // Закрытие модалки по крестику
