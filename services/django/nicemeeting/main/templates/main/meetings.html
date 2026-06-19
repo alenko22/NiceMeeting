@@ -10,8 +10,6 @@
     <div class="container container--wide">
         <h1 class="meetings__title">Ваши встречи</h1>
         <p class="meetings__subtitle">Здесь отображаются все запланированные встречи с другими пользователями</p>
-    <p>Количество ожидающих приглашений: {{ pending_meetings|length }}</p>
-<p>Количество отклонённых уведомлений: {{ declined_meetings|length }}</p>
 
         {% if page_obj %}
             <div class="meetings__grid">

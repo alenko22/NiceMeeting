@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/meetings.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -292,15 +293,7 @@
       <workItem from="1780991457762" duration="1286000" />
       <workItem from="1781502387157" duration="863000" />
       <workItem from="1781677965067" duration="2226000" />
-      <workItem from="1781836668314" duration="6587000" />
-    </task>
-    <task id="LOCAL-00031" summary="Redone build.sh">
-      <option name="closed" value="true" />
-      <created>1772286955691</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1772286955691</updated>
+      <workItem from="1781836668314" duration="6879000" />
     </task>
     <task id="LOCAL-00032" summary="Redone base mobile navigation">
       <option name="closed" value="true" />
@@ -686,7 +679,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781857083515</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1781857787700</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1781857787700</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
