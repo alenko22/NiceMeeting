@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -292,15 +291,7 @@
       <workItem from="1780991457762" duration="1286000" />
       <workItem from="1781502387157" duration="863000" />
       <workItem from="1781677965067" duration="2226000" />
-      <workItem from="1781836668314" duration="7737000" />
-    </task>
-    <task id="LOCAL-00034" summary="Made avatars, done some UI fixes">
-      <option name="closed" value="true" />
-      <created>1774081776968</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1774081776968</updated>
+      <workItem from="1781836668314" duration="8104000" />
     </task>
     <task id="LOCAL-00035" summary="Made avatars, done some UI fixes">
       <option name="closed" value="true" />
@@ -686,7 +677,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781858530750</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1781858954427</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1781858954427</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

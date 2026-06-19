@@ -3645,7 +3645,7 @@
     text-align: center;
 }
 
-.modal {
+.modal1 {
     position: fixed;   /* важно! */
     top: 0;
     left: 0;
@@ -3655,7 +3655,7 @@
     z-index: 9999;
     display: none;     /* изначально скрыта, но потом display: block */
 }
-.modal-content {
+.modal1-content {
     position: relative;
     background: white;
     margin: 10% auto;
@@ -3664,7 +3664,7 @@
     max-width: 600px;
     border-radius: 8px;
 }
-.modal-close {
+.modal1-close {
     position: absolute;
     right: 20px;
     top: 10px;
