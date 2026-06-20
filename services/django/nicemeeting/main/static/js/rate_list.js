@@ -1,7 +1,5 @@
 // rate_list.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Кэш для сохранённых оценок
-    const savedRatings = JSON.parse(localStorage.getItem('savedRatings')) || {};
 
     // Отслеживаем уже отправленные оценки и кнопки в процессе отправки
     const submittedRatings = new Set();
@@ -138,15 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Маркируем карточку как оценённую
                 markCardAsRated(userId, button);
                 submittedRatings.add(userId);
-
-                // Сохраняем в localStorage
-                savedRatings[userId] = {
-                    rating: rating,
-                    comment: comment,
-                    timestamp: new Date().toISOString(),
-                    submitted: true
-                };
-                localStorage.setItem('savedRatings', JSON.stringify(savedRatings));
             } else {
                 // Если ошибка, разблокируем кнопку
                 button.disabled = false;
@@ -176,38 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Восстановление сохранённых оценок
-    function restoreSavedRatings() {
-        Object.keys(savedRatings).forEach(userId => {
-            const ratingData = savedRatings[userId];
-            const rating = ratingData.rating;
-            const comment = ratingData.comment;
-            const wasSubmitted = ratingData.submitted || false;
-
-            const ratingInput = document.querySelector(`input[name="rating-${userId}"][value="${rating}"]`);
-            const commentInput = document.getElementById(`comment-${userId}`);
-            const button = document.querySelector(`.rating-system__btn-submit[data-user-id="${userId}"]`);
-
-            if (ratingInput) {
-                ratingInput.checked = true;
-                // Добавляем класс выбранной опции для визуального выделения
-                const option = ratingInput.closest('.rating-system__rating-option');
-                if (option) {
-                    option.classList.add('rating-system__rating-option--selected');
-                }
-            }
-
-            if (commentInput) {
-                commentInput.value = comment;
-            }
-
-            // Маркируем как оценённую только если оценка была отправлена на сервер
-            if (wasSubmitted && button) {
-                markCardAsRated(userId, button);
-                submittedRatings.add(userId);
-            }
-        });
-    }
 
     // Вспомогательные функции
     function getCookie(name) {
