@@ -148,8 +148,8 @@ def index(request):
             "has_post": last_post is not None,
         })
 
-    # Получаем последние посты для блока ниже слайдера
-    latest_posts = Post.objects.order_by('-date_posted')[:6]  # ограничь по своему усмотрению
+    blocked_users = request.user.blocked.all() | request.user.blocked_by.all()
+    latest_posts = Post.objects.exclude(author__in=blocked_users).order_by('-date_posted')[:6]
 
     return render(request, "main/index.html", {
         "slider_data": slider_data,
