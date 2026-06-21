@@ -20,8 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Восстанавливаем сохранённые оценки
-    restoreSavedRatings();
 
     // Обработчик кнопок сохранения
     document.querySelectorAll('.rating-system__btn-submit').forEach(button => {
