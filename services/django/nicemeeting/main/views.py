@@ -133,19 +133,28 @@ class AddComment(CreateView):
         return reverse_lazy("commentaries", kwargs={"post_id": self.object.post.id})
 def index(request):
     if request.user.is_anonymous:
-        return render(request, "main/index.html")
+        # Для анонимов можно тоже показывать последние посты, но без рекомендаций
+        latest_posts = Post.objects.order_by('-date_posted')[:6]
+        return render(request, "main/index.html", {"latest_posts": latest_posts})
+
     recommended_users = get_recommendations(request.user)
 
     slider_data = []
     for user in recommended_users:
         last_post = Post.objects.filter(author=user).order_by('-date_posted').first()
-
         slider_data.append({
             "user": user,
             "post": last_post,
-            "has_post" : last_post is not None,
+            "has_post": last_post is not None,
         })
-    return render(request, "main/index.html", {"slider_data": slider_data})
+
+    blocked_users = request.user.blocked.all() | request.user.blocked_by.all()
+    latest_posts = Post.objects.exclude(author__in=blocked_users).order_by('-date_posted')[:6]
+
+    return render(request, "main/index.html", {
+        "slider_data": slider_data,
+        "latest_posts": latest_posts,
+    })
 
 def password_change_done(request):
     return render(request, "main/password_change_done.html")

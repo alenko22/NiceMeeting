@@ -90,69 +90,36 @@
     </div>
 </section>
 
-<section class="tabs-section">
-    <div class="tabs">
-        <div class="tabs__nav" role="tablist">
-            <button class="tabs__tab tabs__tab_active" role="tab" aria-selected="true" aria-controls="tab1" data-tab="1">Советы по знакомствам</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab2" data-tab="2">Истории успеха</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab3" data-tab="3">Экспертные статьи</button>
-        </div>
-
-        <div id="tab1" class="tabs__content" role="tabpanel" aria-labelledby="tab1">
-            <h2>Советы по знакомствам</h2>
-            <p>Здесь вы найдете полезные рекомендации, как познакомиться с интересным человеком, как вести себя на первом свидании и как строить отношения.</p>
-            <ul class="tabs__content-list">
-                <li>Как преодолеть страх знакомства</li>
-                <li>Где лучше всего встречать новых людей</li>
-                <li>Как понять, что человек вам подходит</li>
-                <li>Советы по первому свиданию</li>
-            </ul>
-        </div>
-
-        <div id="tab2" class="tabs__content" role="tabpanel" aria-labelledby="tab2" hidden>
-            <h2>Истории успеха</h2>
-            <p>Реальные истории людей, которые нашли свою любовь через наш сервис. Вдохновляющие примеры, которые доказывают, что настоящее чувство существует.</p>
-            <div class="success-stories">
-                <div class="success-story">
-                    <h3>Анна и Михаил</h3>
-                    <p>Познакомились в нашем приложении и через 3 месяца поженились</p>
+<section class="latest-posts">
+    <div class="container">
+        <h2 class="latest-posts__title">Последние записи участников</h2>
+        <div class="latest-posts__grid">
+            {% for post in latest_posts %}
+                <div class="latest-posts__card">
+                    {% if post.image_data %}
+                        <div class="latest-posts__image">
+                            <img src="{{ post.image_data|b64image:post.image_format }}" alt="Изображение поста">
+                        </div>
+                    {% endif %}
+                    <div class="latest-posts__body">
+                        <h3 class="latest-posts__text">{{ post.text|truncatechars:120 }}</h3>
+                        <div class="latest-posts__meta">
+                            <span class="latest-posts__author">
+                                <a href="{% url 'public_profile' post.author.id %}">
+                                    {{ post.author.get_full_name|default:post.author.username }}
+                                </a>
+                            </span>
+                            <span class="latest-posts__date">{{ post.date_posted|date:"d.m.Y H:i" }}</span>
+                        </div>
+                        <a href="{% url 'commentaries' post.id %}" class="btn btn-sm btn-outline-primary">
+                            Перейти к посту
+                        </a>
+                    </div>
                 </div>
-                <div class="success-story">
-                    <h3>Елена и Дмитрий</h3>
-                    <p>Нашли друг друга после долгих поисков и теперь вместе уже 2 года</p>
-                </div>
-            </div>
+            {% empty %}
+                <p>Пока никто не написал ни одного поста. Будь первым!</p>
+            {% endfor %}
         </div>
-
-        <div id="tab3" class="tabs__content" role="tabpanel" aria-labelledby="tab3" hidden>
-            <h2>Экспертные статьи</h2>
-            <p>Профессиональные материалы от психологов и специалистов по отношениям. Глубокий анализ и научный подход к пониманию человеческих связей.</p>
-            <div class="expert-articles">
-                <article class="expert-article">
-                    <h3>Психология привязанности в современных отношениях</h3>
-                    <p>Как тип привязанности влияет на выбор партнера и развитие отношений</p>
-                </article>
-                <article class="expert-article">
-                    <h3>Коммуникация как основа здоровых отношений</h3>
-                    <p>Техники эффективного общения для решения конфликтов</p>
-                </article>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="feature-section">
-    <div class="feature-section__item">
-        <h2>Безопасность прежде всего</h2>
-        <p>Мы заботимся о вашей безопасности. Все профили проходят верификацию, а наша служба поддержки всегда готова помочь в случае возникновения проблем.</p>
-    </div>
-    <div class="feature-section__item">
-        <h2>Искренние отношения</h2>
-        <p>Мы создали платформу для тех, кто ищет настоящие чувства. Здесь нет места фальши и обману — только честность и открытость.</p>
-    </div>
-    <div class="feature-section__item">
-        <h2>Поддержка и развитие</h2>
-        <p>Мы не просто знакомим людей, но и помогаем им строить гармоничные отношения через полезные статьи, советы экспертов и поддержку сообщества.</p>
     </div>
 </section>
 
