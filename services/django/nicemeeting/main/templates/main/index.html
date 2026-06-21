@@ -40,10 +40,10 @@
                                     <p><strong>Возраст:</strong> {{ item.user.date_birth|timesince }}</p>
                                 {% endif %}
                                 {% if item.user.educational_level %}
-                                    <p><strong>Образование:</strong> {{ item.user.educational_level.name }}</p>
+                                    <p><strong>Образование:</strong> {{ item.user.educational_level.level_name }}</p>
                                 {% endif %}
                                 {% if item.user.astral_sign %}
-                                    <p><strong>Знак зодиака:</strong> {{ item.user.astral_sign.name }}</p>
+                                    <p><strong>Знак зодиака:</strong> {{ item.user.astral_sign.sign_name }}</p>
                                 {% endif %}
                                 {% if item.user.interests %}
                                     <p><strong>Интересы:</strong> {{ item.user.interests|truncatechars:100 }}</p>
