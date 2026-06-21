@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d2efe1-afbc-48c4-b4d1-81a36dedafef" name="Changes" comment="Fixing bugs">
-      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/js/meetings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/static/css/main_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/django/nicemeeting/main/templates/main/public_profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,15 +293,8 @@
       <workItem from="1780991457762" duration="1286000" />
       <workItem from="1781502387157" duration="863000" />
       <workItem from="1781677965067" duration="2226000" />
-      <workItem from="1781836668314" duration="9019000" />
-    </task>
-    <task id="LOCAL-00037" summary="Update icons location">
-      <option name="closed" value="true" />
-      <created>1774245560666</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1774245560666</updated>
+      <workItem from="1781836668314" duration="9912000" />
+      <workItem from="1782039952516" duration="432000" />
     </task>
     <task id="LOCAL-00038" summary="Update icons location">
       <option name="closed" value="true" />
@@ -685,7 +680,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781859969103</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Fixing bugs">
+      <option name="closed" value="true" />
+      <created>1781860238526</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1781860238526</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
