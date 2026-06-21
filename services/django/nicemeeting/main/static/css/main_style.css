@@ -790,6 +790,7 @@
     font-weight: 600;
     color: white;
     position: relative;
+    object-fit: contain;
 }
 
 .slider__item-content {

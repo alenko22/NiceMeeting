@@ -17,7 +17,7 @@
                 <div class="slider__item {% if item.has_post %}post-card{% else %}profile-card{% endif %}">
                     <div class="slider__item-img">
                         {% if item.has_post %}
-                            <img src="{{ item.post.image_data|b64image:item.post.image_format }}" alt="" style="width: 1270px; height: 240px">
+                            <img src="{{ item.post.image_data|b64image:item.post.image_format }}" alt="">
                         {% else %}
                             👤 Профиль
                         {% endif %}
